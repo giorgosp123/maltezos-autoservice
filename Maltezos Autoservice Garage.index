@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <title>Σελίδα για τον φίλο μου</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f7ff;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(31, 41, 55, 0.08);
+    }
+    h1 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+    p {
+      line-height: 1.7;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Η σελίδα του φίλου μου</h1>
+    <p>Καλώς ήρθατε! Αυτή η σελίδα είναι αφιερωμένη στον φίλο μου.</p>
+    <p>Μπορούμε να βάλουμε εδώ πληροφορίες, φωτογραφίες ή συνδέσμους.</p>
+    <a class="button" href="#">Μάθε περισσότερα</a>
+  </div>
+</body>
+</html>

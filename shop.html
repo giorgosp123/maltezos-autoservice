@@ -687,6 +687,7 @@
       const productData = productCatalog[itemId] || {};
       const titleEl = card.querySelector(".product-title");
       const metaEl = card.querySelector(".product-meta");
+      const priceEl = card.querySelector(".price");
       const stockBadge = card.querySelector(".product-stock");
       const stockValue = card.querySelector(".product-stock .value");
       const imageEl = card.querySelector(".product-rotating-image");
@@ -699,6 +700,11 @@
 
       if (metaEl && productData.description) {
         metaEl.textContent = productData.description;
+      }
+
+      if (priceEl) {
+        const displayPrice = Number.isFinite(productData.priceWithTradeIn) ? productData.priceWithTradeIn : 900;
+        priceEl.textContent = `€${displayPrice}`;
       }
 
       if (stockBadge && stockValue) {

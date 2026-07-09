@@ -8,7 +8,9 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["g1", "g2", "g3", "g4"],
-    stock: 2
+    stock: 2,
+    priceWithTradeIn: 900,
+    priceWithoutTradeIn: 1000
   },
   "gearbox-6a-sedan": {
     name: "Gearbox 6-Speed Automatic - Sedan",
@@ -19,7 +21,9 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["s1", "s2", "s3", "s4"],
-    stock: 3
+    stock: 3,
+    priceWithTradeIn: 900,
+    priceWithoutTradeIn: 1000
   },
   "gearbox-5m-suv": {
     name: "Gearbox 5-Speed Manual - SUV",
@@ -30,7 +34,9 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["u1", "u2", "u3", "u4"],
-    stock: 1
+    stock: 1,
+    priceWithTradeIn: 900,
+    priceWithoutTradeIn: 1000
   },
   "gearbox-7a-premium": {
     name: "Gearbox 7-Speed Automatic - Premium Line",
@@ -41,6 +47,8 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["p1", "p2", "p3", "p4"],
-    stock: 1
+    stock: 1,
+    priceWithTradeIn: 1000,
+    priceWithoutTradeIn: 1100
   }
 };

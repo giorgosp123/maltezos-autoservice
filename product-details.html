@@ -820,8 +820,8 @@
     const defaultItemId = "gearbox-6m-hatch";
     const currentItemId = products[item] ? item : defaultItemId;
     const current = products[currentItemId] || {};
-    const basePrice = 900;
-    const noTradeInPrice = 1000;
+    const basePrice = Number.isFinite(current.priceWithTradeIn) ? current.priceWithTradeIn : 900;
+    const noTradeInPrice = Number.isFinite(current.priceWithoutTradeIn) ? current.priceWithoutTradeIn : 1000;
     let selectedPrice = basePrice;
     let selectedTradeInText = "με παλιό κιβώτιο";
 
@@ -858,6 +858,15 @@
 
     stockDisplay.className = `stock-badge ${stockClass}`;
     stockDisplay.innerHTML = `<span class="stock-dot" aria-hidden="true"></span><span class="stock-label">Διαθεσιμότητα</span><span class="stock-value">${currentStock} ${stockUnit}</span>`;
+
+    const withOption = tradeinSelect.querySelector('option[value="with"]');
+    const withoutOption = tradeinSelect.querySelector('option[value="without"]');
+    if (withOption) {
+      withOption.textContent = `Με ανταλλαγή παλιού κιβωτίου — τελική τιμή €${basePrice}`;
+    }
+    if (withoutOption) {
+      withoutOption.textContent = `Χωρίς ανταλλαγή παλιού κιβωτίου — τελική τιμή €${noTradeInPrice}`;
+    }
 
     function setMainImage(src) {
       productMainImage.src = src;

@@ -1,0 +1,16 @@
+C:\Users\giorg\Desktop\Maltezos Auto Serice\assets\gearbox
+
+1ο προϊόν: g1, g2, g3, g4
+2ο προϊόν: s1, s2, s3, s4
+3ο προϊόν: u1, u2, u3, u4
+4ο προϊόν: p1, p2, p3, p4
+
+
+gia posotita stocking
+assets/js/products-stock.js#L2 για prod1 (gearbox-6m-hatch)
+assets/js/products-stock.js#L3 για prod2 (gearbox-6a-sedan)
+assets/js/products-stock.js#L4 για prod3 (gearbox-5m-suv)
+assets/js/products-stock.js#L5 για prod4 (gearbox-7a-premium)
+
+
+817 arxizoun ta proionta plirofories 

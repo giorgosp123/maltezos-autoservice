@@ -210,6 +210,59 @@
       letter-spacing: 0;
     }
 
+    .stock-badge {
+      margin: 0 0 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .stock-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      background: currentColor;
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+    }
+
+    .stock-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.86;
+    }
+
+    .stock-value {
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    .stock-badge.stock-high {
+      color: #047857;
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+
+    .stock-badge.stock-medium {
+      color: #b45309;
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+
+    .stock-badge.stock-low {
+      color: #b91c1c;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
     .tradein-box {
       margin: 10px 0 2px;
       border: 1px solid rgba(17, 24, 39, 0.08);
@@ -502,6 +555,15 @@
         font-size: 0.87rem;
       }
 
+      .stock-badge {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+      }
+
+      .stock-label {
+        font-size: 0.68rem;
+      }
+
       .price {
         font-size: 1.2rem;
       }
@@ -691,6 +753,7 @@
         <h1 id="product-name">Gearbox</h1>
         <p class="subtitle">Εξειδικευμένο προϊόν κιβωτίου ταχυτήτων</p>
         <p id="price-display" class="price">€900 <span class="price-vat">με ΦΠΑ</span></p>
+        <p id="stock-display" class="stock-badge stock-high"><span class="stock-dot" aria-hidden="true"></span><span class="stock-label">Διαθεσιμότητα</span><span class="stock-value">-</span></p>
         <p class="desc" id="product-description"></p>
 
         <p class="section-label">Κοστολόγηση Προϊόντος</p>
@@ -748,63 +811,25 @@
     © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
   </footer>
 
+  <script src="assets/js/products-catalog.js"></script>
   <script>
-    const products = {
-      "gearbox-6m-hatch": {
-        name: "Gearbox 6-Speed Manual - Hatchback",
-        description: "Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση.",
-        images: ["g1", "g2", "g3", "g4"],
-        specs: [
-          "Τύπος: Manual 6 σχέσεων",
-          "Κατάσταση: Ελεγμένο",
-          "Εγγύηση: Κατόπιν συνεννόησης"
-        ]
-      },
-      "gearbox-6a-sedan": {
-        name: "Gearbox 6-Speed Automatic - Sedan",
-        description: "Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας.",
-        images: ["s1", "s2", "s3", "s4"],
-        specs: [
-          "Τύπος: Automatic 6 σχέσεων",
-          "Κατάσταση: Ελεγμένο",
-          "Εγγύηση: Κατόπιν συνεννόησης"
-        ]
-      },
-      "gearbox-5m-suv": {
-        name: "Gearbox 5-Speed Manual - SUV",
-        description: "Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης.",
-        images: ["u1", "u2", "u3", "u4"],
-        specs: [
-          "Τύπος: Manual 5 σχέσεων",
-          "Κατάσταση: Ελεγμένο",
-          "Εγγύηση: Κατόπιν συνεννόησης"
-        ]
-      },
-      "gearbox-7a-premium": {
-        name: "Gearbox 7-Speed Automatic - Premium Line",
-        description: "Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας.",
-        images: ["p1", "p2", "p3", "p4"],
-        specs: [
-          "Τύπος: Automatic 7 σχέσεων",
-          "Κατάσταση: Ανακατασκευασμένο",
-          "Εγγύηση: Κατόπιν συνεννόησης"
-        ]
-      }
-    };
+    const products = window.PRODUCT_CATALOG || {};
 
     const params = new URLSearchParams(window.location.search);
     const item = params.get("item");
-    const current = products[item] || products["gearbox-6m-hatch"];
+    const defaultItemId = "gearbox-6m-hatch";
+    const currentItemId = products[item] ? item : defaultItemId;
+    const current = products[currentItemId] || {};
     const basePrice = 900;
     const noTradeInPrice = 1000;
     let selectedPrice = basePrice;
     let selectedTradeInText = "με παλιό κιβώτιο";
 
-    document.getElementById("product-name").textContent = current.name;
-    document.getElementById("product-description").textContent = current.description;
+    document.getElementById("product-name").textContent = current.name || "Gearbox";
+    document.getElementById("product-description").textContent = current.description || "";
 
     const specsList = document.getElementById("product-specs");
-    current.specs.forEach((spec) => {
+    (current.specs || []).forEach((spec) => {
       const li = document.createElement("li");
       li.textContent = spec;
       specsList.appendChild(li);
@@ -813,6 +838,7 @@
     const recipientPhone = "+35796355929";
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const priceDisplay = document.getElementById("price-display");
+    const stockDisplay = document.getElementById("stock-display");
     const smsLink = document.getElementById("sms-link");
     const tradeinSelect = document.getElementById("tradein-select");
     const productMainImage = document.getElementById("product-main-image");
@@ -820,6 +846,18 @@
     const thumbGrid = document.getElementById("thumb-grid");
 
     const rawImages = (current.images || []).filter(Boolean).slice(0, 4);
+    const currentStock = Number.isFinite(current.stock) ? current.stock : 0;
+    const stockUnit = currentStock === 1 ? "κομμάτι" : "κομμάτια";
+    let stockClass = "stock-high";
+
+    if (currentStock <= 1) {
+      stockClass = "stock-low";
+    } else if (currentStock <= 2) {
+      stockClass = "stock-medium";
+    }
+
+    stockDisplay.className = `stock-badge ${stockClass}`;
+    stockDisplay.innerHTML = `<span class="stock-dot" aria-hidden="true"></span><span class="stock-label">Διαθεσιμότητα</span><span class="stock-value">${currentStock} ${stockUnit}</span>`;
 
     function setMainImage(src) {
       productMainImage.src = src;

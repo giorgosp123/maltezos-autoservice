@@ -274,6 +274,60 @@
       line-height: 1.5;
     }
 
+    .product-stock {
+      margin: 2px 0 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .product-stock .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      background: currentColor;
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+    }
+
+    .product-stock .label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+      font-size: 0.66rem;
+    }
+
+    .product-stock .value {
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .product-stock.stock-high {
+      color: #047857;
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+
+    .product-stock.stock-medium {
+      color: #b45309;
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+
+    .product-stock.stock-low {
+      color: #b91c1c;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
     .price-row {
       margin-top: auto;
       display: flex;
@@ -457,6 +511,7 @@
           <div class="product-body">
             <h3 class="product-title">Gearbox 6-Speed Manual - Hatchback</h3>
             <p class="product-meta">Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
             <div class="price-row">
               <span class="price">€900</span>
               <a class="buy-btn" href="product-details.html?item=gearbox-6m-hatch">Παραγγελία</a>
@@ -481,6 +536,7 @@
           <div class="product-body">
             <h3 class="product-title">Gearbox 6-Speed Automatic - Sedan</h3>
             <p class="product-meta">Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
             <div class="price-row">
               <span class="price">€900</span>
               <a class="buy-btn" href="product-details.html?item=gearbox-6a-sedan">Παραγγελία</a>
@@ -505,6 +561,7 @@
           <div class="product-body">
             <h3 class="product-title">Gearbox 5-Speed Manual - SUV</h3>
             <p class="product-meta">Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
             <div class="price-row">
               <span class="price">€900</span>
               <a class="buy-btn" href="product-details.html?item=gearbox-5m-suv">Παραγγελία</a>
@@ -529,6 +586,7 @@
           <div class="product-body">
             <h3 class="product-title">Gearbox 7-Speed Automatic - Premium Line</h3>
             <p class="product-meta">Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
             <div class="price-row">
               <span class="price">€900</span>
               <a class="buy-btn" href="product-details.html?item=gearbox-7a-premium">Παραγγελία</a>
@@ -551,13 +609,9 @@
     © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
   </footer>
 
+  <script src="assets/js/products-catalog.js"></script>
   <script>
-    const productImagesByItem = {
-      "gearbox-6m-hatch": ["g1", "g2", "g3", "g4"],
-      "gearbox-6a-sedan": ["s1", "s2", "s3", "s4"],
-      "gearbox-5m-suv": ["u1", "u2", "u3", "u4"],
-      "gearbox-7a-premium": ["p1", "p2", "p3", "p4"]
-    };
+    const productCatalog = window.PRODUCT_CATALOG || {};
 
     function buildImageCandidates(src) {
       const cleanSrc = String(src).trim();
@@ -619,11 +673,42 @@
 
     const productCards = document.querySelectorAll(".product[data-item]");
 
+    function getStockClass(stock) {
+      if (stock <= 1) {
+        return "stock-low";
+      }
+      if (stock <= 2) {
+        return "stock-medium";
+      }
+      return "stock-high";
+    }
+
     productCards.forEach(async (card) => {
       const itemId = card.getAttribute("data-item");
+      const productData = productCatalog[itemId] || {};
+      const titleEl = card.querySelector(".product-title");
+      const metaEl = card.querySelector(".product-meta");
+      const stockBadge = card.querySelector(".product-stock");
+      const stockValue = card.querySelector(".product-stock .value");
       const imageEl = card.querySelector(".product-rotating-image");
       const fallbackIcon = card.querySelector(".gear-icon");
-      const imageList = await resolveGalleryImages(productImagesByItem[itemId] || []);
+      const imageList = await resolveGalleryImages(productData.images || []);
+
+      if (titleEl && productData.name) {
+        titleEl.textContent = productData.name;
+      }
+
+      if (metaEl && productData.description) {
+        metaEl.textContent = productData.description;
+      }
+
+      if (stockBadge && stockValue) {
+        const stock = Number.isFinite(productData.stock) ? productData.stock : 0;
+        const stockUnit = stock === 1 ? "κομμάτι" : "κομμάτια";
+        stockBadge.classList.remove("stock-low", "stock-medium", "stock-high");
+        stockBadge.classList.add(getStockClass(stock));
+        stockValue.textContent = `${stock} ${stockUnit}`;
+      }
 
       if (imageList.length === 0) {
         return;

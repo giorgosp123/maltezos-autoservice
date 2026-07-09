@@ -48,7 +48,7 @@ window.PRODUCT_CATALOG = {
     ],
     images: ["p1", "p2", "p3", "p4"],
     stock: 1,
-    priceWithTradeIn: 1000,
-    priceWithoutTradeIn: 1100
+    priceWithTradeIn: 900,
+    priceWithoutTradeIn: 1000
   }
 };

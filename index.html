@@ -424,7 +424,8 @@
       z-index: 3;
     }
 
-    .card:hover .overlay {
+    .card:hover .overlay,
+    .card.is-open .overlay {
       transform: translateY(0);
       opacity: 1;
       pointer-events: auto;
@@ -1080,6 +1081,34 @@
   </footer>
 
   <script>
+    const serviceCards = document.querySelectorAll('.services .card');
+
+    if (serviceCards.length) {
+      let activeServiceCardIndex = -1;
+
+      const closeAllServiceCards = () => {
+        serviceCards.forEach((card) => {
+          card.classList.remove('is-open');
+          card.setAttribute('aria-expanded', 'false');
+        });
+      };
+
+      const openNextServiceCard = () => {
+        closeAllServiceCards();
+        activeServiceCardIndex = (activeServiceCardIndex + 1) % serviceCards.length;
+        const activeCard = serviceCards[activeServiceCardIndex];
+        activeCard.classList.add('is-open');
+        activeCard.setAttribute('aria-expanded', 'true');
+      };
+
+      serviceCards.forEach((card) => {
+        card.setAttribute('aria-expanded', 'false');
+      });
+
+      openNextServiceCard();
+      setInterval(openNextServiceCard, 2200);
+    }
+
     const form = document.getElementById('appointment-form');
 
     if (form) {

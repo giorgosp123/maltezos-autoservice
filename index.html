@@ -62,9 +62,9 @@
       margin: 0 auto;
       padding: 18px 24px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 16px;
+      gap: 24px;
       flex-wrap: wrap;
       position: sticky;
       top: 0;
@@ -72,6 +72,13 @@
       backdrop-filter: blur(14px);
       z-index: 20;
       border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -102,7 +109,6 @@
     }
 
     .nav-links a {
-      margin-left: 16px;
       text-decoration: none;
       color: var(--dark-soft);
       font-weight: 600;
@@ -757,6 +763,18 @@
       .brand {
         width: 100%;
         justify-content: center;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .nav-links a {
+        margin-left: 0;
       }
 
       main {

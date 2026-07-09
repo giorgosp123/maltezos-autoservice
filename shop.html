@@ -3,67 +3,612 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maltezos Auto Service | Έχω τζάι κατάστημα</title>
+  <title>Maltezos Autoservice | Gearbox Shop</title>
   <style>
     :root {
       --accent: #d7263d;
+      --accent-dark: #b61c31;
+      --accent-soft: #ffe5e9;
       --dark: #111827;
+      --dark-soft: #1f2937;
+      --text: #1f2937;
       --muted: #6b7280;
+      --light: #f8fafc;
+      --card: #ffffff;
       --border: #e5e7eb;
+      --shadow: 0 16px 45px rgba(17, 24, 39, 0.08);
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: "Segoe UI", "Inter", Arial, sans-serif;
-      background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
-      color: var(--dark);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(215, 38, 61, 0.04), transparent 28%),
+        linear-gradient(135deg, #f8fafc 0%, #eef2f7 45%, #f8fafc 100%);
       line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
-      max-width: 900px;
+    a { color: inherit; }
+
+    .topbar {
+      background: linear-gradient(90deg, #0f172a 0%, #111827 100%);
+      color: #f5d56b;
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(245, 213, 107, 0.2);
+    }
+
+    .topbar a {
+      color: #f5d56b;
+      text-decoration: none;
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 48px 24px 64px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: 0 16px 45px rgba(17, 24, 39, 0.08);
-      padding: 32px;
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      background: rgba(248, 250, 252, 0.85);
+      backdrop-filter: blur(14px);
+      z-index: 20;
+      border-bottom: 1px solid rgba(17, 24, 39, 0.06);
     }
 
-    h1 {
-      margin: 0 0 12px;
-      font-size: 2rem;
+    .brand-link {
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--dark-soft);
+    }
+
+    .brand-link:hover {
       color: var(--accent);
     }
 
-    p {
-      color: var(--muted);
-      margin: 0 0 20px;
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: white;
+    .nav-links a {
       text-decoration: none;
+      color: var(--dark-soft);
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      position: relative;
+      padding: 64px 24px 74px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f172a 0%, #111827 45%, #1f2937 100%);
+      color: white;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(4px);
+    }
+
+    .hero::before {
+      width: 180px;
+      height: 180px;
+      background: rgba(215, 38, 61, 0.08);
+      right: -40px;
+      top: -70px;
+    }
+
+    .hero::after {
+      width: 140px;
+      height: 140px;
+      background: rgba(245, 213, 107, 0.06);
+      left: -30px;
+      bottom: -50px;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-size: clamp(2rem, 4vw, 2.9rem);
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d1d5db;
+      max-width: 760px;
+      font-size: 1.03rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 64px;
+    }
+
+    .shop-head {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(17, 24, 39, 0.06);
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(17, 24, 39, 0.05);
+      backdrop-filter: blur(8px);
+      padding: 22px 24px;
+      text-align: center;
+    }
+
+    .shop-head h2 {
+      margin: 0 0 8px;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      font-size: 1.5rem;
+    }
+
+    .shop-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .products {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      background: linear-gradient(145deg, #ffffff 0%, #fbfcfe 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 40px rgba(17, 24, 39, 0.12);
+    }
+
+    .product-media {
+      min-height: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(165deg, rgba(215, 38, 61, 0.08), rgba(17, 24, 39, 0.04));
+      border-bottom: 1px solid var(--border);
+      padding: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-rotating-image {
+      width: 100%;
+      height: 100%;
+      min-height: 150px;
+      border-radius: 10px;
+      object-fit: contain;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: #ffffff;
+      display: none;
+      padding: 6px;
+    }
+
+    .gear-icon {
+      width: 94px;
+      height: 94px;
+    }
+
+    .product-body {
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .product-title {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--dark-soft);
+      line-height: 1.35;
+    }
+
+    .product-meta {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .price-row {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 6px;
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .buy-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+      color: white;
       font-weight: 700;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .buy-btn:hover {
+      background: var(--accent-dark);
+    }
+
+    .shop-note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(215, 38, 61, 0.18);
+      background: var(--accent-soft);
+      color: var(--dark-soft);
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    .back-home {
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    .back-home a {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: #111827;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .back-home a:hover {
+      background: #1f2937;
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px 24px 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 980px) {
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 16px 18px;
+      }
+
+      .hero {
+        padding: 56px 18px 68px;
+      }
+
+      main {
+        padding: 30px 18px 50px;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .product-media {
+        min-height: 200px;
+        height: 200px;
+      }
+
+      .product-rotating-image {
+        min-height: 170px;
+      }
+
+      .product-title {
+        font-size: 0.95rem;
+      }
+
+      .price {
+        font-size: 1.06rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Έχω τζάι κατάστημα</h1>
-      <p>Αυτή η σελίδα είναι έτοιμη για το κατάστημα ή την επιπλέον σελίδα που θέλεις να ανοίγει από το μενού.</p>
-      <a class="btn" href="index.html">Πίσω στην αρχική</a>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>📞 <a href="tel:+35796355929">+357 96355929</a></span>
+      <span>📍 Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</span>
     </div>
   </div>
+
+  <nav>
+    <a class="brand-link" href="index.html">Maltezos Autoservice</a>
+    <div class="nav-links">
+      <a href="index.html">Αρχική</a>
+      <a href="#products">Gearbox Shop</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Online Shop για Gearbox</h1>
+      <p>Εξειδικευόμαστε σε κιβώτια ταχυτήτων και βάζουμε στοκ μόνο ό,τι περνά τον δικό μας έλεγχο. Εδώ θα βρίσκεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</p>
+    </div>
+  </section>
+
+  <main>
+    <section id="products">
+      <div class="shop-head">
+        <h2>Διαθέσιμα Gearbox</h2>
+        <p>Πάτα «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.</p>
+      </div>
+
+      <div class="products">
+        <article class="product" data-item="gearbox-6m-hatch">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 6-Speed Manual - Hatchback</h3>
+            <p class="product-meta">Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση.</p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-6m-hatch">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-item="gearbox-6a-sedan">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 6-Speed Automatic - Sedan</h3>
+            <p class="product-meta">Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας.</p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-6a-sedan">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-item="gearbox-5m-suv">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 5-Speed Manual - SUV</h3>
+            <p class="product-meta">Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης.</p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-5m-suv">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-item="gearbox-7a-premium">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 7-Speed Automatic - Premium Line</h3>
+            <p class="product-meta">Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας.</p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-7a-premium">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="shop-note">
+        Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο +357 96355929.
+      </div>
+
+      <div class="back-home">
+        <a href="index.html">Πίσω στην αρχική</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
+  </footer>
+
+  <script>
+    const productImagesByItem = {
+      "gearbox-6m-hatch": ["g1", "g2", "g3", "g4"],
+      "gearbox-6a-sedan": ["s1", "s2", "s3", "s4"],
+      "gearbox-5m-suv": ["u1", "u2", "u3", "u4"],
+      "gearbox-7a-premium": ["p1", "p2", "p3", "p4"]
+    };
+
+    function buildImageCandidates(src) {
+      const cleanSrc = String(src).trim();
+      const hasExtension = /\.[a-zA-Z0-9]{2,5}(\?|$)/.test(cleanSrc);
+      const isDirectPath = /^(https?:|data:|\.\/|\.\.\/|\/)/.test(cleanSrc);
+
+      if (isDirectPath || hasExtension) {
+        return [cleanSrc];
+      }
+
+      return [
+        `assets/gearbox/${cleanSrc}.jpg`,
+        `assets/gearbox/${cleanSrc}.png`,
+        `assets/gearbox/${cleanSrc}.jpeg`,
+        `assets/gearbox/${cleanSrc}.webp`
+      ];
+    }
+
+    function preloadFirstAvailable(candidates) {
+      return new Promise((resolve) => {
+        let index = 0;
+
+        function tryNext() {
+          if (index >= candidates.length) {
+            resolve(null);
+            return;
+          }
+
+          const candidate = candidates[index++];
+          const testImg = new Image();
+
+          testImg.onload = function () {
+            resolve(candidate);
+          };
+
+          testImg.onerror = function () {
+            tryNext();
+          };
+
+          testImg.src = candidate;
+        }
+
+        tryNext();
+      });
+    }
+
+    async function resolveGalleryImages(images) {
+      const resolved = [];
+
+      for (const src of images.filter(Boolean).slice(0, 4)) {
+        const found = await preloadFirstAvailable(buildImageCandidates(src));
+        if (found) {
+          resolved.push(found);
+        }
+      }
+
+      return resolved;
+    }
+
+    const productCards = document.querySelectorAll(".product[data-item]");
+
+    productCards.forEach(async (card) => {
+      const itemId = card.getAttribute("data-item");
+      const imageEl = card.querySelector(".product-rotating-image");
+      const fallbackIcon = card.querySelector(".gear-icon");
+      const imageList = await resolveGalleryImages(productImagesByItem[itemId] || []);
+
+      if (imageList.length === 0) {
+        return;
+      }
+
+      let currentIndex = 0;
+      imageEl.src = imageList[currentIndex];
+      imageEl.style.display = "block";
+      if (fallbackIcon) {
+        fallbackIcon.style.display = "none";
+      }
+
+      if (imageList.length > 1) {
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % imageList.length;
+          imageEl.src = imageList[currentIndex];
+        }, 1800);
+      }
+    });
+  </script>
 </body>
 </html>

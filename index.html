@@ -537,9 +537,9 @@
     .contact {
       margin-top: 44px;
       display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 24px;
-      align-items: start;
+      align-items: stretch;
     }
 
     .contact-box {
@@ -548,6 +548,7 @@
       padding: 24px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
+      height: 100%;
     }
 
     .contact-box h3 {
@@ -559,6 +560,66 @@
     .contact-box p {
       margin: 8px 0;
       color: var(--muted);
+    }
+
+    .hours-list {
+      margin-top: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid rgba(17, 24, 39, 0.06);
+      font-size: 0.93rem;
+    }
+
+    .hours-day {
+      color: var(--dark-soft);
+      font-weight: 700;
+    }
+
+    .hours-time {
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .contact-image-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      height: 100%;
+    }
+
+    .contact-image-box p {
+      margin: 0;
+      color: var(--dark-soft);
+      font-size: 0.94rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .contact-image-box img {
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+      object-fit: contain;
+      border-radius: 14px;
+      display: block;
     }
 
     form {
@@ -917,9 +978,20 @@
         <p><strong>Τηλέφωνο:</strong> <a href="tel:+35796355929">+357 96355929</a></p>
         <p><strong>Διεύθυνση:</strong> <a href="https://www.google.com/maps/search/?api=1&query=Πραξάνδρου+50+Πάνω+Δευτερά+2460+Λευκωσία" target="_blank" rel="noopener noreferrer">Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</a></p>
         <p><strong>Ωράριο:</strong></p>
-        <p><strong>Δευτέρα – Παρασκευή:</strong> <span style="color: var(--muted); font-size: 0.95rem;">08:00 – 17:00</span></p>
-        <p><strong>Σάββατο:</strong> <span style="color: var(--muted); font-size: 0.95rem;">08:00 – 17:00</span></p>
-        <p><strong>Κυριακή:</strong> <span style="color: var(--muted); font-size: 0.95rem;">Εν απαντώ, μεν με γυρέφκεις</span></p>
+        <div class="hours-list" aria-label="Ωράριο ανά ημέρα">
+          <div class="hours-row"><span class="hours-day">Δευτέρα</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span class="hours-day">Τρίτη</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span class="hours-day">Τετάρτη</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span class="hours-day">Πέμπτη</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span class="hours-day">Παρασκευή</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span class="hours-day">Σάββατο</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span class="hours-day">Κυριακή</span><span class="hours-time">Έν απαντώ την Κυριακή</span></div>
+        </div>
+      </div>
+
+      <div class="contact-image-box">
+        <p>Συνέχισε ούλλο ίσια τζαι εν να με δεις στα δεξιά σου</p>
+        <img src="assets/icons/Screenshot%202026-07-09%20100311.png" alt="Maltezos Autoservice" />
       </div>
 
       <div class="contact-box">

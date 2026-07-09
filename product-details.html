@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maltezos Autoservice | Λεπτομέρειες Προϊόντος</title>
+  <style>
+    :root {
+      --accent: #d7263d;
+      --accent-dark: #b61c31;
+      --accent-soft: #ffe5e9;
+      --dark: #111827;
+      --dark-soft: #1f2937;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --border: #e5e7eb;
+      --shadow: 0 16px 45px rgba(17, 24, 39, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Inter", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(215, 38, 61, 0.04), transparent 28%),
+        linear-gradient(135deg, #f8fafc 0%, #eef2f7 45%, #f8fafc 100%);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topbar {
+      background: linear-gradient(90deg, #0f172a 0%, #111827 100%);
+      color: #f5d56b;
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(245, 213, 107, 0.2);
+    }
+
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .topbar a {
+      color: #f5d56b;
+      text-decoration: none;
+    }
+
+    .toolbar {
+      max-width: 1100px;
+      margin: 10px auto 0;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+    }
+
+    .toolbar-brand {
+      text-decoration: none;
+      color: var(--dark-soft);
+      font-weight: 700;
+    }
+
+    .toolbar-brand:hover {
+      color: var(--accent);
+    }
+
+    .toolbar-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-links a {
+      text-decoration: none;
+      color: var(--dark-soft);
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    .toolbar-links a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 24px 42px;
+    }
+
+    .product-page {
+      background: linear-gradient(145deg, #ffffff 0%, #fbfcfe 100%);
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 24px;
+      box-shadow: 0 22px 44px rgba(17, 24, 39, 0.1);
+      padding: 26px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .product-content {
+      display: grid;
+      gap: 12px;
+    }
+
+    .media-box {
+      min-height: 260px;
+      border-radius: 18px;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: linear-gradient(165deg, rgba(215, 38, 61, 0.08), rgba(17, 24, 39, 0.04));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .product-main-image {
+      width: 100%;
+      height: 100%;
+      max-height: 290px;
+      object-fit: cover;
+      border-radius: 14px;
+      display: none;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: #ffffff;
+    }
+
+    .gear-icon {
+      width: 140px;
+      height: 140px;
+    }
+
+    .thumb-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .thumb-btn {
+      border: 1px solid rgba(17, 24, 39, 0.12);
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 2px;
+      cursor: pointer;
+      height: 64px;
+      overflow: hidden;
+    }
+
+    .thumb-btn.active {
+      border-color: rgba(215, 38, 61, 0.6);
+      box-shadow: 0 0 0 2px rgba(215, 38, 61, 0.14);
+    }
+
+    .thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: var(--dark);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-size: clamp(1.5rem, 2.7vw, 2.15rem);
+    }
+
+    .subtitle {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .price {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .price-vat {
+      margin-left: 6px;
+      color: var(--muted);
+      font-size: 0.56em;
+      font-weight: 500;
+      opacity: 0.8;
+      letter-spacing: 0;
+    }
+
+    .tradein-box {
+      margin: 10px 0 2px;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: var(--surface-soft);
+      border-radius: 12px;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .section-label {
+      margin: 2px 0 0;
+      color: var(--dark-soft);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tradein-title {
+      margin: 0;
+      color: var(--dark-soft);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .tradein-select {
+      width: 100%;
+      border: 1px solid rgba(17, 24, 39, 0.12);
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--dark-soft);
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    .tradein-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .meta-chips {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(215, 38, 61, 0.2);
+      background: rgba(215, 38, 61, 0.06);
+      color: var(--accent-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .specs {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .specs li {
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      padding: 9px 11px;
+      font-size: 0.93rem;
+      border-left: 3px solid rgba(215, 38, 61, 0.35);
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-size: 0.92rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-sms {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+      box-shadow: 0 10px 22px rgba(215, 38, 61, 0.22);
+    }
+
+    .btn-sms:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-call {
+      color: #ffffff;
+      background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+      box-shadow: 0 10px 22px rgba(34, 197, 94, 0.2);
+    }
+
+    .btn-back {
+      color: var(--dark-soft);
+      background: #eef2f7;
+      border: 1px solid var(--border);
+    }
+
+    .delivery-note {
+      margin-top: 14px;
+      border: 1px solid rgba(215, 38, 61, 0.18);
+      background: var(--accent-soft);
+      color: var(--dark-soft);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.93rem;
+    }
+
+    .legal-footer {
+      margin: 0 auto 42px;
+      max-width: 1100px;
+      padding: 12px;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08);
+    }
+
+    .legal-toggle {
+      list-style: none;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 700;
+      color: var(--dark);
+      background: #f8fafc;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .legal-toggle::-webkit-details-marker {
+      display: none;
+    }
+
+    .legal-toggle::after {
+      content: "+";
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(215, 38, 61, 0.1);
+      color: var(--accent-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .legal-footer[open] .legal-toggle::after {
+      content: "-";
+    }
+
+    .legal-content {
+      padding: 14px 8px 6px;
+    }
+
+    .legal-footer h3 {
+      margin: 0 0 10px;
+      color: var(--dark);
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .legal-intro {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .legal-item {
+      margin: 0;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 10px 11px;
+      color: var(--muted);
+      font-size: 0.91rem;
+      line-height: 1.55;
+    }
+
+    .legal-footer strong {
+      color: var(--dark-soft);
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px 24px 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 820px) {
+      .topbar {
+        padding: 8px 14px;
+        font-size: 0.86rem;
+      }
+
+      .topbar-inner {
+        gap: 8px;
+      }
+
+      .toolbar {
+        margin: 8px 14px 0;
+        padding: 12px 14px;
+      }
+
+      .toolbar-brand {
+        font-size: 0.92rem;
+      }
+
+      .toolbar-links a {
+        font-size: 0.86rem;
+      }
+
+      main {
+        padding: 22px 14px 28px;
+      }
+
+      .product-page {
+        grid-template-columns: 1fr;
+        padding: 18px;
+        gap: 16px;
+      }
+
+      .media-box {
+        min-height: 170px;
+      }
+
+      .thumb-btn {
+        height: 54px;
+      }
+
+      .gear-icon {
+        width: 92px;
+        height: 92px;
+      }
+
+      h1 {
+        font-size: 1.35rem;
+      }
+
+      .subtitle {
+        font-size: 0.87rem;
+      }
+
+      .price {
+        font-size: 1.2rem;
+      }
+
+      .desc {
+        font-size: 0.9rem;
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+      }
+
+      .tradein-title {
+        font-size: 0.84rem;
+      }
+
+      .tradein-select {
+        font-size: 0.85rem;
+        padding: 9px 10px;
+      }
+
+      .tradein-note {
+        font-size: 0.8rem;
+      }
+
+      .chip {
+        font-size: 0.74rem;
+        padding: 5px 8px;
+      }
+
+      .specs li {
+        font-size: 0.86rem;
+        padding: 8px 9px;
+      }
+
+      .legal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+        font-size: 0.86rem;
+        padding: 10px 14px;
+      }
+
+      .delivery-note {
+        font-size: 0.84rem;
+        padding: 9px 10px;
+      }
+
+      .legal-toggle {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+      }
+
+      .legal-content {
+        padding: 10px 4px 4px;
+      }
+
+      .legal-item {
+        font-size: 0.84rem;
+        padding: 8px 9px;
+      }
+
+      .legal-intro {
+        font-size: 0.84rem;
+      }
+
+      footer {
+        font-size: 0.84rem;
+        padding: 20px 14px 24px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .topbar {
+        font-size: 0.8rem;
+      }
+
+      .toolbar {
+        padding: 10px 12px;
+      }
+
+      .toolbar-brand {
+        font-size: 0.86rem;
+      }
+
+      .toolbar-links {
+        gap: 10px;
+      }
+
+      .toolbar-links a {
+        font-size: 0.8rem;
+      }
+
+      .product-page {
+        padding: 14px;
+        border-radius: 18px;
+      }
+
+      .thumb-btn {
+        height: 48px;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      .price {
+        font-size: 1.08rem;
+      }
+
+      .desc,
+      .tradein-note,
+      .specs li,
+      .legal-item,
+      .legal-intro {
+        font-size: 0.8rem;
+      }
+
+      .tradein-select {
+        font-size: 0.8rem;
+        padding: 8px 9px;
+      }
+
+      .chip {
+        font-size: 0.7rem;
+        padding: 4px 7px;
+      }
+
+      .btn {
+        font-size: 0.82rem;
+        padding: 9px 12px;
+      }
+
+      .delivery-note {
+        font-size: 0.8rem;
+      }
+
+      .legal-toggle {
+        font-size: 0.84rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>📞 <a href="tel:+35796355929">+357 96355929</a></span>
+      <span>📍 Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</span>
+    </div>
+  </div>
+
+  <nav class="toolbar">
+    <a class="toolbar-brand" href="index.html">Maltezos Autoservice</a>
+    <div class="toolbar-links">
+      <a href="index.html">Αρχική</a>
+      <a href="shop.html">Shop</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="product-page">
+      <div>
+        <div class="media-box">
+          <img id="product-main-image" class="product-main-image" alt="Φωτογραφία προϊόντος" />
+          <svg id="product-fallback-icon" class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="16" fill="#111827" />
+            <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+            <g fill="#d7263d">
+              <rect x="30" y="4" width="4" height="10" rx="2" />
+              <rect x="30" y="50" width="4" height="10" rx="2" />
+              <rect x="4" y="30" width="10" height="4" rx="2" />
+              <rect x="50" y="30" width="10" height="4" rx="2" />
+            </g>
+          </svg>
+        </div>
+
+        <div id="thumb-grid" class="thumb-grid"></div>
+      </div>
+
+      <div class="product-content">
+        <h1 id="product-name">Gearbox</h1>
+        <p class="subtitle">Εξειδικευμένο προϊόν κιβωτίου ταχυτήτων</p>
+        <p id="price-display" class="price">€900 <span class="price-vat">με ΦΠΑ</span></p>
+        <p class="desc" id="product-description"></p>
+
+        <p class="section-label">Κοστολόγηση Προϊόντος</p>
+        <div class="tradein-box">
+          <p class="tradein-title">Τρόπος τιμολόγησης</p>
+          <select id="tradein-select" class="tradein-select" aria-label="Επιλογή παλιού κιβωτίου">
+            <option value="with" selected>Με ανταλλαγή παλιού κιβωτίου — τελική τιμή €900</option>
+            <option value="without">Χωρίς ανταλλαγή παλιού κιβωτίου — τελική τιμή €1000</option>
+          </select>
+          <p class="tradein-note">Η τελική τιμή διαμορφώνεται ανάλογα με την επιλογή ανταλλαγής.</p>
+        </div>
+
+        <div class="meta-chips">
+          <span class="chip">Άμεση διαθεσιμότητα</span>
+          <span class="chip">Παράδοση 3 ώρες</span>
+          <span class="chip">Τεχνικός έλεγχος</span>
+        </div>
+
+        <p class="section-label">Τεχνικά Στοιχεία</p>
+        <ul class="specs" id="product-specs"></ul>
+
+        <p class="section-label">Επικοινωνία</p>
+        <div class="actions">
+          <a id="sms-link" class="btn btn-sms" href="#">Στείλε SMS για παραγγελία</a>
+          <a class="btn btn-call" href="tel:+35796355929">Κάλεσέ μας τώρα</a>
+          <a class="btn btn-back" href="shop.html">Πίσω στο shop</a>
+        </div>
+
+        <div class="delivery-note">Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</div>
+      </div>
+    </section>
+  </main>
+
+  <details class="legal-footer">
+    <summary class="legal-toggle">Νομικές πληροφορίες (πάτα για άνοιγμα)</summary>
+    <div class="legal-content">
+      <p class="legal-intro">Συμπλήρωσε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.</p>
+      <div class="legal-grid">
+        <p class="legal-item"><strong>Επωνυμία:</strong> Maltezos Autoservice Garage</p>
+        <p class="legal-item"><strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</p>
+        <p class="legal-item"><strong>Τηλέφωνο:</strong> +357 96355929</p>
+        <p class="legal-item"><strong>Email επικοινωνίας:</strong> [βάλε επίσημο email επιχείρησης]</p>
+        <p class="legal-item"><strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλε τα πραγματικά στοιχεία επιχείρησης]</p>
+        <p class="legal-item"><strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπλήρωσε αν περιλαμβάνεται ΦΠΑ].</p>
+        <p class="legal-item"><strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.</p>
+        <p class="legal-item"><strong>Ακυρώσεις/Επιστροφές:</strong> [βάλε την πολιτική ακύρωσης και επιστροφών].</p>
+        <p class="legal-item"><strong>Εγγύηση:</strong> [βάλε ακριβείς όρους εγγύησης ανά προϊόν].</p>
+        <p class="legal-item"><strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.</p>
+      </div>
+      <p class="legal-intro" style="margin-top: 12px;"><strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.</p>
+    </div>
+  </details>
+
+  <footer>
+    © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
+  </footer>
+
+  <script>
+    const products = {
+      "gearbox-6m-hatch": {
+        name: "Gearbox 6-Speed Manual - Hatchback",
+        description: "Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση.",
+        images: ["g1", "g2", "g3", "g4"],
+        specs: [
+          "Τύπος: Manual 6 σχέσεων",
+          "Κατάσταση: Ελεγμένο",
+          "Εγγύηση: Κατόπιν συνεννόησης"
+        ]
+      },
+      "gearbox-6a-sedan": {
+        name: "Gearbox 6-Speed Automatic - Sedan",
+        description: "Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας.",
+        images: ["s1", "s2", "s3", "s4"],
+        specs: [
+          "Τύπος: Automatic 6 σχέσεων",
+          "Κατάσταση: Ελεγμένο",
+          "Εγγύηση: Κατόπιν συνεννόησης"
+        ]
+      },
+      "gearbox-5m-suv": {
+        name: "Gearbox 5-Speed Manual - SUV",
+        description: "Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης.",
+        images: ["u1", "u2", "u3", "u4"],
+        specs: [
+          "Τύπος: Manual 5 σχέσεων",
+          "Κατάσταση: Ελεγμένο",
+          "Εγγύηση: Κατόπιν συνεννόησης"
+        ]
+      },
+      "gearbox-7a-premium": {
+        name: "Gearbox 7-Speed Automatic - Premium Line",
+        description: "Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας.",
+        images: ["p1", "p2", "p3", "p4"],
+        specs: [
+          "Τύπος: Automatic 7 σχέσεων",
+          "Κατάσταση: Ανακατασκευασμένο",
+          "Εγγύηση: Κατόπιν συνεννόησης"
+        ]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const item = params.get("item");
+    const current = products[item] || products["gearbox-6m-hatch"];
+    const basePrice = 900;
+    const noTradeInPrice = 1000;
+    let selectedPrice = basePrice;
+    let selectedTradeInText = "με παλιό κιβώτιο";
+
+    document.getElementById("product-name").textContent = current.name;
+    document.getElementById("product-description").textContent = current.description;
+
+    const specsList = document.getElementById("product-specs");
+    current.specs.forEach((spec) => {
+      const li = document.createElement("li");
+      li.textContent = spec;
+      specsList.appendChild(li);
+    });
+
+    const recipientPhone = "+35796355929";
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const priceDisplay = document.getElementById("price-display");
+    const smsLink = document.getElementById("sms-link");
+    const tradeinSelect = document.getElementById("tradein-select");
+    const productMainImage = document.getElementById("product-main-image");
+    const productFallbackIcon = document.getElementById("product-fallback-icon");
+    const thumbGrid = document.getElementById("thumb-grid");
+
+    const rawImages = (current.images || []).filter(Boolean).slice(0, 4);
+
+    function setMainImage(src) {
+      productMainImage.src = src;
+      productMainImage.style.display = "block";
+      productFallbackIcon.style.display = "none";
+    }
+
+    function buildImageCandidates(src) {
+      const cleanSrc = String(src).trim();
+      const hasExtension = /\.[a-zA-Z0-9]{2,5}(\?|$)/.test(cleanSrc);
+      const isDirectPath = /^(https?:|data:|\.\/|\.\.\/|\/)/.test(cleanSrc);
+
+      if (isDirectPath || hasExtension) {
+        return [cleanSrc];
+      }
+
+      return [
+        `assets/gearbox/${cleanSrc}.jpg`,
+        `assets/gearbox/${cleanSrc}.png`,
+        `assets/gearbox/${cleanSrc}.jpeg`,
+        `assets/gearbox/${cleanSrc}.webp`
+      ];
+    }
+
+    function preloadFirstAvailable(candidates) {
+      return new Promise((resolve) => {
+        let index = 0;
+
+        function tryNext() {
+          if (index >= candidates.length) {
+            resolve(null);
+            return;
+          }
+
+          const candidate = candidates[index++];
+          const testImg = new Image();
+
+          testImg.onload = function () {
+            resolve(candidate);
+          };
+
+          testImg.onerror = function () {
+            tryNext();
+          };
+
+          testImg.src = candidate;
+        }
+
+        tryNext();
+      });
+    }
+
+    async function resolveGalleryImages(images) {
+      const resolved = [];
+
+      for (const src of images) {
+        const found = await preloadFirstAvailable(buildImageCandidates(src));
+        if (found) {
+          resolved.push(found);
+        }
+      }
+
+      return resolved;
+    }
+
+    resolveGalleryImages(rawImages).then((productImages) => {
+      if (productImages.length > 0) {
+        setMainImage(productImages[0]);
+
+        productImages.forEach((src, index) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "thumb-btn" + (index === 0 ? " active" : "");
+
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = `${current.name} - φωτογραφία ${index + 1}`;
+
+          btn.appendChild(img);
+          btn.addEventListener("click", function () {
+            setMainImage(src);
+            document.querySelectorAll(".thumb-btn").forEach((el) => el.classList.remove("active"));
+            btn.classList.add("active");
+          });
+
+          thumbGrid.appendChild(btn);
+        });
+      } else {
+        thumbGrid.style.display = "none";
+        productMainImage.style.display = "none";
+        productFallbackIcon.style.display = "block";
+      }
+    });
+
+    function updateOrderState() {
+      const smsText = encodeURIComponent(
+        `Ενδιαφέρομαι για ${current.name}, ${selectedTradeInText}, τιμή ${selectedPrice}€.`
+      );
+      const smsUrl = isIOS
+        ? `sms:${recipientPhone}&body=${smsText}`
+        : `sms:${recipientPhone}?body=${smsText}`;
+
+      priceDisplay.innerHTML = `€${selectedPrice} <span class="price-vat">με ΦΠΑ</span>`;
+      smsLink.setAttribute("href", smsUrl);
+    }
+
+    tradeinSelect.addEventListener("change", function () {
+      if (this.value === "without") {
+        selectedPrice = noTradeInPrice;
+        selectedTradeInText = "χωρίς παλιό κιβώτιο";
+      } else {
+        selectedPrice = basePrice;
+        selectedTradeInText = "με παλιό κιβώτιο";
+      }
+
+      updateOrderState();
+    });
+
+    updateOrderState();
+  </script>
+</body>
+</html>

@@ -64,26 +64,35 @@
     }
 
     nav {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 18px 24px;
+      max-width: 1100px;
+      margin: 10px auto 0;
+      padding: 14px 24px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      gap: 24px;
+      gap: 12px;
       flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
       position: sticky;
       top: 0;
-      background: rgba(248, 250, 252, 0.85);
-      backdrop-filter: blur(14px);
       z-index: 20;
-      border-bottom: 1px solid rgba(17, 24, 39, 0.06);
+      transition: transform 0.24s ease, opacity 0.2s ease;
+    }
+
+    nav.nav-hidden {
+      transform: translateY(calc(-100% - 12px));
+      opacity: 0;
+      pointer-events: none;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
@@ -97,32 +106,55 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0;
-      border-radius: 0;
-      background: transparent;
-      color: var(--dark-soft);
+      padding: 9px 14px;
+      white-space: nowrap;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+      color: #ffffff;
+      border: none;
       text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: none;
-      transition: color 0.2s ease;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 18px rgba(215, 38, 61, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .nav-cta:hover {
-      color: var(--accent);
-      transform: none;
-      box-shadow: none;
+      background: var(--accent-dark);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(215, 38, 61, 0.28);
     }
 
-    .nav-links a {
-      text-decoration: none;
+    .nav-mini-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      background: rgba(255, 255, 255, 0.94);
       color: var(--dark-soft);
-      font-weight: 600;
-      transition: color 0.2s ease;
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
 
-    .nav-links a:hover {
+    .nav-mini-link:hover {
       color: var(--accent);
+      border-color: rgba(215, 38, 61, 0.4);
+      background: #fff5f7;
+      transform: translateY(-1px);
+    }
+
+    .nav-mini-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.08rem;
+      line-height: 1;
     }
 
     .hero {
@@ -564,6 +596,11 @@
       height: 100%;
     }
 
+    #appointment,
+    #location-hint {
+      scroll-margin-top: 90px;
+    }
+
     .contact-box h3 {
       margin-top: 0;
       color: var(--dark);
@@ -764,24 +801,43 @@
       }
 
       nav {
-        padding: 16px 18px;
+        padding: 12px 14px;
+        flex-wrap: nowrap;
+        gap: 10px;
       }
 
       .brand {
-        width: 100%;
-        justify-content: center;
+        width: auto;
+        justify-content: flex-start;
+        order: 1;
+        flex: 1 1 auto;
+        min-width: 0;
       }
 
       .nav-links {
-        width: 100%;
+        width: auto;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
-        gap: 12px;
+        gap: 7px;
+        order: 2;
+        flex: 0 0 auto;
       }
 
-      .nav-links a {
-        margin-left: 0;
+      .nav-cta {
+        padding: 7px 10px;
+        font-size: 0.76rem;
+      }
+
+      .nav-mini-link {
+        width: 30px;
+        height: 30px;
+      }
+
+      .nav-mini-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.98rem;
       }
 
       main {
@@ -882,9 +938,15 @@
       <a class="nav-cta" href="shop.html">Έχω τζάι κατάστημα online</a>
     </div>
     <div class="nav-links">
-      <a href="#services">Υπηρεσίες</a>
-      <a href="#about">Γιατί Εμάς</a>
-      <a href="#contact">Επικοινωνία</a>
+      <a class="nav-mini-link" href="#services" aria-label="Υπηρεσίες">
+        <span class="nav-mini-icon" aria-hidden="true">🔧</span>
+      </a>
+      <a class="nav-mini-link" href="#location-hint" aria-label="Τοποθεσία">
+        <span class="nav-mini-icon" aria-hidden="true">📍</span>
+      </a>
+      <a class="nav-mini-link" href="#appointment" aria-label="Επικοινωνία">
+        <span class="nav-mini-icon" aria-hidden="true">✉</span>
+      </a>
     </div>
   </nav>
 
@@ -900,7 +962,7 @@
 Γλήορη διάγνωση, σωστή δουλειά τζαι κουβέντες μόνο όσες χρειάζονται.
 .</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Κλείστε ραντεβού</a>
+          <a class="btn btn-primary" href="#appointment">Κλείστε ραντεβού</a>
           <a class="btn btn-secondary" href="#services">Δείτε υπηρεσίες</a>
         </div>
       </div>
@@ -1028,12 +1090,14 @@
         </div>
       </div>
 
-      <div class="contact-image-box">
+      <div id="location-hint" class="contact-image-box">
         <p>Συνέχισε ούλλο ίσια τζαι εν να με δεις στα δεξιά σου</p>
-        <img src="assets/icons/Screenshot%202026-07-09%20100311.png" alt="Maltezos Autoservice" />
+        <a href="https://www.google.com/maps/dir//MALTEZOS+AUTO+SERVICE,+%CE%A0%CF%81%CE%B1%CE%BE%CE%AC%CE%BD%CE%B4%CF%81%CE%BF%CF%85+50,+%CE%94%CE%B5%CF%85%CF%84%CE%B5%CF%81%CE%AC+2460,+%CE%9A%CF%8D%CF%80%CF%81%CE%BF%CF%82/@35.1073979,33.3840384,2713m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x14de1d00171a6905:0xc8391cce8f527731!2m2!1d33.2628114!2d35.0939785?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" aria-label="Άνοιγμα τοποθεσίας στο Google Maps">
+          <img src="assets/icons/Screenshot%202026-07-09%20100311.png" alt="Maltezos Autoservice" />
+        </a>
       </div>
 
-      <div class="contact-box">
+      <div id="appointment" class="contact-box">
         <h3>Ζητήστε ραντεβού</h3>
         <form id="appointment-form">
           <input id="name" name="name" type="text" placeholder="Όνομα" required />
@@ -1087,6 +1151,34 @@
   </footer>
 
   <script>
+    const stickyNav = document.querySelector('nav');
+    if (stickyNav) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      const updateNavVisibility = () => {
+        const currentY = window.scrollY;
+
+        if (currentY <= 20) {
+          stickyNav.classList.remove('nav-hidden');
+        } else if (currentY < lastScrollY - 6) {
+          stickyNav.classList.add('nav-hidden');
+        } else if (currentY > lastScrollY + 6) {
+          stickyNav.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavVisibility);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
     const serviceCards = document.querySelectorAll('.services .card');
 
     if (serviceCards.length) {
@@ -1112,7 +1204,7 @@
       });
 
       openNextServiceCard();
-      setInterval(openNextServiceCard, 2200);
+      setInterval(openNextServiceCard, 4600);
     }
 
     const form = document.getElementById('appointment-form');

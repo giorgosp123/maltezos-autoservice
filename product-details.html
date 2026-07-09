@@ -73,16 +73,38 @@
       border: 1px solid rgba(17, 24, 39, 0.08);
       border-radius: 14px;
       box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      transition: transform 0.24s ease, opacity 0.2s ease;
+    }
+
+    .toolbar.nav-hidden {
+      transform: translateY(calc(-100% - 12px));
+      opacity: 0;
+      pointer-events: none;
     }
 
     .toolbar-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+      color: #ffffff;
       text-decoration: none;
-      color: var(--dark-soft);
       font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 18px rgba(215, 38, 61, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .toolbar-brand:hover {
-      color: var(--accent);
+      background: var(--accent-dark);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(215, 38, 61, 0.28);
     }
 
     .toolbar-links {
@@ -93,14 +115,37 @@
     }
 
     .toolbar-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      background: rgba(255, 255, 255, 0.94);
       text-decoration: none;
       color: var(--dark-soft);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.94rem;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .toolbar-link-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-size: 1.08rem;
     }
 
     .toolbar-links a:hover {
       color: var(--accent);
+      border-color: rgba(215, 38, 61, 0.4);
+      background: #fff5f7;
+      transform: translateY(-1px);
     }
 
     main {
@@ -527,7 +572,14 @@
       }
 
       .toolbar-links a {
-        font-size: 0.86rem;
+        width: 30px;
+        height: 30px;
+      }
+
+      .toolbar-link-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.98rem;
       }
 
       main {
@@ -666,7 +718,14 @@
       }
 
       .toolbar-links a {
-        font-size: 0.8rem;
+        width: 28px;
+        height: 28px;
+      }
+
+      .toolbar-link-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 0.9rem;
       }
 
       .product-page {
@@ -730,8 +789,8 @@
   <nav class="toolbar">
     <a class="toolbar-brand" href="index.html">Maltezos Autoservice</a>
     <div class="toolbar-links">
-      <a href="index.html">Αρχική</a>
-      <a href="shop.html">Shop</a>
+      <a href="index.html" aria-label="Αρχική"><span class="toolbar-link-icon" aria-hidden="true">🏠</span></a>
+      <a href="shop.html" aria-label="Shop"><span class="toolbar-link-icon" aria-hidden="true">🛒</span></a>
     </div>
   </nav>
 
@@ -819,6 +878,34 @@
 
   <script src="assets/js/products-catalog.js"></script>
   <script>
+    const stickyNav = document.querySelector('.toolbar');
+    if (stickyNav) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      const updateNavVisibility = () => {
+        const currentY = window.scrollY;
+
+        if (currentY <= 20) {
+          stickyNav.classList.remove('nav-hidden');
+        } else if (currentY < lastScrollY - 6) {
+          stickyNav.classList.add('nav-hidden');
+        } else if (currentY > lastScrollY + 6) {
+          stickyNav.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavVisibility);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
     const products = window.PRODUCT_CATALOG || {};
 
     const params = new URLSearchParams(window.location.search);

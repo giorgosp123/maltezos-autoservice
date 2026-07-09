@@ -8,7 +8,7 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["g1", "g2", "g3", "g4"],
-    stock: 3
+    stock: 2
   },
   "gearbox-6a-sedan": {
     name: "Gearbox 6-Speed Automatic - Sedan",
@@ -19,7 +19,7 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["s1", "s2", "s3", "s4"],
-    stock: 2
+    stock: 3
   },
   "gearbox-5m-suv": {
     name: "Gearbox 5-Speed Manual - SUV",
@@ -30,7 +30,7 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["u1", "u2", "u3", "u4"],
-    stock: 4
+    stock: 1
   },
   "gearbox-7a-premium": {
     name: "Gearbox 7-Speed Automatic - Premium Line",

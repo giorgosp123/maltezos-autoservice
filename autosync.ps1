@@ -5,7 +5,7 @@ param(
 )
 
 $script:AutosyncVersion = "2026-07-10.1"
-$script:LogFile = Join-Path (Get-Location) "autosync.log"
+$script:LogFile = Join-Path (Join-Path (Get-Location) ".git") "autosync.log"
 
 $ErrorActionPreference = 'Stop'
 

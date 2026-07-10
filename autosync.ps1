@@ -4,6 +4,8 @@ param(
   [string]$MessagePrefix = "autosync"
 )
 
+$script:AutosyncVersion = "2026-07-10.1"
+
 $ErrorActionPreference = 'Stop'
 
 if (-not (Test-Path ".git")) {
@@ -128,6 +130,7 @@ function Publish-LocalChanges {
   Write-Info "Changes pushed and available to the other PC." Green
 }
 
+Write-Info "Autosync version $script:AutosyncVersion" Green
 Write-Info "Autosync started on branch '$branch'." Green
 Write-Info "Keep this window open on both PCs." Yellow
 

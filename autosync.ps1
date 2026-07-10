@@ -119,9 +119,9 @@ $onChange = {
 }
 
 $subscriptions = @(
-  Register-ObjectEvent -InputObject $watcher -EventName Changed -Action $onChange,
-  Register-ObjectEvent -InputObject $watcher -EventName Created -Action $onChange,
-  Register-ObjectEvent -InputObject $watcher -EventName Deleted -Action $onChange,
+  Register-ObjectEvent -InputObject $watcher -EventName Changed -Action $onChange
+  Register-ObjectEvent -InputObject $watcher -EventName Created -Action $onChange
+  Register-ObjectEvent -InputObject $watcher -EventName Deleted -Action $onChange
   Register-ObjectEvent -InputObject $watcher -EventName Renamed -Action $onChange
 )
 

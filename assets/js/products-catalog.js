@@ -8,7 +8,7 @@ window.PRODUCT_CATALOG = {
       "Εγγύηση: Κατόπιν συνεννόησης"
     ],
     images: ["g1", "g2", "g3", "g4"],
-    stock: 2,
+    stock: 3,
     priceWithTradeIn: 900,
     priceWithoutTradeIn: 1000
   },

@@ -137,6 +137,81 @@
       flex-wrap: wrap;
     }
 
+    .lang-dropdown {
+      margin-left: auto;
+      position: relative;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      padding: 6px 8px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1;
+      height: 34px;
+      width: 56px;
+      cursor: pointer;
+    }
+
+    .lang-flag {
+      width: 20px;
+      height: 14px;
+      border-radius: 3px;
+      display: block;
+    }
+
+    .lang-caret {
+      font-size: 0.68rem;
+      line-height: 1;
+      opacity: 0.78;
+    }
+
+    .lang-menu {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 6px;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      min-width: 100%;
+      background: #ffffff;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 12px;
+      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.16);
+      z-index: 60;
+      display: none;
+    }
+
+    .lang-dropdown.open .lang-menu {
+      display: block;
+    }
+
+    .lang-option {
+      width: 42px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      padding: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .lang-option:hover {
+      background: #fff5f7;
+      color: var(--accent);
+    }
+
     .nav-links a {
       display: inline-flex;
       align-items: center;
@@ -596,10 +671,21 @@
   </div>
 
   <nav>
-    <a class="brand-link" href="index.html">Maltezos Autoservice</a>
+    <a id="shop-brand-link" class="brand-link" href="index.html">Maltezos Autoservice</a>
     <div class="nav-links">
       <a href="index.html" aria-label="Αρχική"><span class="nav-link-icon" aria-hidden="true">🏠</span></a>
       <a href="#products" aria-label="Shop"><span class="nav-link-icon" aria-hidden="true">🛒</span></a>
+      <div id="language-dropdown" class="lang-dropdown">
+        <button id="language-toggle" class="lang-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Επιλογή γλώσσας">
+          <img id="language-current-flag" class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" />
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul id="language-menu" class="lang-menu" role="listbox" aria-label="Επιλογή γλώσσας">
+          <li><button type="button" class="lang-option" data-lang="cy" role="option" aria-label="Κυπριακά"><img class="lang-flag" src="https://flagcdn.com/w40/cy.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="el" role="option" aria-label="Ελληνικά"><img class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="en" role="option" aria-label="English"><img class="lang-flag" src="https://flagcdn.com/w40/gb.png" alt="" /></button></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -608,16 +694,16 @@
       <div class="hero-image">
         <img src="assets/icons/IMG_53591-removebg-preview.png" alt="Maltezos Transmission" />
       </div>
-      <h1>Online Shop για Gearbox</h1>
-      <p>Εξειδικευόμαστε σε κιβώτια ταχυτήτων και βάζουμε στοκ μόνο ό,τι περνά τον δικό μας έλεγχο. Εδώ θα βρίσκεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</p>
+      <h1 id="shop-hero-title">Online Shop για Gearbox</h1>
+      <p id="shop-hero-description">Εξειδικευόμαστε σε κιβώτια ταχυτήτων και βάζουμε στοκ μόνο ό,τι περνά τον δικό μας έλεγχο. Εδώ θα βρίσκεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</p>
     </div>
   </section>
 
   <main>
     <section id="products">
       <div class="shop-head">
-        <h2>Διαθέσιμα Gearbox</h2>
-        <p>Πάτα «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.</p>
+        <h2 id="shop-head-title">Διαθέσιμα Gearbox</h2>
+        <p id="shop-head-text">Πάτα «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.</p>
       </div>
 
       <div class="products">
@@ -722,22 +808,276 @@
         </article>
       </div>
 
-      <div class="shop-note">
-        Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο +357 96355929.
+      <div id="shop-note" class="shop-note">
+        <span id="shop-note-prefix">Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο</span>
+        <a id="shop-note-phone" href="tel:+35796355929">+357 96355929</a>.
       </div>
 
       <div class="back-home">
-        <a href="index.html">Πίσω στην αρχική</a>
+        <a id="back-home-link" href="index.html">Πίσω στην αρχική</a>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer id="footer-text">
     © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
   </footer>
 
   <script src="assets/js/products-catalog.js"></script>
   <script>
+    const LANG_KEY = 'maltezos-language';
+    const languageDropdown = document.getElementById('language-dropdown');
+    const languageToggle = document.getElementById('language-toggle');
+    const languageCurrentFlag = document.getElementById('language-current-flag');
+    const languageOptions = document.querySelectorAll('.lang-option');
+    let currentLanguage = 'cy';
+    const productCatalog = window.PRODUCT_CATALOG || {};
+
+    const pageCopy = {
+      cy: {
+        title: 'Maltezos Autoservice | Gearbox Shop',
+        brand: 'Maltezos Autoservice',
+        heroTitle: 'Online Shop για Gearbox',
+        heroText: 'Εξειδικευόμαστε σε κιβώτια ταχυτήτων και βάζουμε στοκ μόνο ό,τι περνά τον δικό μας έλεγχο. Εδώ θα βρίσκεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.',
+        headTitle: 'Διαθέσιμα Gearbox',
+        headText: 'Πάτα «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.',
+        stockLabel: 'Διαθεσιμότητα',
+        stockOne: 'κομμάτι',
+        stockMany: 'κομμάτια',
+        order: 'Παραγγελία',
+        notePrefix: 'Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο',
+        backHome: 'Πίσω στην αρχική',
+        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.'
+      },
+      el: {
+        title: 'Maltezos Autoservice | Κατάστημα Κιβωτίων',
+        brand: 'Maltezos Autoservice',
+        heroTitle: 'Online Κατάστημα για Gearbox',
+        heroText: 'Εξειδικευόμαστε σε κιβώτια ταχυτήτων και διαθέτουμε μόνο προϊόντα που περνούν τον δικό μας ποιοτικό έλεγχο. Εδώ θα βρεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.',
+        headTitle: 'Διαθέσιμα Gearbox',
+        headText: 'Πάτησε «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.',
+        stockLabel: 'Διαθεσιμότητα',
+        stockOne: 'κομμάτι',
+        stockMany: 'κομμάτια',
+        order: 'Παραγγελία',
+        notePrefix: 'Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο',
+        backHome: 'Πίσω στην αρχική',
+        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.'
+      },
+      en: {
+        title: 'Maltezos Autoservice | Gearbox Shop',
+        brand: 'Maltezos Autoservice',
+        heroTitle: 'Online Gearbox Shop',
+        heroText: 'We specialize in gearboxes and keep stock only for units that pass our own quality checks. Here you can find selected gearboxes ready for installation. Delivery is completed within 3 hours of order placement.',
+        headTitle: 'Available Gearboxes',
+        headText: 'Click "Order" for product details and direct contact.',
+        stockLabel: 'Availability',
+        stockOne: 'item',
+        stockMany: 'items',
+        order: 'Order',
+        notePrefix: 'For reservation or compatibility confirmation, contact us directly at',
+        backHome: 'Back to home',
+        footerText: '© 2026 Maltezos Autoservice Garage. All rights reserved.'
+      }
+    };
+
+    const productCopy = {
+      "gearbox-6m-hatch": {
+        cy: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Καθαρισμένο, ελεγμένο τζαι έτοιμο για τοποθέτηση."
+        },
+        el: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση."
+        },
+        en: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Cleaned, tested, and ready for installation."
+        }
+      },
+      "gearbox-6a-sedan": {
+        cy: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Δοκιμασμένο σε πίεση τζαι σε θερμοκρασία λειτουργίας."
+        },
+        el: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας."
+        },
+        en: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Pressure-tested and verified at operating temperature."
+        }
+      },
+      "gearbox-5m-suv": {
+        cy: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Με έλεγχο γραναζιών τζαι καθαρό ιστορικό συντήρησης."
+        },
+        el: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης."
+        },
+        en: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Gearset inspected with a clear maintenance history."
+        }
+      },
+      "gearbox-7a-premium": {
+        cy: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Πλήρως ανακατασκευασμένο με έλεγχο που την ομάδα μας."
+        },
+        el: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας."
+        },
+        en: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Fully rebuilt and quality checked by our team."
+        }
+      }
+    };
+
+    function getInitialLanguage() {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved === 'cy' || saved === 'el' || saved === 'en') {
+        return saved;
+      }
+      return 'cy';
+    }
+
+    function getCopy() {
+      return pageCopy[currentLanguage] || pageCopy.cy;
+    }
+
+    function getStockUnit(stock) {
+      const copy = getCopy();
+      return stock === 1 ? copy.stockOne : copy.stockMany;
+    }
+
+    function getLocalizedProduct(itemId, fallbackData) {
+      const byItem = productCopy[itemId] || {};
+      const localized = byItem[currentLanguage] || byItem.cy || {};
+      return {
+        name: localized.name || fallbackData.name || '',
+        description: localized.description || fallbackData.description || ''
+      };
+    }
+
+    function applyLanguage(language) {
+      currentLanguage = language;
+      const copy = getCopy();
+      document.documentElement.lang = language === 'en' ? 'en' : 'el';
+      document.title = copy.title;
+      localStorage.setItem(LANG_KEY, language);
+
+      document.getElementById('shop-brand-link').textContent = copy.brand;
+      document.getElementById('shop-hero-title').textContent = copy.heroTitle;
+      document.getElementById('shop-hero-description').textContent = copy.heroText;
+      document.getElementById('shop-head-title').textContent = copy.headTitle;
+      document.getElementById('shop-head-text').textContent = copy.headText;
+      document.getElementById('shop-note-prefix').textContent = copy.notePrefix;
+      document.getElementById('back-home-link').textContent = copy.backHome;
+      document.getElementById('footer-text').textContent = copy.footerText;
+
+      document.querySelectorAll('.buy-btn').forEach((btn) => {
+        btn.textContent = copy.order;
+      });
+
+      document.querySelectorAll('.product-stock .label').forEach((label) => {
+        label.textContent = copy.stockLabel;
+      });
+
+      document.querySelectorAll('.product[data-stock]').forEach((card) => {
+        const stock = Number(card.getAttribute('data-stock'));
+        const value = card.querySelector('.product-stock .value');
+        if (value && Number.isFinite(stock)) {
+          value.textContent = `${stock} ${getStockUnit(stock)}`;
+        }
+      });
+
+      document.querySelectorAll('.product[data-item]').forEach((card) => {
+        const itemId = card.getAttribute('data-item') || '';
+        const source = productCatalog[itemId] || {};
+        const localized = getLocalizedProduct(itemId, source);
+        const title = card.querySelector('.product-title');
+        const meta = card.querySelector('.product-meta');
+
+        if (title && localized.name) {
+          title.textContent = localized.name;
+        }
+
+        if (meta && localized.description) {
+          meta.textContent = localized.description;
+        }
+      });
+    }
+
+    function getLanguageMeta(language) {
+      if (language === 'cy') return { flag: 'https://flagcdn.com/w40/cy.png', label: 'Κυπριακά' };
+      if (language === 'en') return { flag: 'https://flagcdn.com/w40/gb.png', label: 'English' };
+      return { flag: 'https://flagcdn.com/w40/gr.png', label: 'Ελληνικά' };
+    }
+
+    function closeLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.remove('open');
+      languageToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.add('open');
+      languageToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function setLanguageUi(language) {
+      const meta = getLanguageMeta(language);
+      if (languageCurrentFlag) {
+        languageCurrentFlag.src = meta.flag;
+      }
+      if (languageToggle) {
+        languageToggle.setAttribute('aria-label', `Επιλογή γλώσσας (${meta.label})`);
+      }
+    }
+
+    const initialLanguage = getInitialLanguage();
+    applyLanguage(initialLanguage);
+    setLanguageUi(initialLanguage);
+
+    if (languageDropdown && languageToggle) {
+      languageToggle.addEventListener('click', function () {
+        if (languageDropdown.classList.contains('open')) {
+          closeLanguageMenu();
+        } else {
+          openLanguageMenu();
+        }
+      });
+
+      languageOptions.forEach((option) => {
+        option.addEventListener('click', function () {
+          const nextLanguage = this.dataset.lang || 'el';
+          applyLanguage(nextLanguage);
+          setLanguageUi(nextLanguage);
+          closeLanguageMenu();
+        });
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!languageDropdown.contains(event.target)) {
+          closeLanguageMenu();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeLanguageMenu();
+        }
+      });
+    }
+
     const stickyNav = document.querySelector('nav');
     if (stickyNav) {
       let lastScrollY = window.scrollY;
@@ -765,8 +1105,6 @@
         }
       }, { passive: true });
     }
-
-    const productCatalog = window.PRODUCT_CATALOG || {};
 
     function buildImageCandidates(src) {
       const cleanSrc = String(src).trim();
@@ -841,6 +1179,7 @@
     productCards.forEach(async (card) => {
       const itemId = card.getAttribute("data-item");
       const productData = productCatalog[itemId] || {};
+      const localized = getLocalizedProduct(itemId, productData);
       const titleEl = card.querySelector(".product-title");
       const metaEl = card.querySelector(".product-meta");
       const priceEl = card.querySelector(".price");
@@ -850,12 +1189,12 @@
       const fallbackIcon = card.querySelector(".gear-icon");
       const imageList = await resolveGalleryImages(productData.images || []);
 
-      if (titleEl && productData.name) {
-        titleEl.textContent = productData.name;
+      if (titleEl && localized.name) {
+        titleEl.textContent = localized.name;
       }
 
-      if (metaEl && productData.description) {
-        metaEl.textContent = productData.description;
+      if (metaEl && localized.description) {
+        metaEl.textContent = localized.description;
       }
 
       if (priceEl) {
@@ -865,9 +1204,10 @@
 
       if (stockBadge && stockValue) {
         const stock = Number.isFinite(productData.stock) ? productData.stock : 0;
-        const stockUnit = stock === 1 ? "κομμάτι" : "κομμάτια";
+        const stockUnit = getStockUnit(stock);
         stockBadge.classList.remove("stock-low", "stock-medium", "stock-high");
         stockBadge.classList.add(getStockClass(stock));
+        card.setAttribute('data-stock', String(stock));
         stockValue.textContent = `${stock} ${stockUnit}`;
       }
 

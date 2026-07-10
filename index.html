@@ -115,6 +115,81 @@
       flex-wrap: wrap;
     }
 
+    .lang-dropdown {
+      margin-left: auto;
+      position: relative;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      padding: 6px 8px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1;
+      height: 34px;
+      width: 56px;
+      cursor: pointer;
+    }
+
+    .lang-flag {
+      width: 20px;
+      height: 14px;
+      border-radius: 3px;
+      display: block;
+    }
+
+    .lang-caret {
+      font-size: 0.68rem;
+      line-height: 1;
+      opacity: 0.78;
+    }
+
+    .lang-menu {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 6px;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      min-width: 100%;
+      background: #ffffff;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 12px;
+      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.16);
+      z-index: 60;
+      display: none;
+    }
+
+    .lang-dropdown.open .lang-menu {
+      display: block;
+    }
+
+    .lang-option {
+      width: 42px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      padding: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .lang-option:hover {
+      background: #fff5f7;
+      color: var(--accent);
+    }
+
     .brand {
       display: flex;
       align-items: center;
@@ -708,7 +783,7 @@
     }
 
     .contact-map-link::after {
-      content: "Πάτα για χάρτη";
+      content: attr(data-map-label);
       position: absolute;
       right: 10px;
       bottom: 10px;
@@ -898,6 +973,12 @@
         height: 30px;
       }
 
+      .lang-toggle {
+        height: 30px;
+        width: 48px;
+        font-size: 0.75rem;
+      }
+
       .nav-mini-icon {
         width: 20px;
         height: 20px;
@@ -999,7 +1080,7 @@
 
   <nav>
     <div class="brand">
-      <a class="nav-cta" href="shop.html">Έχω τζάι κατάστημα online</a>
+      <a id="nav-shop-link" class="nav-cta" href="shop.html">Έχω τζάι κατάστημα online</a>
     </div>
     <div class="nav-links">
       <a class="nav-mini-link" href="#services" aria-label="Υπηρεσίες">
@@ -1011,6 +1092,17 @@
       <a class="nav-mini-link" href="#appointment" aria-label="Επικοινωνία">
         <span class="nav-mini-icon" aria-hidden="true">✉</span>
       </a>
+      <div id="language-dropdown" class="lang-dropdown">
+        <button id="language-toggle" class="lang-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Επιλογή γλώσσας">
+          <img id="language-current-flag" class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" />
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul id="language-menu" class="lang-menu" role="listbox" aria-label="Επιλογή γλώσσας">
+          <li><button type="button" class="lang-option" data-lang="cy" role="option" aria-label="Κυπριακά"><img class="lang-flag" src="https://flagcdn.com/w40/cy.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="el" role="option" aria-label="Ελληνικά"><img class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="en" role="option" aria-label="English"><img class="lang-flag" src="https://flagcdn.com/w40/gb.png" alt="" /></button></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -1020,35 +1112,35 @@
         <div class="hero-image">
           <img src="assets/icons/IMG_53591-removebg-preview.png" alt="Maltezos Autoservice" />
         </div>
-        <h1>Φέρ’ το κοντά μας τζ̆αι εν να το σάσουμε… γιατί τζ̆αι το αυτοκίνητο σου θέλει λλίην αγάπη</h1>
-        <p>Στο Maltezos Autoservice Garage εν παίζουμε πελλό. 😎
+        <h1 id="hero-title">Φέρ’ το κοντά μας τζ̆αι εν να το σάσουμε… γιατί τζ̆αι το αυτοκίνητο σου θέλει λλίην αγάπη</h1>
+        <p id="hero-description">Στο Maltezos Autoservice Garage εν παίζουμε πελλό. 😎
 Φέρνεις το αμάξι σου, βρίσκουμε το πρόβλημα πριν προλάβει να σου σπάσει τα νεύρα, τζαι το φκάλουμε στον δρόμο όπως πρέπει.
 Γλήορη διάγνωση, σωστή δουλειά τζαι κουβέντες μόνο όσες χρειάζονται.
 .</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#appointment">Κλείστε ραντεβού</a>
-          <a class="btn btn-secondary" href="#services">Δείτε υπηρεσίες</a>
+          <a id="hero-cta-appointment" class="btn btn-primary" href="#appointment">Κλείστε ραντεβού</a>
+          <a id="hero-cta-services" class="btn btn-secondary" href="#services">Δείτε υπηρεσίες</a>
         </div>
       </div>
 
       <div class="hero-panel">
-        <span class="panel-label">Η φροντίδα αρκέφκει δαμέ</span>
-        <h3>Τι καλύφκουμε</h3>
+        <span id="panel-label" class="panel-label">Η φροντίδα αρκέφκει δαμέ</span>
+        <h3 id="panel-title">Τι καλύφκουμε</h3>
         <ul>
-          <li>Σέρβις τζαι Συντήρηση</li>
-          <li>Διάγνωση τζαι επισκευές</li>
-          <li>Κιβώτια ταχυτήτων τζαι μηχανάες</li>
-          <li>Ελαστικά τζαι φρένα</li>
+          <li id="panel-item-1">Σέρβις τζαι Συντήρηση</li>
+          <li id="panel-item-2">Διάγνωση τζαι επισκευές</li>
+          <li id="panel-item-3">Κιβώτια ταχυτήτων τζαι μηχανάες</li>
+          <li id="panel-item-4">Ελαστικά τζαι φρένα</li>
         </ul>
-        <div class="panel-note">Εμείς το συμμαζεύκουμε σωστά… γιατί ούτε το αμάξι σου θέλει εκπλήξεις, ούτε εσύ θέλεις να γνωρίσεις τον γερανό!</div>
+        <div id="panel-note" class="panel-note">Εμείς το συμμαζεύκουμε σωστά… γιατί ούτε το αμάξι σου θέλει εκπλήξεις, ούτε εσύ θέλεις να γνωρίσεις τον γερανό!</div>
       </div>
     </div>
   </section>
 
   <main>
     <div class="section-title">
-      <h2>Οι υπηρεσίες μας</h2>
-      <p>Πριν το μιτσί πρόβλημα γινεί «ίντα μπελάς έν τούτος;», φέρ' το σε μας. 
+      <h2 id="services-title">Οι υπηρεσίες μας</h2>
+      <p id="services-description">Πριν το μιτσί πρόβλημα γινεί «ίντα μπελάς έν τούτος;», φέρ' το σε μας. 
 Στο Maltezos Autoservice Garage τα σάζουμε ούλλα πριν γίνουν πανηύηρι.</p>
     </div>
 
@@ -1064,7 +1156,7 @@
               <path d="M32 12v8" stroke="#111827" stroke-width="3" stroke-linecap="round" />
               <path d="M32 32l10-6" stroke="#111827" stroke-width="3" stroke-linecap="round" />
             </svg>       
-Αλλάσσουμε λάθια, φίλτρα τζαι ελέγχουμε ιμάντες, για να δουλεύκει το αμάξι σου ρολόι
+            <span id="service-box-1">Αλλάσσουμε λάθια, φίλτρα τζαι ελέγχουμε ιμάντες, για να δουλεύκει το αμάξι σου ρολόι</span>
           </div>
         </div>
       </article>
@@ -1085,7 +1177,7 @@
                 <circle cx="32" cy="44" r="2" />
               </g>
             </svg>
-            Εντοπίζουμε ηλεκτρικές τζαι μηχανικές βλάβες χωρίς μαντεψιές, για να ξέρεις ακριβώς ίντα φταίει
+            <span id="service-box-2">Εντοπίζουμε ηλεκτρικές τζαι μηχανικές βλάβες χωρίς μαντεψιές, για να ξέρεις ακριβώς ίντα φταίει</span>
           </div>
         </div>
       </article>
@@ -1101,7 +1193,7 @@
               <rect x="10" y="30" width="8" height="12" rx="2" />
               <rect x="46" y="30" width="8" height="12" rx="2" />
             </svg>
-            Άμαν το αμάξι αρχίσει να «λαλεί», εμείς ξέρουμε ακριβώς ίντα προσπαθεί να πει
+            <span id="service-box-3">Άμαν το αμάξι αρχίσει να «λαλεί», εμείς ξέρουμε ακριβώς ίντα προσπαθεί να πει</span>
           </div>
         </div>
       </article>
@@ -1122,52 +1214,52 @@
                 <circle cx="40" cy="40" r="2" />
               </g>
             </svg>
-          Αλλάζουμε λάστιχα τζαι φροντίζουμε τα στόπερ σου, για να σταματά το αμάξι όταν πρέπει.
+            <span id="service-box-4">Αλλάζουμε λάστιχα τζαι φροντίζουμε τα στόπερ σου, για να σταματά το αμάξι όταν πρέπει.</span>
           </div>
         </div>
       </article>
     </section>
 
     <div id="about" class="section-title" style="margin-top: 36px;">
-      <h2>Γιατί να μας θκιαλέξετε;</h2>
-      <p>Το αμάξι σου αξίζει φροντίδα, όι δικαιολογίες. 
+      <h2 id="about-title">Γιατί να μας θκιαλέξετε;</h2>
+      <p id="about-text-1">Το αμάξι σου αξίζει φροντίδα, όι δικαιολογίες. 
 
 Εμείς αναλαμβάνουμε τη δουλειά με εμπειρία, γλήορη εξυπηρέτηση τζαι καθαρή κουβέντα, για να φεύκεις πάντα με την κελλέ σου ήσυχη.</p>
-      <p style="margin-top: 8px;">Με σοβαρή δουλειά τζ̆αι άμεση εξυπηρέτηση, το αυτοκίνητό σου εν σε καλά σ̆έρκα. Εσύ πίννεις τον καφέ σου με την ησυχία σου, τζ̆αι το αμάξι φεύκει λες τζ̆αι είπεν «θέκιου, μάστρε!»</p>
+      <p id="about-text-2" style="margin-top: 8px;">Με σοβαρή δουλειά τζ̆αι άμεση εξυπηρέτηση, το αυτοκίνητό σου εν σε καλά σ̆έρκα. Εσύ πίννεις τον καφέ σου με την ησυχία σου, τζ̆αι το αμάξι φεύκει λες τζ̆αι είπεν «θέκιου, μάστρε!»</p>
     </div>
 
 
     <section id="contact" class="contact">
       <div class="contact-box">
-        <h3>Επικοινωνία</h3>
-        <p><strong>Τηλέφωνο:</strong> <a href="tel:+35796355929">+357 96355929</a></p>
-        <p><strong>Διεύθυνση:</strong> <a href="https://www.google.com/maps/dir//MALTEZOS+AUTO+SERVICE,+%CE%A0%CF%81%CE%B1%CE%BE%CE%AC%CE%BD%CE%B4%CF%81%CE%BF%CF%85+50,+%CE%94%CE%B5%CF%85%CF%84%CE%B5%CF%81%CE%AC+2460,+%CE%9A%CF%8D%CF%80%CF%81%CE%BF%CF%82/@35.1073979,33.3840384,2713m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x14de1d00171a6905:0xc8391cce8f527731!2m2!1d33.2628114!2d35.0939785?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">MALTEZOS AUTO SERVICES</a></p>
-        <p><strong>Ωράριο:</strong></p>
+        <h3 id="contact-title">Επικοινωνία</h3>
+        <p><strong id="contact-phone-label">Τηλέφωνο:</strong> <a href="tel:+35796355929">+357 96355929</a></p>
+        <p><strong id="contact-address-label">Διεύθυνση:</strong> <a href="https://www.google.com/maps/dir//MALTEZOS+AUTO+SERVICE,+%CE%A0%CF%81%CE%B1%CE%BE%CE%AC%CE%BD%CE%B4%CF%81%CE%BF%CF%85+50,+%CE%94%CE%B5%CF%85%CF%84%CE%B5%CF%81%CE%AC+2460,+%CE%9A%CF%8D%CF%80%CF%81%CE%BF%CF%82/@35.1073979,33.3840384,2713m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x14de1d00171a6905:0xc8391cce8f527731!2m2!1d33.2628114!2d35.0939785?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">MALTEZOS AUTO SERVICES</a></p>
+        <p><strong id="contact-hours-label">Ωράριο:</strong></p>
         <div class="hours-list" aria-label="Ωράριο ανά ημέρα">
-          <div class="hours-row"><span class="hours-day">Δευτέρα</span><span class="hours-time">08:00 - 17:00</span></div>
-          <div class="hours-row"><span class="hours-day">Τρίτη</span><span class="hours-time">08:00 - 17:00</span></div>
-          <div class="hours-row"><span class="hours-day">Τετάρτη</span><span class="hours-time">08:00 - 17:00</span></div>
-          <div class="hours-row"><span class="hours-day">Πέμπτη</span><span class="hours-time">08:00 - 17:00</span></div>
-          <div class="hours-row"><span class="hours-day">Παρασκευή</span><span class="hours-time">08:00 - 17:00</span></div>
-          <div class="hours-row"><span class="hours-day">Σάββατο</span><span class="hours-time">08:00 - 17:00</span></div>
-          <div class="hours-row"><span class="hours-day">Κυριακή</span><span class="hours-time">Έν απαντώ την Κυριακή</span></div>
+          <div class="hours-row"><span id="monday-label" class="hours-day">Δευτέρα</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span id="tuesday-label" class="hours-day">Τρίτη</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span id="wednesday-label" class="hours-day">Τετάρτη</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span id="thursday-label" class="hours-day">Πέμπτη</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span id="friday-label" class="hours-day">Παρασκευή</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span id="saturday-label" class="hours-day">Σάββατο</span><span class="hours-time">08:00 - 17:00</span></div>
+          <div class="hours-row"><span id="sunday-label" class="hours-day">Κυριακή</span><span id="sunday-hours" class="hours-time">Έν απαντώ την Κυριακή</span></div>
         </div>
       </div>
 
       <div id="location-hint" class="contact-image-box">
-        <p>Συνέχισε ούλλο ίσια τζαι εν να με δεις στα δεξιά σου</p>
-        <a class="contact-map-link" href="https://www.google.com/maps/dir//MALTEZOS+AUTO+SERVICE,+%CE%A0%CF%81%CE%B1%CE%BE%CE%AC%CE%BD%CE%B4%CF%81%CE%BF%CF%85+50,+%CE%94%CE%B5%CF%85%CF%84%CE%B5%CF%81%CE%AC+2460,+%CE%9A%CF%8D%CF%80%CF%81%CE%BF%CF%82/@35.1073979,33.3840384,2713m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x14de1d00171a6905:0xc8391cce8f527731!2m2!1d33.2628114!2d35.0939785?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" aria-label="Άνοιγμα τοποθεσίας στο Google Maps">
+        <p id="location-hint-text">Συνέχισε ούλλο ίσια τζαι εν να με δεις στα δεξιά σου</p>
+        <a id="contact-map-link" class="contact-map-link" data-map-label="Πάτα για χάρτη" href="https://www.google.com/maps/dir//MALTEZOS+AUTO+SERVICE,+%CE%A0%CF%81%CE%B1%CE%BE%CE%AC%CE%BD%CE%B4%CF%81%CE%BF%CF%85+50,+%CE%94%CE%B5%CF%85%CF%84%CE%B5%CF%81%CE%AC+2460,+%CE%9A%CF%8D%CF%80%CF%81%CE%BF%CF%82/@35.1073979,33.3840384,2713m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x14de1d00171a6905:0xc8391cce8f527731!2m2!1d33.2628114!2d35.0939785?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" aria-label="Άνοιγμα τοποθεσίας στο Google Maps">
           <img src="assets/icons/Screenshot%202026-07-09%20100311.png" alt="Maltezos Autoservice" />
         </a>
       </div>
 
       <div id="appointment" class="contact-box">
-        <h3>Ζητήστε ραντεβού</h3>
+        <h3 id="appointment-title">Ζητήστε ραντεβού</h3>
         <form id="appointment-form">
           <input id="name" name="name" type="text" placeholder="Όνομα" required />
           <input id="phone" name="phone" type="tel" placeholder="Τηλέφωνο" required />
           <textarea id="message" name="message" rows="4" placeholder="Περιγράψτε το πρόβλημα ή την υπηρεσία που θέλετε" required></textarea>
-          <button type="submit">Αποστολή</button>
+          <button id="appointment-submit" type="submit">Αποστολή</button>
         </form>
       </div>
     </section>
@@ -1206,15 +1298,286 @@
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path fill="#111111" d="M14.5 3.2c.73 1.05 1.7 1.82 2.9 2.17.56.16 1.15.25 1.76.25v3.03c-1.6 0-3.13-.48-4.4-1.38v5.57c0 2.95-2.4 5.35-5.35 5.35S4.06 15.79 4.06 12.84s2.4-5.35 5.35-5.35c.26 0 .52.02.77.06v3.1a2.26 2.26 0 0 0-.77-.13 2.32 2.32 0 0 0-2.32 2.32 2.32 2.32 0 0 0 2.32 2.32 2.32 2.32 0 0 0 2.32-2.32V3.2h2.77z"/>
         </svg>
-        Έν Έχω!!
+        <span id="tiktok-label">Έν Έχω!!</span>
       </a>
   </div>
 
-  <footer>
+  <footer id="footer-text">
     © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
   </footer>
 
   <script>
+    const LANG_KEY = 'maltezos-language';
+    const languageDropdown = document.getElementById('language-dropdown');
+    const languageToggle = document.getElementById('language-toggle');
+    const languageCurrentFlag = document.getElementById('language-current-flag');
+    const languageOptions = document.querySelectorAll('.lang-option');
+    const pageCopy = {
+      cy: {
+        title: 'Maltezos Autoservice Garage',
+        navShop: 'Έχω τζάι κατάστημα online',
+        heroTitle: 'Φέρ’ το κοντά μας τζ̆αι εν να το σάσουμε… γιατί τζ̆αι το αυτοκίνητο σου θέλει λλίην αγάπη',
+        heroDescription: 'Στο Maltezos Autoservice Garage εν παίζουμε πελλό. 😎\nΦέρνεις το αμάξι σου, βρίσκουμε το πρόβλημα πριν προλάβει να σου σπάσει τα νεύρα, τζαι το φκάλουμε στον δρόμο όπως πρέπει.\nΓλήορη διάγνωση, σωστή δουλειά τζαι κουβέντες μόνο όσες χρειάζονται.\n.',
+        servicesTitle: 'Οι υπηρεσίες μας',
+        servicesDescription: 'Πριν το μιτσί πρόβλημα γινεί «ίντα μπελάς έν τούτος;», φέρ\' το σε μας. \nΣτο Maltezos Autoservice Garage τα σάζουμε ούλλα πριν γίνουν πανηύηρι.',
+        panelLabel: 'Η φροντίδα αρκέφκει δαμέ',
+        panelTitle: 'Τι καλύφκουμε',
+        panelItem1: 'Σέρβις τζαι Συντήρηση',
+        panelItem2: 'Διάγνωση τζαι επισκευές',
+        panelItem3: 'Κιβώτια ταχυτήτων τζαι μηχανάες',
+        panelItem4: 'Ελαστικά τζαι φρένα',
+        panelNote: 'Εμείς το συμμαζεύκουμε σωστά… γιατί ούτε το αμάξι σου θέλει εκπλήξεις, ούτε εσύ θέλεις να γνωρίσεις τον γερανό!',
+        serviceBox1: 'Αλλάσσουμε λάθια, φίλτρα τζαι ελέγχουμε ιμάντες, για να δουλεύκει το αμάξι σου ρολόι',
+        serviceBox2: 'Εντοπίζουμε ηλεκτρικές τζαι μηχανικές βλάβες χωρίς μαντεψιές, για να ξέρεις ακριβώς ίντα φταίει',
+        serviceBox3: 'Άμαν το αμάξι αρχίσει να «λαλεί», εμείς ξέρουμε ακριβώς ίντα προσπαθεί να πει',
+        serviceBox4: 'Αλλάζουμε λάστιχα τζαι φροντίζουμε τα στόπερ σου, για να σταματά το αμάξι όταν πρέπει.',
+        aboutTitle: 'Γιατί να μας θκιαλέξετε;',
+        aboutText1: 'Το αμάξι σου αξίζει φροντίδα, όι δικαιολογίες.\n\nΕμείς αναλαμβάνουμε τη δουλειά με εμπειρία, γλήορη εξυπηρέτηση τζαι καθαρή κουβέντα, για να φεύκεις πάντα με την κελλέ σου ήσυχη.',
+        aboutText2: 'Με σοβαρή δουλειά τζ̆αι άμεση εξυπηρέτηση, το αυτοκίνητό σου εν σε καλά σ̆έρκα. Εσύ πίννεις τον καφέ σου με την ησυχία σου, τζ̆αι το αμάξι φεύκει λες τζ̆αι είπεν «θέκιου, μάστρε!»',
+        contactTitle: 'Επικοινωνία',
+        contactPhoneLabel: 'Τηλέφωνο:',
+        contactAddressLabel: 'Διεύθυνση:',
+        contactHoursLabel: 'Ωράριο:',
+        locationHintText: 'Συνέχισε ούλλο ίσια τζαι εν να με δεις στα δεξιά σου',
+        mapCtaLabel: 'Πάτα για χάρτη',
+        mapAriaLabel: 'Άνοιγμα τοποθεσίας στο Google Maps',
+        mondayLabel: 'Δευτέρα',
+        tuesdayLabel: 'Τρίτη',
+        wednesdayLabel: 'Τετάρτη',
+        thursdayLabel: 'Πέμπτη',
+        fridayLabel: 'Παρασκευή',
+        saturdayLabel: 'Σάββατο',
+        sundayLabel: 'Κυριακή',
+        sundayHours: 'Έν απαντώ την Κυριακή',
+        tiktokLabel: 'Έν Έχω!!',
+        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
+        ctaAppointment: 'Κλείστε ραντεβού',
+        ctaServices: 'Δείτε υπηρεσίες',
+        appointmentTitle: 'Ζητήστε ραντεβού',
+        namePlaceholder: 'Όνομα',
+        phonePlaceholder: 'Τηλέφωνο',
+        messagePlaceholder: 'Περιγράψτε το πρόβλημα ή την υπηρεσία που θέλετε',
+        submit: 'Αποστολή'
+      },
+      el: {
+        title: 'Maltezos Autoservice Garage',
+        navShop: 'Έχω και online κατάστημα',
+        heroTitle: 'Φέρτε το σε εμάς και θα το επισκευάσουμε, γιατί και το αυτοκίνητό σας θέλει φροντίδα',
+        heroDescription: 'Στο Maltezos Autoservice Garage δουλεύουμε σοβαρά και αποτελεσματικά.\nΜας φέρνετε το αυτοκίνητο, εντοπίζουμε έγκαιρα το πρόβλημα και το παραδίδουμε έτοιμο για τον δρόμο.\nΓρήγορη διάγνωση, σωστή δουλειά και καθαρή επικοινωνία.',
+        servicesTitle: 'Οι υπηρεσίες μας',
+        servicesDescription: 'Πριν ένα μικρό πρόβλημα γίνει μεγάλη ζημιά, φέρτε το σε εμάς.\nΣτο Maltezos Autoservice Garage το αντιμετωπίζουμε έγκαιρα και σωστά.',
+        panelLabel: 'Η φροντίδα ξεκινά εδώ',
+        panelTitle: 'Τι καλύπτουμε',
+        panelItem1: 'Service και συντήρηση',
+        panelItem2: 'Διάγνωση και επισκευές',
+        panelItem3: 'Κιβώτια ταχυτήτων και κινητήρες',
+        panelItem4: 'Ελαστικά και φρένα',
+        panelNote: 'Φροντίζουμε σωστά το αυτοκίνητό σας, για αξιόπιστη οδήγηση χωρίς δυσάρεστες εκπλήξεις.',
+        serviceBox1: 'Αλλάζουμε λάδια, φίλτρα και ελέγχουμε ιμάντες, ώστε το αυτοκίνητο να λειτουργεί αξιόπιστα.',
+        serviceBox2: 'Εντοπίζουμε ηλεκτρικές και μηχανικές βλάβες με ακριβή διάγνωση, χωρίς υποθέσεις.',
+        serviceBox3: 'Όταν το αυτοκίνητο παρουσιάζει συμπτώματα, εντοπίζουμε άμεσα την πραγματική αιτία.',
+        serviceBox4: 'Αναλαμβάνουμε ελαστικά και φρένα, ώστε το αυτοκίνητο να σταματά με ασφάλεια όταν χρειαστεί.',
+        aboutTitle: 'Γιατί να μας επιλέξετε;',
+        aboutText1: 'Το αυτοκίνητό σας αξίζει σωστή φροντίδα, όχι πρόχειρες λύσεις.\n\nΜε εμπειρία, ταχύτητα και καθαρή ενημέρωση, προσφέρουμε υπηρεσίες που μπορείτε να εμπιστευτείτε.',
+        aboutText2: 'Με επαγγελματική δουλειά και άμεση εξυπηρέτηση, το αυτοκίνητό σας βρίσκεται σε καλά χέρια.',
+        contactTitle: 'Επικοινωνία',
+        contactPhoneLabel: 'Τηλέφωνο:',
+        contactAddressLabel: 'Διεύθυνση:',
+        contactHoursLabel: 'Ωράριο:',
+        locationHintText: 'Συνέχισε ευθεία και θα με δεις στα δεξιά σου',
+        mapCtaLabel: 'Πάτα για χάρτη',
+        mapAriaLabel: 'Άνοιγμα τοποθεσίας στο Google Maps',
+        mondayLabel: 'Δευτέρα',
+        tuesdayLabel: 'Τρίτη',
+        wednesdayLabel: 'Τετάρτη',
+        thursdayLabel: 'Πέμπτη',
+        fridayLabel: 'Παρασκευή',
+        saturdayLabel: 'Σάββατο',
+        sundayLabel: 'Κυριακή',
+        sundayHours: 'Δεν απαντάμε την Κυριακή',
+        tiktokLabel: 'Δεν διαθέτουμε TikTok',
+        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
+        ctaAppointment: 'Κλείστε ραντεβού',
+        ctaServices: 'Δείτε υπηρεσίες',
+        appointmentTitle: 'Ζητήστε ραντεβού',
+        namePlaceholder: 'Όνομα',
+        phonePlaceholder: 'Τηλέφωνο',
+        messagePlaceholder: 'Περιγράψτε το πρόβλημα ή την υπηρεσία που θέλετε',
+        submit: 'Αποστολή'
+      },
+      en: {
+        title: 'Maltezos Autoservice Garage',
+        navShop: 'I also have an online shop',
+        heroTitle: 'Bring it to us and we will fix it, because your car deserves proper care',
+        heroDescription: 'At Maltezos Autoservice Garage we keep things simple and reliable.\nYou bring your car, we diagnose the issue early, and return it ready for the road.\nFast diagnostics, quality work, and clear communication.',
+        servicesTitle: 'Our Services',
+        servicesDescription: 'Before a small issue turns into a major one, bring your car to us.\nAt Maltezos Autoservice Garage we fix problems properly and on time.',
+        panelLabel: 'Care Starts Here',
+        panelTitle: 'What We Cover',
+        panelItem1: 'Service and maintenance',
+        panelItem2: 'Diagnostics and repairs',
+        panelItem3: 'Gearboxes and engines',
+        panelItem4: 'Tires and brakes',
+        panelNote: 'We service your vehicle properly, so you can drive with confidence and no surprises.',
+        serviceBox1: 'We replace oil and filters and inspect belts to keep your car running smoothly.',
+        serviceBox2: 'We detect electrical and mechanical faults with accurate diagnostics and no guesswork.',
+        serviceBox3: 'When your car starts showing symptoms, we identify the real cause quickly.',
+        serviceBox4: 'We handle tires and brakes so your vehicle stops safely when it matters most.',
+        aboutTitle: 'Why Choose Us?',
+        aboutText1: 'Your car deserves proper care, not quick fixes.\n\nWith experience, speed, and clear communication, we provide service you can trust.',
+        aboutText2: 'With professional work and fast response, your vehicle is in safe hands.',
+        contactTitle: 'Contact',
+        contactPhoneLabel: 'Phone:',
+        contactAddressLabel: 'Address:',
+        contactHoursLabel: 'Working hours:',
+        locationHintText: 'Keep going straight and you will see us on your right',
+        mapCtaLabel: 'Tap for map',
+        mapAriaLabel: 'Open location in Google Maps',
+        mondayLabel: 'Monday',
+        tuesdayLabel: 'Tuesday',
+        wednesdayLabel: 'Wednesday',
+        thursdayLabel: 'Thursday',
+        fridayLabel: 'Friday',
+        saturdayLabel: 'Saturday',
+        sundayLabel: 'Sunday',
+        sundayHours: 'Closed on Sunday',
+        tiktokLabel: 'No TikTok yet',
+        footerText: '© 2026 Maltezos Autoservice Garage. All rights reserved.',
+        ctaAppointment: 'Book appointment',
+        ctaServices: 'View services',
+        appointmentTitle: 'Request an appointment',
+        namePlaceholder: 'Name',
+        phonePlaceholder: 'Phone',
+        messagePlaceholder: 'Describe the issue or service you need',
+        submit: 'Send'
+      }
+    };
+
+    function getInitialLanguage() {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved === 'cy') {
+        return 'el';
+      }
+      if (saved === 'cy' || saved === 'el' || saved === 'en') {
+        return saved;
+      }
+      return 'el';
+    }
+
+    function applyLanguage(language) {
+      const copy = pageCopy[language] || pageCopy.cy;
+      document.documentElement.lang = language === 'en' ? 'en' : 'el';
+      document.title = copy.title;
+      localStorage.setItem(LANG_KEY, language);
+
+      document.getElementById('nav-shop-link').textContent = copy.navShop;
+      document.getElementById('hero-title').textContent = copy.heroTitle;
+      document.getElementById('hero-description').textContent = copy.heroDescription;
+      document.getElementById('services-title').textContent = copy.servicesTitle;
+      document.getElementById('services-description').textContent = copy.servicesDescription;
+      document.getElementById('panel-label').textContent = copy.panelLabel;
+      document.getElementById('panel-title').textContent = copy.panelTitle;
+      document.getElementById('panel-item-1').textContent = copy.panelItem1;
+      document.getElementById('panel-item-2').textContent = copy.panelItem2;
+      document.getElementById('panel-item-3').textContent = copy.panelItem3;
+      document.getElementById('panel-item-4').textContent = copy.panelItem4;
+      document.getElementById('panel-note').textContent = copy.panelNote;
+      document.getElementById('service-box-1').textContent = copy.serviceBox1;
+      document.getElementById('service-box-2').textContent = copy.serviceBox2;
+      document.getElementById('service-box-3').textContent = copy.serviceBox3;
+      document.getElementById('service-box-4').textContent = copy.serviceBox4;
+      document.getElementById('about-title').textContent = copy.aboutTitle;
+      document.getElementById('about-text-1').textContent = copy.aboutText1;
+      document.getElementById('about-text-2').textContent = copy.aboutText2;
+      document.getElementById('contact-title').textContent = copy.contactTitle;
+      document.getElementById('contact-phone-label').textContent = copy.contactPhoneLabel;
+      document.getElementById('contact-address-label').textContent = copy.contactAddressLabel;
+      document.getElementById('contact-hours-label').textContent = copy.contactHoursLabel;
+      document.getElementById('location-hint-text').textContent = copy.locationHintText;
+      document.getElementById('contact-map-link').setAttribute('data-map-label', copy.mapCtaLabel);
+      document.getElementById('contact-map-link').setAttribute('aria-label', copy.mapAriaLabel);
+      document.getElementById('monday-label').textContent = copy.mondayLabel;
+      document.getElementById('tuesday-label').textContent = copy.tuesdayLabel;
+      document.getElementById('wednesday-label').textContent = copy.wednesdayLabel;
+      document.getElementById('thursday-label').textContent = copy.thursdayLabel;
+      document.getElementById('friday-label').textContent = copy.fridayLabel;
+      document.getElementById('saturday-label').textContent = copy.saturdayLabel;
+      document.getElementById('sunday-label').textContent = copy.sundayLabel;
+      document.getElementById('sunday-hours').textContent = copy.sundayHours;
+      document.getElementById('tiktok-label').textContent = copy.tiktokLabel;
+      document.getElementById('footer-text').textContent = copy.footerText;
+      document.getElementById('hero-cta-appointment').textContent = copy.ctaAppointment;
+      document.getElementById('hero-cta-services').textContent = copy.ctaServices;
+      document.getElementById('appointment-title').textContent = copy.appointmentTitle;
+      document.getElementById('name').placeholder = copy.namePlaceholder;
+      document.getElementById('phone').placeholder = copy.phonePlaceholder;
+      document.getElementById('message').placeholder = copy.messagePlaceholder;
+      document.getElementById('appointment-submit').textContent = copy.submit;
+    }
+
+    function getLanguageMeta(language) {
+      if (language === 'cy') return { flag: 'https://flagcdn.com/w40/cy.png', label: 'Κυπριακά' };
+      if (language === 'en') return { flag: 'https://flagcdn.com/w40/gb.png', label: 'English' };
+      return { flag: 'https://flagcdn.com/w40/gr.png', label: 'Ελληνικά' };
+    }
+
+    function closeLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.remove('open');
+      languageToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.add('open');
+      languageToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function setLanguageUi(language) {
+      const meta = getLanguageMeta(language);
+      if (languageCurrentFlag) {
+        languageCurrentFlag.src = meta.flag;
+      }
+      if (languageToggle) {
+        languageToggle.setAttribute('aria-label', `Επιλογή γλώσσας (${meta.label})`);
+      }
+    }
+
+    const initialLanguage = getInitialLanguage();
+    applyLanguage(initialLanguage);
+    setLanguageUi(initialLanguage);
+
+    if (languageDropdown && languageToggle) {
+      languageToggle.addEventListener('click', function () {
+        if (languageDropdown.classList.contains('open')) {
+          closeLanguageMenu();
+        } else {
+          openLanguageMenu();
+        }
+      });
+
+      languageOptions.forEach((option) => {
+        option.addEventListener('click', function () {
+          const nextLanguage = this.dataset.lang || 'el';
+          applyLanguage(nextLanguage);
+          setLanguageUi(nextLanguage);
+          closeLanguageMenu();
+        });
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!languageDropdown.contains(event.target)) {
+          closeLanguageMenu();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeLanguageMenu();
+        }
+      });
+    }
+
     const stickyNav = document.querySelector('nav');
     if (stickyNav) {
       let lastScrollY = window.scrollY;

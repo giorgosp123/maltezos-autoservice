@@ -133,6 +133,81 @@
       flex-wrap: wrap;
     }
 
+    .lang-dropdown {
+      margin-left: auto;
+      position: relative;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      padding: 6px 8px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1;
+      height: 34px;
+      width: 56px;
+      cursor: pointer;
+    }
+
+    .lang-flag {
+      width: 20px;
+      height: 14px;
+      border-radius: 3px;
+      display: block;
+    }
+
+    .lang-caret {
+      font-size: 0.68rem;
+      line-height: 1;
+      opacity: 0.78;
+    }
+
+    .lang-menu {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 6px;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      min-width: 100%;
+      background: #ffffff;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 12px;
+      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.16);
+      z-index: 60;
+      display: none;
+    }
+
+    .lang-dropdown.open .lang-menu {
+      display: block;
+    }
+
+    .lang-option {
+      width: 42px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      padding: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .lang-option:hover {
+      background: #fff5f7;
+      color: var(--accent);
+    }
+
     .toolbar-links a {
       display: inline-flex;
       align-items: center;
@@ -599,6 +674,12 @@
         height: 30px;
       }
 
+      .lang-toggle {
+        height: 30px;
+        width: 48px;
+        font-size: 0.75rem;
+      }
+
       .toolbar-link-icon {
         width: 20px;
         height: 20px;
@@ -745,6 +826,12 @@
         height: 28px;
       }
 
+      .lang-toggle {
+        height: 28px;
+        width: 46px;
+        font-size: 0.7rem;
+      }
+
       .toolbar-link-icon {
         width: 18px;
         height: 18px;
@@ -814,6 +901,17 @@
     <div class="toolbar-links">
       <a href="index.html" aria-label="Αρχική"><span class="toolbar-link-icon" aria-hidden="true">🏠</span></a>
       <a href="shop.html" aria-label="Shop"><span class="toolbar-link-icon" aria-hidden="true">🛒</span></a>
+      <div id="language-dropdown" class="lang-dropdown">
+        <button id="language-toggle" class="lang-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Επιλογή γλώσσας">
+          <img id="language-current-flag" class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" />
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul id="language-menu" class="lang-menu" role="listbox" aria-label="Επιλογή γλώσσας">
+          <li><button type="button" class="lang-option" data-lang="cy" role="option" aria-label="Κυπριακά"><img class="lang-flag" src="https://flagcdn.com/w40/cy.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="el" role="option" aria-label="Ελληνικά"><img class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="en" role="option" aria-label="English"><img class="lang-flag" src="https://flagcdn.com/w40/gb.png" alt="" /></button></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -839,68 +937,209 @@
 
       <div class="product-content">
         <h1 id="product-name">Gearbox</h1>
-        <p class="subtitle">Εξειδικευμένο προϊόν κιβωτίου ταχυτήτων</p>
+        <p id="product-subtitle" class="subtitle">Εξειδικευμένο προϊόν κιβωτίου ταχυτήτων</p>
         <p id="price-display" class="price">€900 <span class="price-vat">με ΦΠΑ</span></p>
         <p id="stock-display" class="stock-badge stock-high"><span class="stock-dot" aria-hidden="true"></span><span class="stock-label">Διαθεσιμότητα</span><span class="stock-value">-</span></p>
         <p class="desc" id="product-description"></p>
 
-        <p class="section-label">Κοστολόγηση Προϊόντος</p>
+        <p id="pricing-label" class="section-label">Κοστολόγηση Προϊόντος</p>
         <div class="tradein-box">
-          <p class="tradein-title">Τρόπος τιμολόγησης</p>
+          <p id="tradein-title" class="tradein-title">Τρόπος τιμολόγησης</p>
           <select id="tradein-select" class="tradein-select" aria-label="Επιλογή παλιού κιβωτίου">
             <option value="with" selected>Με ανταλλαγή παλιού κιβωτίου — τελική τιμή €900</option>
             <option value="without">Χωρίς ανταλλαγή παλιού κιβωτίου — τελική τιμή €1000</option>
           </select>
-          <p class="tradein-note">Η τελική τιμή διαμορφώνεται ανάλογα με την επιλογή ανταλλαγής.</p>
+          <p id="tradein-note" class="tradein-note">Η τελική τιμή διαμορφώνεται ανάλογα με την επιλογή ανταλλαγής.</p>
         </div>
 
         <div class="meta-chips">
-          <span class="chip">Άμεση διαθεσιμότητα</span>
-          <span class="chip">Παράδοση 3 ώρες</span>
-          <span class="chip">Τεχνικός έλεγχος</span>
+          <span id="chip-availability" class="chip">Άμεση διαθεσιμότητα</span>
+          <span id="chip-delivery" class="chip">Παράδοση 3 ώρες</span>
+          <span id="chip-inspection" class="chip">Τεχνικός έλεγχος</span>
         </div>
 
-        <p class="section-label">Τεχνικά Στοιχεία</p>
+        <p id="specs-label" class="section-label">Τεχνικά Στοιχεία</p>
         <ul class="specs" id="product-specs"></ul>
 
-        <p class="section-label">Επικοινωνία</p>
+        <p id="contact-label" class="section-label">Επικοινωνία</p>
         <div class="actions">
           <a id="sms-link" class="btn btn-sms" href="#">Στείλε SMS για παραγγελία</a>
-          <a class="btn btn-call" href="tel:+35796355929">Κάλεσέ μας τώρα</a>
-          <a class="btn btn-back" href="shop.html">Πίσω στο shop</a>
+          <a id="call-link" class="btn btn-call" href="tel:+35796355929">Κάλεσέ μας τώρα</a>
+          <a id="back-link" class="btn btn-back" href="shop.html">Πίσω στο shop</a>
         </div>
 
-        <div class="delivery-note">Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</div>
+        <div id="delivery-note" class="delivery-note">Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</div>
       </div>
     </section>
   </main>
 
   <details class="legal-footer">
-    <summary class="legal-toggle">Νομικές πληροφορίες (πάτα για άνοιγμα)</summary>
+    <summary id="legal-toggle" class="legal-toggle">Νομικές πληροφορίες (πάτα για άνοιγμα)</summary>
     <div class="legal-content">
-      <p class="legal-intro">Συμπλήρωσε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.</p>
+      <p id="legal-intro-main" class="legal-intro">Συμπλήρωσε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.</p>
       <div class="legal-grid">
-        <p class="legal-item"><strong>Επωνυμία:</strong> Maltezos Autoservice Garage</p>
-        <p class="legal-item"><strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</p>
-        <p class="legal-item"><strong>Τηλέφωνο:</strong> +357 96355929</p>
-        <p class="legal-item"><strong>Email επικοινωνίας:</strong> [βάλε επίσημο email επιχείρησης]</p>
-        <p class="legal-item"><strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλε τα πραγματικά στοιχεία επιχείρησης]</p>
-        <p class="legal-item"><strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπλήρωσε αν περιλαμβάνεται ΦΠΑ].</p>
-        <p class="legal-item"><strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.</p>
-        <p class="legal-item"><strong>Ακυρώσεις/Επιστροφές:</strong> [βάλε την πολιτική ακύρωσης και επιστροφών].</p>
-        <p class="legal-item"><strong>Εγγύηση:</strong> [βάλε ακριβείς όρους εγγύησης ανά προϊόν].</p>
-        <p class="legal-item"><strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.</p>
+        <p id="legal-item-1" class="legal-item"><strong>Επωνυμία:</strong> Maltezos Autoservice Garage</p>
+        <p id="legal-item-2" class="legal-item"><strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</p>
+        <p id="legal-item-3" class="legal-item"><strong>Τηλέφωνο:</strong> +357 96355929</p>
+        <p id="legal-item-4" class="legal-item"><strong>Email επικοινωνίας:</strong> [βάλε επίσημο email επιχείρησης]</p>
+        <p id="legal-item-5" class="legal-item"><strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλε τα πραγματικά στοιχεία επιχείρησης]</p>
+        <p id="legal-item-6" class="legal-item"><strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπλήρωσε αν περιλαμβάνεται ΦΠΑ].</p>
+        <p id="legal-item-7" class="legal-item"><strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.</p>
+        <p id="legal-item-8" class="legal-item"><strong>Ακυρώσεις/Επιστροφές:</strong> [βάλε την πολιτική ακύρωσης και επιστροφών].</p>
+        <p id="legal-item-9" class="legal-item"><strong>Εγγύηση:</strong> [βάλε ακριβείς όρους εγγύησης ανά προϊόν].</p>
+        <p id="legal-item-10" class="legal-item"><strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.</p>
       </div>
-      <p class="legal-intro" style="margin-top: 12px;"><strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.</p>
+      <p id="legal-intro-note" class="legal-intro" style="margin-top: 12px;"><strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.</p>
     </div>
   </details>
 
-  <footer>
+  <footer id="footer-text">
     © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
   </footer>
 
   <script src="assets/js/products-catalog.js"></script>
   <script>
+    const LANG_KEY = 'maltezos-language';
+    const languageDropdown = document.getElementById('language-dropdown');
+    const languageToggle = document.getElementById('language-toggle');
+    const languageCurrentFlag = document.getElementById('language-current-flag');
+    const languageOptions = document.querySelectorAll('.lang-option');
+    let currentLanguage = 'cy';
+    const pageCopy = {
+      cy: {
+        title: 'Maltezos Autoservice | Λεπτομέρειες Προϊόντος',
+        subtitle: 'Εξειδικευμένο προϊόν κιβωτίου ταχυτήτων',
+        pricingLabel: 'Κοστολόγηση Προϊόντος',
+        tradeinTitle: 'Τρόπος τιμολόγησης',
+        tradeinNote: 'Η τελική τιμή διαμορφώνεται ανάλογα με την επιλογή ανταλλαγής.',
+        chipAvailability: 'Άμεση διαθεσιμότητα',
+        chipDelivery: 'Παράδοση 3 ώρες',
+        chipInspection: 'Τεχνικός έλεγχος',
+        specsLabel: 'Τεχνικά Στοιχεία',
+        contactLabel: 'Επικοινωνία',
+        smsButton: 'Στείλε SMS για παραγγελία',
+        callButton: 'Κάλεσέ μας τώρα',
+        backButton: 'Πίσω στο shop',
+        deliveryNote: 'Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.',
+        vatLabel: 'με ΦΠΑ',
+        stockLabel: 'Διαθεσιμότητα',
+        stockOne: 'κομμάτι',
+        stockMany: 'κομμάτια',
+        tradeinWith: 'Με ανταλλαγή παλιού κιβωτίου',
+        tradeinWithout: 'Χωρίς ανταλλαγή παλιού κιβωτίου',
+        finalPriceLabel: 'τελική τιμή',
+        smsWith: 'με παλιό κιβώτιο',
+        smsWithout: 'χωρίς παλιό κιβώτιο',
+        smsPrefix: 'Ενδιαφέρομαι για',
+        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
+        legalToggle: 'Νομικές πληροφορίες (πάτα για άνοιγμα)',
+        legalIntroMain: 'Συμπλήρωσε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.',
+        legalItem1: '<strong>Επωνυμία:</strong> Maltezos Autoservice Garage',
+        legalItem2: '<strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία',
+        legalItem3: '<strong>Τηλέφωνο:</strong> +357 96355929',
+        legalItem4: '<strong>Email επικοινωνίας:</strong> [βάλε επίσημο email επιχείρησης]',
+        legalItem5: '<strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλε τα πραγματικά στοιχεία επιχείρησης]',
+        legalItem6: '<strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπλήρωσε αν περιλαμβάνεται ΦΠΑ].',
+        legalItem7: '<strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.',
+        legalItem8: '<strong>Ακυρώσεις/Επιστροφές:</strong> [βάλε την πολιτική ακύρωσης και επιστροφών].',
+        legalItem9: '<strong>Εγγύηση:</strong> [βάλε ακριβείς όρους εγγύησης ανά προϊόν].',
+        legalItem10: '<strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.',
+        legalIntroNote: '<strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.'
+      },
+      el: {
+        title: 'Maltezos Autoservice | Λεπτομέρειες Προϊόντος',
+        subtitle: 'Εξειδικευμένο προϊόν κιβωτίου ταχυτήτων',
+        pricingLabel: 'Κοστολόγηση Προϊόντος',
+        tradeinTitle: 'Τρόπος τιμολόγησης',
+        tradeinNote: 'Η τελική τιμή διαμορφώνεται ανάλογα με την επιλογή ανταλλαγής.',
+        chipAvailability: 'Άμεση διαθεσιμότητα',
+        chipDelivery: 'Παράδοση 3 ωρών',
+        chipInspection: 'Τεχνικός έλεγχος',
+        specsLabel: 'Τεχνικά Στοιχεία',
+        contactLabel: 'Επικοινωνία',
+        smsButton: 'Στείλε SMS για παραγγελία',
+        callButton: 'Κάλεσέ μας τώρα',
+        backButton: 'Πίσω στο shop',
+        deliveryNote: 'Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.',
+        vatLabel: 'με ΦΠΑ',
+        stockLabel: 'Διαθεσιμότητα',
+        stockOne: 'κομμάτι',
+        stockMany: 'κομμάτια',
+        tradeinWith: 'Με ανταλλαγή παλιού κιβωτίου',
+        tradeinWithout: 'Χωρίς ανταλλαγή παλιού κιβωτίου',
+        finalPriceLabel: 'τελική τιμή',
+        smsWith: 'με παλιό κιβώτιο',
+        smsWithout: 'χωρίς παλιό κιβώτιο',
+        smsPrefix: 'Ενδιαφέρομαι για',
+        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
+        legalToggle: 'Νομικές πληροφορίες (πατήστε για άνοιγμα)',
+        legalIntroMain: 'Συμπληρώστε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.',
+        legalItem1: '<strong>Επωνυμία:</strong> Maltezos Autoservice Garage',
+        legalItem2: '<strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία',
+        legalItem3: '<strong>Τηλέφωνο:</strong> +357 96355929',
+        legalItem4: '<strong>Email επικοινωνίας:</strong> [βάλτε επίσημο email επιχείρησης]',
+        legalItem5: '<strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλτε τα πραγματικά στοιχεία επιχείρησης]',
+        legalItem6: '<strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπληρώστε αν περιλαμβάνεται ΦΠΑ].',
+        legalItem7: '<strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.',
+        legalItem8: '<strong>Ακυρώσεις/Επιστροφές:</strong> [βάλτε την πολιτική ακύρωσης και επιστροφών].',
+        legalItem9: '<strong>Εγγύηση:</strong> [βάλτε ακριβείς όρους εγγύησης ανά προϊόν].',
+        legalItem10: '<strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.',
+        legalIntroNote: '<strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.'
+      },
+      en: {
+        title: 'Maltezos Autoservice | Product Details',
+        subtitle: 'Specialized gearbox product',
+        pricingLabel: 'Product Pricing',
+        tradeinTitle: 'Pricing mode',
+        tradeinNote: 'Final price depends on whether an old gearbox is exchanged.',
+        chipAvailability: 'In stock now',
+        chipDelivery: '3-hour delivery',
+        chipInspection: 'Technical inspection',
+        specsLabel: 'Technical Specs',
+        contactLabel: 'Contact',
+        smsButton: 'Send SMS to order',
+        callButton: 'Call us now',
+        backButton: 'Back to shop',
+        deliveryNote: 'Delivery is completed within 3 hours of order placement.',
+        vatLabel: 'incl. VAT',
+        stockLabel: 'Availability',
+        stockOne: 'item',
+        stockMany: 'items',
+        tradeinWith: 'With old gearbox exchange',
+        tradeinWithout: 'Without old gearbox exchange',
+        finalPriceLabel: 'final price',
+        smsWith: 'with old gearbox exchange',
+        smsWithout: 'without old gearbox exchange',
+        smsPrefix: 'I am interested in',
+        footerText: '© 2026 Maltezos Autoservice Garage. All rights reserved.',
+        legalToggle: 'Legal Information (tap to open)',
+        legalIntroMain: 'Fill in the placeholders below with the real business details for full legal coverage.',
+        legalItem1: '<strong>Business name:</strong> Maltezos Autoservice Garage',
+        legalItem2: '<strong>Address:</strong> Praxandrou 50, Pano Deftera 2460, Nicosia',
+        legalItem3: '<strong>Phone:</strong> +357 96355929',
+        legalItem4: '<strong>Contact email:</strong> [add official business email]',
+        legalItem5: '<strong>Registration / VAT number:</strong> [add real business details]',
+        legalItem6: '<strong>Prices:</strong> Prices are shown in euro. [specify whether VAT is included].',
+        legalItem7: '<strong>Deliveries:</strong> Delivery is completed within 3 hours from order placement, unless otherwise communicated.',
+        legalItem8: '<strong>Cancellations/Returns:</strong> [add your cancellation and return policy].',
+        legalItem9: '<strong>Warranty:</strong> [add exact warranty terms per product].',
+        legalItem10: '<strong>Personal data:</strong> Contact details are used only for order processing and customer communication.',
+        legalIntroNote: '<strong>Note:</strong> For full legal compliance, it is recommended to review terms with a legal advisor.'
+      }
+    };
+
+    function getInitialLanguage() {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved === 'cy' || saved === 'el' || saved === 'en') {
+        return saved;
+      }
+      return 'cy';
+    }
+
+    function getCopy() {
+      return pageCopy[currentLanguage] || pageCopy.cy;
+    }
+
     const stickyNav = document.querySelector('.toolbar');
     if (stickyNav) {
       let lastScrollY = window.scrollY;
@@ -936,20 +1175,106 @@
     const defaultItemId = "gearbox-6m-hatch";
     const currentItemId = products[item] ? item : defaultItemId;
     const current = products[currentItemId] || {};
+    const productCopy = {
+      "gearbox-6m-hatch": {
+        cy: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Καθαρισμένο, ελεγμένο τζαι έτοιμο για τοποθέτηση.",
+          specs: ["Τύπος: Manual 6 σχέσεων", "Κατάσταση: Ελεγμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        el: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση.",
+          specs: ["Τύπος: Manual 6 σχέσεων", "Κατάσταση: Ελεγμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        en: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Cleaned, tested, and ready for installation.",
+          specs: ["Type: 6-speed manual", "Condition: Tested", "Warranty: Upon agreement"]
+        }
+      },
+      "gearbox-6a-sedan": {
+        cy: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Δοκιμασμένο σε πίεση τζαι σε θερμοκρασία λειτουργίας.",
+          specs: ["Τύπος: Automatic 6 σχέσεων", "Κατάσταση: Ελεγμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        el: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας.",
+          specs: ["Τύπος: Automatic 6 σχέσεων", "Κατάσταση: Ελεγμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        en: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Pressure-tested and verified at operating temperature.",
+          specs: ["Type: 6-speed automatic", "Condition: Tested", "Warranty: Upon agreement"]
+        }
+      },
+      "gearbox-5m-suv": {
+        cy: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Με έλεγχο γραναζιών τζαι καθαρό ιστορικό συντήρησης.",
+          specs: ["Τύπος: Manual 5 σχέσεων", "Κατάσταση: Ελεγμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        el: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης.",
+          specs: ["Τύπος: Manual 5 σχέσεων", "Κατάσταση: Ελεγμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        en: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Gearset inspected with a clear maintenance history.",
+          specs: ["Type: 5-speed manual", "Condition: Tested", "Warranty: Upon agreement"]
+        }
+      },
+      "gearbox-7a-premium": {
+        cy: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Πλήρως ανακατασκευασμένο με έλεγχο που την ομάδα μας.",
+          specs: ["Τύπος: Automatic 7 σχέσεων", "Κατάσταση: Ανακατασκευασμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        el: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας.",
+          specs: ["Τύπος: Automatic 7 σχέσεων", "Κατάσταση: Ανακατασκευασμένο", "Εγγύηση: Κατόπιν συνεννόησης"]
+        },
+        en: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Fully rebuilt and quality checked by our team.",
+          specs: ["Type: 7-speed automatic", "Condition: Rebuilt", "Warranty: Upon agreement"]
+        }
+      }
+    };
+
+    function getLocalizedProductData(language) {
+      const byItem = productCopy[currentItemId] || {};
+      const localized = byItem[language] || byItem.cy || {};
+      return {
+        name: localized.name || current.name || "Gearbox",
+        description: localized.description || current.description || "",
+        specs: Array.isArray(localized.specs) && localized.specs.length > 0 ? localized.specs : (current.specs || [])
+      };
+    }
     const basePrice = Number.isFinite(current.priceWithTradeIn) ? current.priceWithTradeIn : 900;
     const noTradeInPrice = Number.isFinite(current.priceWithoutTradeIn) ? current.priceWithoutTradeIn : 1000;
     let selectedPrice = basePrice;
     let selectedTradeInText = "με παλιό κιβώτιο";
 
-    document.getElementById("product-name").textContent = current.name || "Gearbox";
-    document.getElementById("product-description").textContent = current.description || "";
+    const initialProduct = getLocalizedProductData(currentLanguage);
+    document.getElementById("product-name").textContent = initialProduct.name;
+    document.getElementById("product-description").textContent = initialProduct.description;
 
     const specsList = document.getElementById("product-specs");
-    (current.specs || []).forEach((spec) => {
+    function renderSpecs(specs) {
+      specsList.innerHTML = "";
+      specs.forEach((spec) => {
       const li = document.createElement("li");
       li.textContent = spec;
       specsList.appendChild(li);
-    });
+      });
+    }
+
+    renderSpecs(initialProduct.specs);
 
     const recipientPhone = "+35796355929";
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -973,15 +1298,24 @@
     }
 
     stockDisplay.className = `stock-badge ${stockClass}`;
-    stockDisplay.innerHTML = `<span class="stock-dot" aria-hidden="true"></span><span class="stock-label">Διαθεσιμότητα</span><span class="stock-value">${currentStock} ${stockUnit}</span>`;
+
+    function renderStock() {
+      const copy = getCopy();
+      const unit = currentStock === 1 ? copy.stockOne : copy.stockMany;
+      stockDisplay.innerHTML = `<span class="stock-dot" aria-hidden="true"></span><span class="stock-label">${copy.stockLabel}</span><span class="stock-value">${currentStock} ${unit}</span>`;
+    }
 
     const withOption = tradeinSelect.querySelector('option[value="with"]');
     const withoutOption = tradeinSelect.querySelector('option[value="without"]');
-    if (withOption) {
-      withOption.textContent = `Με ανταλλαγή παλιού κιβωτίου — τελική τιμή €${basePrice}`;
-    }
-    if (withoutOption) {
-      withoutOption.textContent = `Χωρίς ανταλλαγή παλιού κιβωτίου — τελική τιμή €${noTradeInPrice}`;
+
+    function renderTradeInOptions() {
+      const copy = getCopy();
+      if (withOption) {
+        withOption.textContent = `${copy.tradeinWith} — ${copy.finalPriceLabel} €${basePrice}`;
+      }
+      if (withoutOption) {
+        withoutOption.textContent = `${copy.tradeinWithout} — ${copy.finalPriceLabel} €${noTradeInPrice}`;
+      }
     }
 
     function setMainImage(src) {
@@ -1078,29 +1412,149 @@
     });
 
     function updateOrderState() {
+      const copy = getCopy();
+      const currentProductName = document.getElementById('product-name').textContent || current.name || 'Gearbox';
       const smsText = encodeURIComponent(
-        `Ενδιαφέρομαι για ${current.name}, ${selectedTradeInText}, τιμή ${selectedPrice}€.`
+        `${copy.smsPrefix} ${currentProductName}, ${selectedTradeInText}, ${copy.finalPriceLabel} ${selectedPrice}€.`
       );
       const smsUrl = isIOS
         ? `sms:${recipientPhone}&body=${smsText}`
         : `sms:${recipientPhone}?body=${smsText}`;
 
-      priceDisplay.innerHTML = `€${selectedPrice} <span class="price-vat">με ΦΠΑ</span>`;
+      priceDisplay.innerHTML = `€${selectedPrice} <span class="price-vat">${copy.vatLabel}</span>`;
       smsLink.setAttribute("href", smsUrl);
     }
 
+    function applyLanguage(language) {
+      currentLanguage = language;
+      const copy = getCopy();
+      const localizedProduct = getLocalizedProductData(language);
+      document.documentElement.lang = language === 'en' ? 'en' : 'el';
+      document.title = copy.title;
+      localStorage.setItem(LANG_KEY, language);
+
+      document.getElementById('product-name').textContent = localizedProduct.name;
+      document.getElementById('product-description').textContent = localizedProduct.description;
+      renderSpecs(localizedProduct.specs);
+
+      document.getElementById('product-subtitle').textContent = copy.subtitle;
+      document.getElementById('pricing-label').textContent = copy.pricingLabel;
+      document.getElementById('tradein-title').textContent = copy.tradeinTitle;
+      document.getElementById('tradein-note').textContent = copy.tradeinNote;
+      document.getElementById('chip-availability').textContent = copy.chipAvailability;
+      document.getElementById('chip-delivery').textContent = copy.chipDelivery;
+      document.getElementById('chip-inspection').textContent = copy.chipInspection;
+      document.getElementById('specs-label').textContent = copy.specsLabel;
+      document.getElementById('contact-label').textContent = copy.contactLabel;
+      document.getElementById('sms-link').textContent = copy.smsButton;
+      document.getElementById('call-link').textContent = copy.callButton;
+      document.getElementById('back-link').textContent = copy.backButton;
+      document.getElementById('delivery-note').textContent = copy.deliveryNote;
+      document.getElementById('footer-text').textContent = copy.footerText;
+      document.getElementById('legal-toggle').textContent = copy.legalToggle;
+      document.getElementById('legal-intro-main').textContent = copy.legalIntroMain;
+      document.getElementById('legal-item-1').innerHTML = copy.legalItem1;
+      document.getElementById('legal-item-2').innerHTML = copy.legalItem2;
+      document.getElementById('legal-item-3').innerHTML = copy.legalItem3;
+      document.getElementById('legal-item-4').innerHTML = copy.legalItem4;
+      document.getElementById('legal-item-5').innerHTML = copy.legalItem5;
+      document.getElementById('legal-item-6').innerHTML = copy.legalItem6;
+      document.getElementById('legal-item-7').innerHTML = copy.legalItem7;
+      document.getElementById('legal-item-8').innerHTML = copy.legalItem8;
+      document.getElementById('legal-item-9').innerHTML = copy.legalItem9;
+      document.getElementById('legal-item-10').innerHTML = copy.legalItem10;
+      document.getElementById('legal-intro-note').innerHTML = copy.legalIntroNote;
+
+      renderStock();
+      renderTradeInOptions();
+
+      if (tradeinSelect.value === 'without') {
+        selectedTradeInText = copy.smsWithout;
+      } else {
+        selectedTradeInText = copy.smsWith;
+      }
+
+      updateOrderState();
+    }
+
+    function getLanguageMeta(language) {
+      if (language === 'cy') return { flag: 'https://flagcdn.com/w40/cy.png', label: 'Κυπριακά' };
+      if (language === 'en') return { flag: 'https://flagcdn.com/w40/gb.png', label: 'English' };
+      return { flag: 'https://flagcdn.com/w40/gr.png', label: 'Ελληνικά' };
+    }
+
+    function closeLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.remove('open');
+      languageToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.add('open');
+      languageToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function setLanguageUi(language) {
+      const meta = getLanguageMeta(language);
+      if (languageCurrentFlag) {
+        languageCurrentFlag.src = meta.flag;
+      }
+      if (languageToggle) {
+        languageToggle.setAttribute('aria-label', `Επιλογή γλώσσας (${meta.label})`);
+      }
+    }
+
+    const initialLanguage = getInitialLanguage();
+    applyLanguage(initialLanguage);
+    setLanguageUi(initialLanguage);
+
+    if (languageDropdown && languageToggle) {
+      languageToggle.addEventListener('click', function () {
+        if (languageDropdown.classList.contains('open')) {
+          closeLanguageMenu();
+        } else {
+          openLanguageMenu();
+        }
+      });
+
+      languageOptions.forEach((option) => {
+        option.addEventListener('click', function () {
+          const nextLanguage = this.dataset.lang || 'el';
+          applyLanguage(nextLanguage);
+          setLanguageUi(nextLanguage);
+          closeLanguageMenu();
+        });
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!languageDropdown.contains(event.target)) {
+          closeLanguageMenu();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeLanguageMenu();
+        }
+      });
+    }
+
     tradeinSelect.addEventListener("change", function () {
+      const copy = getCopy();
       if (this.value === "without") {
         selectedPrice = noTradeInPrice;
-        selectedTradeInText = "χωρίς παλιό κιβώτιο";
+        selectedTradeInText = copy.smsWithout;
       } else {
         selectedPrice = basePrice;
-        selectedTradeInText = "με παλιό κιβώτιο";
+        selectedTradeInText = copy.smsWith;
       }
 
       updateOrderState();
     });
 
+    renderStock();
+    renderTradeInOptions();
     updateOrderState();
   </script>
 </body>

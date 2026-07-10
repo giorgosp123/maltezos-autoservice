@@ -1,6 +1,6 @@
 param(
   [int]$DebounceSeconds = 6,
-  [int]$PollSeconds = 20,
+  [int]$PollSeconds = 8,
   [string]$MessagePrefix = "autosync"
 )
 
@@ -51,16 +51,27 @@ function Invoke-Git {
   }
 }
 
+function Write-Info {
+  param(
+    [string]$Message,
+    [ConsoleColor]$Color = [ConsoleColor]::Gray
+  )
+
+  $stamp = Get-Date -Format 'HH:mm:ss'
+  Write-Host "[$stamp] $Message" -ForegroundColor $Color
+}
+
 function Sync-RemoteIfNeeded {
   if (Test-RebaseInProgress) {
     return
   }
 
   if (Test-HasLocalChanges) {
+    Write-Info "Skipping pull because this PC has local changes waiting to be published." Yellow
     return
   }
 
-  Write-Host "Checking for remote updates..." -ForegroundColor Cyan
+  Write-Info "Checking for remote updates..." Cyan
   Invoke-Git -Args @("fetch", "origin", $branch) -ErrorMessage "Fetch failed."
 
   $counts = (git rev-list --left-right --count "$branch...origin/$branch").Trim() -split '\s+'
@@ -73,7 +84,7 @@ function Sync-RemoteIfNeeded {
 
   if ($behind -gt 0 -and $ahead -eq 0) {
     Invoke-Git -Args @("pull", "--rebase", "origin", $branch) -ErrorMessage "Pull failed."
-    Write-Host "Remote updates pulled to this PC." -ForegroundColor Green
+    Write-Info "Remote updates pulled to this PC." Green
   }
 }
 
@@ -93,7 +104,7 @@ function Publish-LocalChanges {
   $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
   $message = "$MessagePrefix $timestamp"
 
-  Write-Host "Publishing local changes..." -ForegroundColor Cyan
+  Write-Info "Publishing local changes..." Cyan
   Invoke-Git -Args @("add", ".") -ErrorMessage "git add failed."
 
   $staged = git diff --cached --name-only
@@ -107,18 +118,18 @@ function Publish-LocalChanges {
   try {
     Invoke-Git -Args @("pull", "--rebase", "origin", $branch) -ErrorMessage "Rebase pull failed."
   } catch {
-    Write-Host "Autosync stopped because a conflict needs manual resolution." -ForegroundColor Red
+    Write-Info "Autosync stopped because a conflict needs manual resolution." Red
     throw
   }
 
   Invoke-Git -Args @("push", "origin", $branch) -ErrorMessage "Push failed."
   $script:lastSeenChangeSignature = ""
   $script:lastLocalPublishAttempt = Get-Date
-  Write-Host "Changes pushed and available to the other PC." -ForegroundColor Green
+  Write-Info "Changes pushed and available to the other PC." Green
 }
 
-Write-Host "Autosync started on branch '$branch'." -ForegroundColor Green
-Write-Host "Keep this window open on both PCs." -ForegroundColor Yellow
+Write-Info "Autosync started on branch '$branch'." Green
+Write-Info "Keep this window open on both PCs." Yellow
 
 try {
   Sync-RemoteIfNeeded

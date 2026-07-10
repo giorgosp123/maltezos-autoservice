@@ -5,6 +5,7 @@ param(
 )
 
 $script:AutosyncVersion = "2026-07-10.1"
+$script:LogFile = Join-Path (Get-Location) "autosync.log"
 
 $ErrorActionPreference = 'Stop'
 
@@ -60,7 +61,9 @@ function Write-Info {
   )
 
   $stamp = Get-Date -Format 'HH:mm:ss'
-  Write-Host "[$stamp] $Message" -ForegroundColor $Color
+  $line = "[$stamp] $Message"
+  Write-Host $line -ForegroundColor $Color
+  Add-Content -Path $script:LogFile -Value $line
 }
 
 function Sync-RemoteIfNeeded {

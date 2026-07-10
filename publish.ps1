@@ -47,7 +47,7 @@ Write-Host "Syncing with remote branch '$branch'..." -ForegroundColor Cyan
 Invoke-Git -Args @("fetch", "origin", $branch) -ErrorMessage "Fetch failed."
 
 try {
-  Invoke-Git -Args @("pull", "--rebase", "origin", $branch) -ErrorMessage "Rebase pull failed."
+  Invoke-Git -Args @("rebase", "origin/$branch") -ErrorMessage "Rebase pull failed."
 } catch {
   Write-Host "Rebase failed (likely conflict). Resolve conflicts and run publish again." -ForegroundColor Red
   Write-Host "Helpful commands:" -ForegroundColor Yellow

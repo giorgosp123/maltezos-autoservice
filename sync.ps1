@@ -16,7 +16,7 @@ if ($LASTEXITCODE -ne 0) {
   throw "Fetch failed."
 }
 
-git pull --rebase origin $branch
+git rebase "origin/$branch"
 if ($LASTEXITCODE -ne 0) {
   Write-Host "Sync failed (possible conflict)." -ForegroundColor Red
   Write-Host "Use: git status, resolve conflicts, git add <files>, git rebase --continue" -ForegroundColor Yellow

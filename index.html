@@ -74,8 +74,9 @@
     }
 
     .topbar-inner {
-      max-width: 1200px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+      margin: 0;
       display: flex;
       justify-content: space-between;
       gap: 16px;
@@ -229,6 +230,68 @@
       border-radius: 999px;
       border: 1px solid rgba(17, 24, 39, 0.14);
       background: rgba(255, 255, 255, 0.94);
+
+    .legal-section {
+      max-width: 1200px;
+      margin: 0 auto 18px;
+      padding: 0 24px;
+    }
+
+    .legal-card {
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 22px 24px;
+    }
+
+    .legal-kicker {
+      margin: 0 0 8px;
+      color: var(--accent-dark);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .legal-section h2 {
+      margin: 0 0 10px;
+      color: var(--dark);
+      font-family: "Sora", "Manrope", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+      letter-spacing: -0.02em;
+    }
+
+    .legal-section p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .legal-points {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .legal-points li {
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--dark-soft);
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .legal-points strong {
+      color: var(--dark);
+    }
       color: var(--dark-soft);
       text-decoration: none;
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
@@ -857,6 +920,37 @@
       backdrop-filter: blur(8px);
     }
 
+    .footer-line {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .footer-legal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.86rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-legal-link:hover {
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
     .footer-google-link {
       display: inline-flex;
       align-items: center;
@@ -1066,6 +1160,19 @@
       .social-link svg {
         width: 16px;
         height: 16px;
+      }
+
+      footer {
+        padding: 18px 14px 20px;
+      }
+
+      .footer-line {
+        gap: 8px;
+      }
+
+      .footer-legal-link,
+      #footer-rights {
+        font-size: 0.74rem;
       }
     }
   </style>
@@ -1303,7 +1410,12 @@
   </div>
 
   <footer id="footer-text">
-    © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
+    <div class="footer-line">
+      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
+      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
+      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
+      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
+    </div>
   </footer>
 
   <script>
@@ -1350,7 +1462,10 @@
         sundayLabel: 'Κυριακή',
         sundayHours: 'Έν απαντώ την Κυριακή',
         tiktokLabel: 'Έν Έχω!!',
-        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.',
         ctaAppointment: 'Κλείστε ραντεβού',
         ctaServices: 'Δείτε υπηρεσίες',
         appointmentTitle: 'Ζητήστε ραντεβού',
@@ -1394,9 +1509,12 @@
         fridayLabel: 'Παρασκευή',
         saturdayLabel: 'Σάββατο',
         sundayLabel: 'Κυριακή',
-        sundayHours: 'Δεν απαντάμε την Κυριακή',
+        sundayHours: 'Κλειστό ',
         tiktokLabel: 'Δεν διαθέτουμε TikTok',
-        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.',
         ctaAppointment: 'Κλείστε ραντεβού',
         ctaServices: 'Δείτε υπηρεσίες',
         appointmentTitle: 'Ζητήστε ραντεβού',
@@ -1442,7 +1560,10 @@
         sundayLabel: 'Sunday',
         sundayHours: 'Closed on Sunday',
         tiktokLabel: 'No TikTok yet',
-        footerText: '© 2026 Maltezos Autoservice Garage. All rights reserved.',
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Personal Data Protection Policy.',
+        returnsLink: 'Returns Policy.',
+        consentLink: 'Consent.',
         ctaAppointment: 'Book appointment',
         ctaServices: 'View services',
         appointmentTitle: 'Request an appointment',
@@ -1505,7 +1626,10 @@
       document.getElementById('sunday-label').textContent = copy.sundayLabel;
       document.getElementById('sunday-hours').textContent = copy.sundayHours;
       document.getElementById('tiktok-label').textContent = copy.tiktokLabel;
-      document.getElementById('footer-text').textContent = copy.footerText;
+      document.getElementById('privacy-policy-link').textContent = copy.privacyLink;
+      document.getElementById('returns-policy-link').textContent = copy.returnsLink;
+      document.getElementById('consent-policy-link').textContent = copy.consentLink;
+      document.getElementById('footer-rights').textContent = copy.footerText;
       document.getElementById('hero-cta-appointment').textContent = copy.ctaAppointment;
       document.getElementById('hero-cta-services').textContent = copy.ctaServices;
       document.getElementById('appointment-title').textContent = copy.appointmentTitle;
@@ -1656,5 +1780,6 @@
       });
     }
   </script>
+  <script src="assets/js/cookie-banner.js"></script>
 </body>
 </html>

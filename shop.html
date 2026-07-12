@@ -61,7 +61,7 @@
     .topbar {
       background: linear-gradient(90deg, #0b1222 0%, #111b2f 60%, #17223b 100%);
       color: #f5d56b;
-      padding: 10px 24px;
+      padding: 10px 0;
       font-size: 0.95rem;
       border-bottom: 1px solid rgba(245, 213, 107, 0.2);
       position: relative;
@@ -74,8 +74,10 @@
     }
 
     .topbar-inner {
-      max-width: 1200px;
-      margin: 0 auto;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0 24px;
       display: flex;
       justify-content: space-between;
       gap: 16px;
@@ -541,6 +543,37 @@
       background: #1f2937;
     }
 
+    .footer-line {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .footer-legal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.86rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-legal-link:hover {
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
     footer {
       text-align: center;
       padding: 26px 24px 32px;
@@ -560,11 +593,12 @@
 
     @media (max-width: 820px) {
       .topbar {
-        padding: 8px 14px;
+        padding: 8px 0;
         font-size: 0.86rem;
       }
 
       .topbar-inner {
+        padding: 0 14px;
         gap: 8px;
       }
 
@@ -635,6 +669,10 @@
     @media (max-width: 390px) {
       .topbar {
         font-size: 0.8rem;
+      }
+
+      .topbar-inner {
+        padding: 0 12px;
       }
 
       nav {
@@ -820,7 +858,12 @@
   </main>
 
   <footer id="footer-text">
-    © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
+    <div class="footer-line">
+      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
+      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
+      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
+      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
+    </div>
   </footer>
 
   <script src="assets/js/products-catalog.js"></script>
@@ -847,7 +890,10 @@
         order: 'Παραγγελία',
         notePrefix: 'Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο',
         backHome: 'Πίσω στην αρχική',
-        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.'
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.'
       },
       el: {
         title: 'Maltezos Autoservice | Κατάστημα Κιβωτίων',
@@ -862,7 +908,10 @@
         order: 'Παραγγελία',
         notePrefix: 'Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο',
         backHome: 'Πίσω στην αρχική',
-        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.'
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.'
       },
       en: {
         title: 'Maltezos Autoservice | Gearbox Shop',
@@ -877,7 +926,10 @@
         order: 'Order',
         notePrefix: 'For reservation or compatibility confirmation, contact us directly at',
         backHome: 'Back to home',
-        footerText: '© 2026 Maltezos Autoservice Garage. All rights reserved.'
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Personal Data Protection Policy.',
+        returnsLink: 'Returns Policy.',
+        consentLink: 'Consent.'
       }
     };
 
@@ -980,7 +1032,10 @@
       document.getElementById('shop-head-text').textContent = copy.headText;
       document.getElementById('shop-note-prefix').textContent = copy.notePrefix;
       document.getElementById('back-home-link').textContent = copy.backHome;
-      document.getElementById('footer-text').textContent = copy.footerText;
+      document.getElementById('footer-rights').textContent = copy.footerText;
+      document.getElementById('privacy-policy-link').textContent = copy.privacyLink;
+      document.getElementById('returns-policy-link').textContent = copy.returnsLink;
+      document.getElementById('consent-policy-link').textContent = copy.consentLink;
 
       document.querySelectorAll('.buy-btn').forEach((btn) => {
         btn.textContent = copy.order;
@@ -1230,5 +1285,6 @@
       }
     });
   </script>
+  <script src="assets/js/cookie-banner.js"></script>
 </body>
 </html>

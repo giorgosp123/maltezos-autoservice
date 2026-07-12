@@ -551,94 +551,6 @@
       font-size: 0.93rem;
     }
 
-    .legal-footer {
-      margin: 0 auto 42px;
-      max-width: 1100px;
-      padding: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.24);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .legal-toggle {
-      list-style: none;
-      cursor: pointer;
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-weight: 700;
-      color: var(--dark);
-      background: #f8fafc;
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .legal-toggle::-webkit-details-marker {
-      display: none;
-    }
-
-    .legal-toggle::after {
-      content: "+";
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      background: rgba(215, 38, 61, 0.1);
-      color: var(--accent-dark);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .legal-footer[open] .legal-toggle::after {
-      content: "-";
-    }
-
-    .legal-content {
-      padding: 14px 8px 6px;
-    }
-
-    .legal-footer h3 {
-      margin: 0 0 10px;
-      color: var(--dark);
-      font-size: 1.08rem;
-      letter-spacing: -0.01em;
-    }
-
-    .legal-intro {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
-    .legal-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .legal-item {
-      margin: 0;
-      border: 1px solid rgba(17, 24, 39, 0.08);
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 10px 11px;
-      color: var(--muted);
-      font-size: 0.91rem;
-      line-height: 1.55;
-    }
-
-    .legal-footer strong {
-      color: var(--dark-soft);
-    }
-
     footer {
       text-align: center;
       padding: 26px 24px 32px;
@@ -648,6 +560,37 @@
       margin-top: 24px;
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(8px);
+    }
+
+    .footer-line {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .footer-legal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.86rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-legal-link:hover {
+      color: var(--accent);
+      transform: translateY(-1px);
     }
 
     @media (max-width: 820px) {
@@ -761,10 +704,6 @@
         padding: 8px 9px;
       }
 
-      .legal-grid {
-        grid-template-columns: 1fr;
-      }
-
       .actions {
         display: grid;
       }
@@ -778,24 +717,6 @@
       .delivery-note {
         font-size: 0.84rem;
         padding: 9px 10px;
-      }
-
-      .legal-toggle {
-        font-size: 0.9rem;
-        padding: 10px 12px;
-      }
-
-      .legal-content {
-        padding: 10px 4px 4px;
-      }
-
-      .legal-item {
-        font-size: 0.84rem;
-        padding: 8px 9px;
-      }
-
-      .legal-intro {
-        font-size: 0.84rem;
       }
 
       footer {
@@ -857,9 +778,7 @@
 
       .desc,
       .tradein-note,
-      .specs li,
-      .legal-item,
-      .legal-intro {
+      .specs li {
         font-size: 0.8rem;
       }
 
@@ -882,9 +801,6 @@
         font-size: 0.8rem;
       }
 
-      .legal-toggle {
-        font-size: 0.84rem;
-      }
     }
   </style>
 </head>
@@ -973,28 +889,13 @@
     </section>
   </main>
 
-  <details class="legal-footer">
-    <summary id="legal-toggle" class="legal-toggle">Νομικές πληροφορίες (πάτα για άνοιγμα)</summary>
-    <div class="legal-content">
-      <p id="legal-intro-main" class="legal-intro">Συμπλήρωσε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.</p>
-      <div class="legal-grid">
-        <p id="legal-item-1" class="legal-item"><strong>Επωνυμία:</strong> Maltezos Autoservice Garage</p>
-        <p id="legal-item-2" class="legal-item"><strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία</p>
-        <p id="legal-item-3" class="legal-item"><strong>Τηλέφωνο:</strong> +357 96355929</p>
-        <p id="legal-item-4" class="legal-item"><strong>Email επικοινωνίας:</strong> [βάλε επίσημο email επιχείρησης]</p>
-        <p id="legal-item-5" class="legal-item"><strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλε τα πραγματικά στοιχεία επιχείρησης]</p>
-        <p id="legal-item-6" class="legal-item"><strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπλήρωσε αν περιλαμβάνεται ΦΠΑ].</p>
-        <p id="legal-item-7" class="legal-item"><strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.</p>
-        <p id="legal-item-8" class="legal-item"><strong>Ακυρώσεις/Επιστροφές:</strong> [βάλε την πολιτική ακύρωσης και επιστροφών].</p>
-        <p id="legal-item-9" class="legal-item"><strong>Εγγύηση:</strong> [βάλε ακριβείς όρους εγγύησης ανά προϊόν].</p>
-        <p id="legal-item-10" class="legal-item"><strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.</p>
-      </div>
-      <p id="legal-intro-note" class="legal-intro" style="margin-top: 12px;"><strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.</p>
-    </div>
-  </details>
-
   <footer id="footer-text">
-    © 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.
+    <div class="footer-line">
+      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
+      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
+      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
+      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
+    </div>
   </footer>
 
   <script src="assets/js/products-catalog.js"></script>
@@ -1031,20 +932,10 @@
         smsWith: 'με παλιό κιβώτιο',
         smsWithout: 'χωρίς παλιό κιβώτιο',
         smsPrefix: 'Ενδιαφέρομαι για',
-        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
-        legalToggle: 'Νομικές πληροφορίες (πάτα για άνοιγμα)',
-        legalIntroMain: 'Συμπλήρωσε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.',
-        legalItem1: '<strong>Επωνυμία:</strong> Maltezos Autoservice Garage',
-        legalItem2: '<strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία',
-        legalItem3: '<strong>Τηλέφωνο:</strong> +357 96355929',
-        legalItem4: '<strong>Email επικοινωνίας:</strong> [βάλε επίσημο email επιχείρησης]',
-        legalItem5: '<strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλε τα πραγματικά στοιχεία επιχείρησης]',
-        legalItem6: '<strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπλήρωσε αν περιλαμβάνεται ΦΠΑ].',
-        legalItem7: '<strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.',
-        legalItem8: '<strong>Ακυρώσεις/Επιστροφές:</strong> [βάλε την πολιτική ακύρωσης και επιστροφών].',
-        legalItem9: '<strong>Εγγύηση:</strong> [βάλε ακριβείς όρους εγγύησης ανά προϊόν].',
-        legalItem10: '<strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.',
-        legalIntroNote: '<strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.'
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.'
       },
       el: {
         title: 'Maltezos Autoservice | Λεπτομέρειες Προϊόντος',
@@ -1071,20 +962,10 @@
         smsWith: 'με παλιό κιβώτιο',
         smsWithout: 'χωρίς παλιό κιβώτιο',
         smsPrefix: 'Ενδιαφέρομαι για',
-        footerText: '© 2026 Maltezos Autoservice Garage. Όλα τα δικαιώματα διατηρούνται.',
-        legalToggle: 'Νομικές πληροφορίες (πατήστε για άνοιγμα)',
-        legalIntroMain: 'Συμπληρώστε τα placeholders παρακάτω με τα πραγματικά στοιχεία της επιχείρησης για πλήρη νομική κάλυψη.',
-        legalItem1: '<strong>Επωνυμία:</strong> Maltezos Autoservice Garage',
-        legalItem2: '<strong>Έδρα:</strong> Πραξάνδρου 50, Πάνω Δευτερά 2460, Λευκωσία',
-        legalItem3: '<strong>Τηλέφωνο:</strong> +357 96355929',
-        legalItem4: '<strong>Email επικοινωνίας:</strong> [βάλτε επίσημο email επιχείρησης]',
-        legalItem5: '<strong>Αρ. εγγραφής / ΑΦΜ:</strong> [βάλτε τα πραγματικά στοιχεία επιχείρησης]',
-        legalItem6: '<strong>Τιμές:</strong> Οι τιμές εμφανίζονται σε ευρώ. [συμπληρώστε αν περιλαμβάνεται ΦΠΑ].',
-        legalItem7: '<strong>Παραδόσεις:</strong> Η παράδοση γίνεται εντός 3 ωρών από την παραγγελία, εκτός αν υπάρχει διαφορετική ενημέρωση.',
-        legalItem8: '<strong>Ακυρώσεις/Επιστροφές:</strong> [βάλτε την πολιτική ακύρωσης και επιστροφών].',
-        legalItem9: '<strong>Εγγύηση:</strong> [βάλτε ακριβείς όρους εγγύησης ανά προϊόν].',
-        legalItem10: '<strong>Προσωπικά δεδομένα:</strong> Τα στοιχεία επικοινωνίας χρησιμοποιούνται μόνο για εξυπηρέτηση παραγγελίας και επικοινωνία με τον πελάτη.',
-        legalIntroNote: '<strong>Σημείωση:</strong> Για πλήρη νομική συμμόρφωση, καλό είναι να ελεγχθούν οι όροι από νομικό σύμβουλο.'
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.'
       },
       en: {
         title: 'Maltezos Autoservice | Product Details',
@@ -1111,20 +992,10 @@
         smsWith: 'with old gearbox exchange',
         smsWithout: 'without old gearbox exchange',
         smsPrefix: 'I am interested in',
-        footerText: '© 2026 Maltezos Autoservice Garage. All rights reserved.',
-        legalToggle: 'Legal Information (tap to open)',
-        legalIntroMain: 'Fill in the placeholders below with the real business details for full legal coverage.',
-        legalItem1: '<strong>Business name:</strong> Maltezos Autoservice Garage',
-        legalItem2: '<strong>Address:</strong> Praxandrou 50, Pano Deftera 2460, Nicosia',
-        legalItem3: '<strong>Phone:</strong> +357 96355929',
-        legalItem4: '<strong>Contact email:</strong> [add official business email]',
-        legalItem5: '<strong>Registration / VAT number:</strong> [add real business details]',
-        legalItem6: '<strong>Prices:</strong> Prices are shown in euro. [specify whether VAT is included].',
-        legalItem7: '<strong>Deliveries:</strong> Delivery is completed within 3 hours from order placement, unless otherwise communicated.',
-        legalItem8: '<strong>Cancellations/Returns:</strong> [add your cancellation and return policy].',
-        legalItem9: '<strong>Warranty:</strong> [add exact warranty terms per product].',
-        legalItem10: '<strong>Personal data:</strong> Contact details are used only for order processing and customer communication.',
-        legalIntroNote: '<strong>Note:</strong> For full legal compliance, it is recommended to review terms with a legal advisor.'
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Personal Data Protection Policy.',
+        returnsLink: 'Returns Policy.',
+        consentLink: 'Consent.'
       }
     };
 
@@ -1450,20 +1321,10 @@
       document.getElementById('call-link').textContent = copy.callButton;
       document.getElementById('back-link').textContent = copy.backButton;
       document.getElementById('delivery-note').textContent = copy.deliveryNote;
-      document.getElementById('footer-text').textContent = copy.footerText;
-      document.getElementById('legal-toggle').textContent = copy.legalToggle;
-      document.getElementById('legal-intro-main').textContent = copy.legalIntroMain;
-      document.getElementById('legal-item-1').innerHTML = copy.legalItem1;
-      document.getElementById('legal-item-2').innerHTML = copy.legalItem2;
-      document.getElementById('legal-item-3').innerHTML = copy.legalItem3;
-      document.getElementById('legal-item-4').innerHTML = copy.legalItem4;
-      document.getElementById('legal-item-5').innerHTML = copy.legalItem5;
-      document.getElementById('legal-item-6').innerHTML = copy.legalItem6;
-      document.getElementById('legal-item-7').innerHTML = copy.legalItem7;
-      document.getElementById('legal-item-8').innerHTML = copy.legalItem8;
-      document.getElementById('legal-item-9').innerHTML = copy.legalItem9;
-      document.getElementById('legal-item-10').innerHTML = copy.legalItem10;
-      document.getElementById('legal-intro-note').innerHTML = copy.legalIntroNote;
+      document.getElementById('footer-rights').textContent = copy.footerText;
+      document.getElementById('privacy-policy-link').textContent = copy.privacyLink;
+      document.getElementById('returns-policy-link').textContent = copy.returnsLink;
+      document.getElementById('consent-policy-link').textContent = copy.consentLink;
 
       renderStock();
       renderTradeInOptions();
@@ -1557,5 +1418,6 @@
     renderTradeInOptions();
     updateOrderState();
   </script>
+  <script src="assets/js/cookie-banner.js"></script>
 </body>
 </html>

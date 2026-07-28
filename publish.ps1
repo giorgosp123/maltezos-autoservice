@@ -6,6 +6,45 @@ $ErrorActionPreference = 'Stop'
 
 Write-Host "Checking repository status..." -ForegroundColor Cyan
 
+function Get-NetlifyHookUrl {
+  $envHook = $env:NETLIFY_BUILD_HOOK_URL
+  if (-not [string]::IsNullOrWhiteSpace($envHook)) {
+    return $envHook.Trim()
+  }
+
+  $hookFile = Join-Path ".netlify" "deploy-hook-url.txt"
+  if (Test-Path $hookFile) {
+    $fileHook = (Get-Content -Path $hookFile -Raw).Trim()
+    if (-not [string]::IsNullOrWhiteSpace($fileHook)) {
+      return $fileHook
+    }
+  }
+
+  return $null
+}
+
+function Invoke-NetlifyHook {
+  $hookUrl = Get-NetlifyHookUrl
+  if (-not $hookUrl) {
+    Write-Host "Netlify hook not configured. Skipping Netlify trigger." -ForegroundColor Yellow
+    Write-Host "Set NETLIFY_BUILD_HOOK_URL or create .netlify/deploy-hook-url.txt" -ForegroundColor Yellow
+    return
+  }
+
+  Write-Host "Triggering Netlify deploy..." -ForegroundColor Cyan
+  try {
+    $response = Invoke-WebRequest -Uri $hookUrl -Method Post -UseBasicParsing
+    if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 300) {
+      Write-Host "Netlify deploy triggered successfully." -ForegroundColor Green
+    } else {
+      Write-Host "Netlify hook returned status $($response.StatusCode)." -ForegroundColor Yellow
+    }
+  } catch {
+    Write-Host "Netlify trigger failed: $($_.Exception.Message)" -ForegroundColor Red
+    throw
+  }
+}
+
 if (-not (Test-Path ".git")) {
   throw "This folder is not a git repository."
 }
@@ -60,4 +99,6 @@ try {
 
 Invoke-Git -Args @("push", "origin", $branch) -ErrorMessage "Push failed."
 
-Write-Host "Publish completed. GitHub Pages will update shortly." -ForegroundColor Green
+Invoke-NetlifyHook
+
+Write-Host "Publish completed. GitHub and Netlify are updated (or Netlify hook was skipped)." -ForegroundColor Green

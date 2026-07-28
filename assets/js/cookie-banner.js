@@ -11,21 +11,24 @@
       accept: 'Αποδοχή',
       privacy: 'Πολιτική προστασίας',
       returns: 'Πολιτική επιστροφών',
-      consent: 'Συγκατάθεση'
+      consent: 'Συγκατάθεση',
+      terms: 'Όροι χρήσης'
     },
     el: {
       message: 'Χρησιμοποιούμε απαραίτητα cookies για να λειτουργεί σωστά η σελίδα και για να θυμάται τις ρυθμίσεις σου.',
       accept: 'Αποδοχή',
       privacy: 'Πολιτική προστασίας',
       returns: 'Πολιτική επιστροφών',
-      consent: 'Συγκατάθεση'
+      consent: 'Συγκατάθεση',
+      terms: 'Όροι χρήσης'
     },
     en: {
       message: 'We use essential cookies so the site works properly and remembers your preferences.',
       accept: 'Accept',
       privacy: 'Privacy Policy',
       returns: 'Returns Policy',
-      consent: 'Consent Policy'
+      consent: 'Consent Policy',
+      terms: 'Terms of Use'
     }
   };
 
@@ -143,6 +146,7 @@
         <a class="cookie-banner__link" href="privacy-policy.html"></a>
         <a class="cookie-banner__link" href="returns-policy.html"></a>
         <a class="cookie-banner__link" href="consent.html"></a>
+        <a class="cookie-banner__link" href="terms-of-use.html"></a>
         <button class="cookie-banner__button" type="button"></button>
       </div>
     </div>
@@ -152,6 +156,7 @@
   const privacyLink = banner.querySelectorAll('.cookie-banner__link')[0];
   const returnsLink = banner.querySelectorAll('.cookie-banner__link')[1];
   const consentLink = banner.querySelectorAll('.cookie-banner__link')[2];
+  const termsLink = banner.querySelectorAll('.cookie-banner__link')[3];
   const button = banner.querySelector('.cookie-banner__button');
 
   function syncCopy() {
@@ -161,6 +166,7 @@
     privacyLink.textContent = copy.privacy;
     returnsLink.textContent = copy.returns;
     consentLink.textContent = copy.consent;
+    termsLink.textContent = copy.terms;
     button.textContent = copy.accept;
   }
 

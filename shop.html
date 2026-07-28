@@ -698,6 +698,31 @@
         font-size: 0.9rem;
       }
     }
+
+    .footer-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px 14px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .footer-legal-link {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+    }
   </style>
 </head>
 <body>
@@ -857,17 +882,9 @@
     </section>
   </main>
 
-  <footer id="footer-text">
-    <div class="footer-line">
-      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
-      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
-      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
-      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
-    </div>
-  </footer>
-
   <script src="assets/js/products-catalog.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', function () {
     const LANG_KEY = 'maltezos-language';
     const languageDropdown = document.getElementById('language-dropdown');
     const languageToggle = document.getElementById('language-toggle');
@@ -1036,6 +1053,7 @@
       document.getElementById('privacy-policy-link').textContent = copy.privacyLink;
       document.getElementById('returns-policy-link').textContent = copy.returnsLink;
       document.getElementById('consent-policy-link').textContent = copy.consentLink;
+      document.getElementById('terms-policy-link').textContent = copy.termsLink;
 
       document.querySelectorAll('.buy-btn').forEach((btn) => {
         btn.textContent = copy.order;
@@ -1284,7 +1302,18 @@
         }, 1800);
       }
     });
+    });
   </script>
   <script src="assets/js/cookie-banner.js"></script>
+
+  <footer id="footer-text">
+    <div class="footer-line">
+      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
+      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
+      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
+      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
+      <a id="terms-policy-link" class="footer-legal-link" href="terms-of-use.html">Όροι χρήσης.</a>
+    </div>
+  </footer>
 </body>
 </html>

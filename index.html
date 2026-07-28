@@ -230,6 +230,10 @@
       border-radius: 999px;
       border: 1px solid rgba(17, 24, 39, 0.14);
       background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
 
     .legal-section {
       max-width: 1200px;
@@ -291,10 +295,6 @@
 
     .legal-points strong {
       color: var(--dark);
-    }
-      color: var(--dark-soft);
-      text-decoration: none;
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
 
     .nav-mini-link:hover {
@@ -1409,16 +1409,8 @@
       </a>
   </div>
 
-  <footer id="footer-text">
-    <div class="footer-line">
-      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
-      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
-      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
-      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
-    </div>
-  </footer>
-
   <script>
+    document.addEventListener('DOMContentLoaded', function () {
     const LANG_KEY = 'maltezos-language';
     const languageDropdown = document.getElementById('language-dropdown');
     const languageToggle = document.getElementById('language-toggle');
@@ -1466,6 +1458,7 @@
         privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
         returnsLink: 'Πολιτική επιστροφών.',
         consentLink: 'Συγκατάθεση.',
+        termsLink: 'Όροι χρήσης.',
         ctaAppointment: 'Κλείστε ραντεβού',
         ctaServices: 'Δείτε υπηρεσίες',
         appointmentTitle: 'Ζητήστε ραντεβού',
@@ -1515,6 +1508,7 @@
         privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
         returnsLink: 'Πολιτική επιστροφών.',
         consentLink: 'Συγκατάθεση.',
+        termsLink: 'Όροι χρήσης.',
         ctaAppointment: 'Κλείστε ραντεβού',
         ctaServices: 'Δείτε υπηρεσίες',
         appointmentTitle: 'Ζητήστε ραντεβού',
@@ -1564,6 +1558,7 @@
         privacyLink: 'Personal Data Protection Policy.',
         returnsLink: 'Returns Policy.',
         consentLink: 'Consent.',
+        termsLink: 'Terms of Use.',
         ctaAppointment: 'Book appointment',
         ctaServices: 'View services',
         appointmentTitle: 'Request an appointment',
@@ -1576,9 +1571,6 @@
 
     function getInitialLanguage() {
       const saved = localStorage.getItem(LANG_KEY);
-      if (saved === 'cy') {
-        return 'el';
-      }
       if (saved === 'cy' || saved === 'el' || saved === 'en') {
         return saved;
       }
@@ -1629,6 +1621,7 @@
       document.getElementById('privacy-policy-link').textContent = copy.privacyLink;
       document.getElementById('returns-policy-link').textContent = copy.returnsLink;
       document.getElementById('consent-policy-link').textContent = copy.consentLink;
+      document.getElementById('terms-policy-link').textContent = copy.termsLink;
       document.getElementById('footer-rights').textContent = copy.footerText;
       document.getElementById('hero-cta-appointment').textContent = copy.ctaAppointment;
       document.getElementById('hero-cta-services').textContent = copy.ctaServices;
@@ -1779,7 +1772,18 @@
         window.location.href = smsUrl;
       });
     }
+    });
   </script>
   <script src="assets/js/cookie-banner.js"></script>
+
+  <footer id="footer-text">
+    <div class="footer-line">
+      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
+      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
+      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
+      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
+      <a id="terms-policy-link" class="footer-legal-link" href="terms-of-use.html">Όροι χρήσης.</a>
+    </div>
+  </footer>
 </body>
 </html>

@@ -3,131 +3,152 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#111111" />
+  <meta name="theme-color" content="#0b0b0b" />
   <title>Business Website</title>
-  <meta name="description" content="Professional local business website" />
+  <meta name="description" content="Premium local business website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#home" id="brandName">Business</a>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#hours">Hours</a>
-    </nav>
-    <a class="mini-cta" href="#booking">Book now</a>
-  </header>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" id="brandName">Business</a>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#hours">Visit</a>
+      </nav>
+      <a class="mini-cta" href="#booking">Book now <span>↗</span></a>
+    </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-copy">
-        <span class="eyebrow" id="heroBadge">LOCAL BUSINESS · CYPRUS</span>
-        <h1 id="heroTitle">Your business, beautifully online.</h1>
-        <p id="heroDescription"></p>
-        <div class="actions">
-          <a class="button primary" id="bookButton" href="#booking">Book appointment</a>
-          <a class="button secondary" id="whatsappButton" href="#">WhatsApp</a>
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <span class="eyebrow" id="heroBadge">PREMIUM BARBER · NICOSIA</span>
+          <h1 id="heroTitle">Precision cuts. Modern style.</h1>
+          <p id="heroDescription"></p>
+          <div class="actions">
+            <a class="button primary" id="bookButton" href="#booking">Book appointment <span>↗</span></a>
+            <a class="button secondary" id="whatsappButton" href="#">WhatsApp</a>
+          </div>
+          <div class="trust-row">
+            <span><b>4.9</b> rating</span>
+            <span><b>800+</b> clients</span>
+            <span><b>30 sec</b> booking</span>
+          </div>
         </div>
-        <div class="trust-row">
-          <span>✓ Clear pricing</span>
-          <span>✓ Fast booking</span>
-          <span>✓ Mobile friendly</span>
+
+        <div class="hero-visual">
+          <div class="hero-photo" id="heroPhoto"></div>
+          <div class="hero-gradient"></div>
+          <div class="hero-number">01</div>
+          <div class="hero-float-card">
+            <div>
+              <span>NOW BOOKING</span>
+              <strong id="cardBusinessName">Business</strong>
+            </div>
+            <small id="cardTagline"></small>
+          </div>
         </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-photo" id="heroPhoto"></div>
-        <div class="hero-float-card">
-          <span>BOOKINGS OPEN</span>
-          <strong id="cardBusinessName">Business</strong>
-          <small id="cardTagline"></small>
+      </section>
+
+      <section class="stats-strip" id="statsStrip"></section>
+
+      <section class="section services-section" id="services">
+        <div class="section-heading editorial-heading">
+          <div>
+            <span>01 · SERVICES</span>
+            <h2>Choose your<br><em>signature look.</em></h2>
+          </div>
+          <p>Clear prices, no surprises. Pick a service and request your preferred time in seconds.</p>
         </div>
-      </div>
-    </section>
+        <div class="service-grid" id="serviceGrid"></div>
+      </section>
 
-    <section class="stats-strip" id="statsStrip"></section>
-
-    <section class="section" id="services">
-      <div class="section-heading">
-        <span>OUR MENU</span>
-        <h2>Services & prices</h2>
-      </div>
-      <div class="service-grid" id="serviceGrid"></div>
-    </section>
-
-    <section class="section gallery-section" id="gallery">
-      <div class="section-heading gallery-heading">
-        <div>
-          <span>THE STUDIO</span>
-          <h2>Fresh work. Clean detail.</h2>
+      <section class="section gallery-section" id="gallery">
+        <div class="section-heading editorial-heading gallery-heading">
+          <div>
+            <span>02 · THE STUDIO</span>
+            <h2>Crafted with<br><em>attention to detail.</em></h2>
+          </div>
+          <p id="galleryNote">A modern barber experience built around detail, consistency and easy booking.</p>
         </div>
-        <p id="galleryNote">A modern barber experience built around detail, consistency and easy booking.</p>
-      </div>
-      <div class="gallery-grid" id="galleryGrid"></div>
-    </section>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </section>
 
-    <section class="section reviews" id="reviews">
-      <div class="section-heading">
-        <span>CLIENT LOVE</span>
-        <h2>What clients say</h2>
-      </div>
-      <div class="review-grid" id="reviewGrid"></div>
-    </section>
-
-    <section class="split section" id="hours">
-      <div>
-        <div class="section-heading">
-          <span>VISIT US</span>
-          <h2>Opening hours</h2>
+      <section class="section reviews" id="reviews">
+        <div class="section-heading editorial-heading">
+          <div>
+            <span>03 · REVIEWS</span>
+            <h2>Good cuts.<br><em>Better word of mouth.</em></h2>
+          </div>
+          <div class="review-score"><strong>4.9</strong><span>★★★★★<br>Average client rating</span></div>
         </div>
-        <div id="hoursList" class="hours-list"></div>
-      </div>
-      <div class="contact-card" id="contact">
-        <span class="contact-kicker">CONTACT</span>
-        <h3>Ready for your next cut?</h3>
-        <a id="phoneLink" href="#"></a>
-        <a id="emailLink" href="#"></a>
-        <a id="mapLink" href="#" target="_blank" rel="noopener"></a>
-        <div class="contact-note" id="contactNote"></div>
-      </div>
-    </section>
+        <div class="review-grid" id="reviewGrid"></div>
+      </section>
 
-    <section class="booking" id="booking">
-      <span>BOOK IN 30 SECONDS</span>
-      <h2>Choose a service and send your request.</h2>
-      <p>No account needed. Your request opens directly in WhatsApp with the service and preferred time already filled in.</p>
-      <form id="bookingForm" class="booking-form">
-        <label>
-          Service
-          <select id="bookingService" required></select>
-        </label>
-        <label>
-          Preferred date
-          <input id="bookingDate" type="date" required />
-        </label>
-        <label>
-          Preferred time
-          <input id="bookingTime" type="time" required />
-        </label>
-        <label>
-          Your name
-          <input id="bookingName" type="text" placeholder="Your name" required />
-        </label>
-        <button class="button light" type="submit">Send booking request</button>
-      </form>
-    </section>
-  </main>
+      <section class="split section" id="hours">
+        <div class="hours-panel">
+          <div class="section-heading">
+            <span>04 · VISIT</span>
+            <h2>Find your<br><em>time slot.</em></h2>
+          </div>
+          <div id="hoursList" class="hours-list"></div>
+        </div>
+        <div class="contact-card" id="contact">
+          <span class="contact-kicker">NOIR · NICOSIA</span>
+          <h3>Ready for your next cut?</h3>
+          <p class="contact-intro">Call, message or open the map. Everything you need is one tap away.</p>
+          <div class="contact-links">
+            <a id="phoneLink" href="#"></a>
+            <a id="emailLink" href="#"></a>
+            <a id="mapLink" href="#" target="_blank" rel="noopener"></a>
+          </div>
+          <div class="contact-note" id="contactNote"></div>
+        </div>
+      </section>
 
-  <footer>
-    <span id="footerBusinessName">Business</span>
-    <span>Premium Website-in-a-box demo</span>
-  </footer>
+      <section class="booking" id="booking">
+        <div class="booking-copy">
+          <span>05 · BOOK</span>
+          <h2>Your next appointment is <em>30 seconds away.</em></h2>
+          <p>No account. No app. Choose a service and preferred time, then send the request directly through WhatsApp.</p>
+        </div>
+        <form id="bookingForm" class="booking-form">
+          <label>
+            <span>Service</span>
+            <select id="bookingService" required></select>
+          </label>
+          <label>
+            <span>Preferred date</span>
+            <input id="bookingDate" type="date" required />
+          </label>
+          <label>
+            <span>Preferred time</span>
+            <input id="bookingTime" type="time" required />
+          </label>
+          <label>
+            <span>Your name</span>
+            <input id="bookingName" type="text" placeholder="Your name" required />
+          </label>
+          <button class="button light" type="submit">Send booking request <span>↗</span></button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div><strong id="footerBusinessName">Business</strong><span>Premium grooming studio</span></div>
+      <span>Website-in-a-box · Cyprus</span>
+    </footer>
+  </div>
 
   <div class="mobile-bar">
-    <a id="mobileCall" href="#">Call</a>
-    <a id="mobileWhatsApp" href="#">WhatsApp</a>
-    <a href="#booking">Book</a>
+    <a id="mobileCall" href="#"><span>☎</span>Call</a>
+    <a id="mobileWhatsApp" href="#"><span>◉</span>WhatsApp</a>
+    <a href="#booking"><span>↗</span>Book</a>
   </div>
 
   <script src="config.js"></script>

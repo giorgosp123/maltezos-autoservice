@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#111111" />
+  <title>Business Website</title>
+  <meta name="description" content="Professional local business website" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" id="brandName">Business</a>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#hours">Hours</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">LOCAL BUSINESS · CYPRUS</span>
+        <h1 id="heroTitle">Your business, beautifully online.</h1>
+        <p id="heroDescription"></p>
+        <div class="actions">
+          <a class="button primary" id="bookButton" href="#booking">Book now</a>
+          <a class="button secondary" id="whatsappButton" href="#">WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-label">TODAY</div>
+        <div class="hero-card-title" id="cardBusinessName">Business</div>
+        <div class="hero-card-text">Fast contact · Clear pricing · Mobile first</div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-heading">
+        <span>WHAT WE DO</span>
+        <h2>Services</h2>
+      </div>
+      <div class="service-grid" id="serviceGrid"></div>
+    </section>
+
+    <section class="split section" id="hours">
+      <div>
+        <div class="section-heading">
+          <span>VISIT US</span>
+          <h2>Opening hours</h2>
+        </div>
+        <div id="hoursList" class="hours-list"></div>
+      </div>
+      <div class="contact-card" id="contact">
+        <h3>Contact</h3>
+        <a id="phoneLink" href="#"></a>
+        <a id="emailLink" href="#"></a>
+        <a id="mapLink" href="#" target="_blank" rel="noopener"></a>
+      </div>
+    </section>
+
+    <section class="booking" id="booking">
+      <span>READY?</span>
+      <h2>Turn visits into bookings.</h2>
+      <p>This area can later connect to a booking service, form or WhatsApp flow.</p>
+      <a class="button primary" id="bookingCta" href="#">Start booking</a>
+    </section>
+  </main>
+
+  <footer>
+    <span id="footerBusinessName">Business</span>
+    <span>Website-in-a-box demo</span>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

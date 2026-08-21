@@ -2,11 +2,35 @@ const c=window.SITE_CONFIG||{};
 const byId=id=>document.getElementById(id);
 const txt=(id,value)=>{const el=byId(id);if(el)el.textContent=value||""};
 
-// Always start at the top on a normal page load. If the user deliberately
-// arrives with an anchor (for example #booking), keep that anchor behavior.
+// iOS Safari can restore an old scroll position after dynamic content has
+// rendered. On a normal visit, keep the page pinned to the top through the
+// full load cycle. Deliberate anchor visits such as #booking still work.
+const shouldStartAtTop=!location.hash;
 if("scrollRestoration" in history) history.scrollRestoration="manual";
+const forceTop=()=>{
+  if(!shouldStartAtTop) return;
+  document.documentElement.scrollTop=0;
+  if(document.body) document.body.scrollTop=0;
+  window.scrollTo(0,0);
+};
+
+forceTop();
+requestAnimationFrame(forceTop);
+window.addEventListener("DOMContentLoaded",()=>{
+  forceTop();
+  setTimeout(forceTop,0);
+  setTimeout(forceTop,100);
+});
+window.addEventListener("load",()=>{
+  forceTop();
+  setTimeout(forceTop,50);
+  setTimeout(forceTop,250);
+  setTimeout(forceTop,700);
+});
 window.addEventListener("pageshow",()=>{
-  if(!location.hash) requestAnimationFrame(()=>window.scrollTo(0,0));
+  forceTop();
+  setTimeout(forceTop,100);
+  setTimeout(forceTop,500);
 });
 
 document.title=c.businessName?`${c.businessName} | Cyprus`:"Business Website";

@@ -13,9 +13,11 @@
     <a class="brand" href="#home" id="brandName">Business</a>
     <nav>
       <a href="#services">Services</a>
+      <a href="#reviews">Reviews</a>
       <a href="#hours">Hours</a>
       <a href="#contact">Contact</a>
     </nav>
+    <a class="mini-cta" href="#booking">Book now</a>
   </header>
 
   <main>
@@ -28,20 +30,33 @@
           <a class="button primary" id="bookButton" href="#booking">Book now</a>
           <a class="button secondary" id="whatsappButton" href="#">WhatsApp</a>
         </div>
+        <div class="trust-row">
+          <span>✓ Mobile friendly</span>
+          <span>✓ Fast contact</span>
+          <span>✓ Simple booking</span>
+        </div>
       </div>
       <div class="hero-card">
-        <div class="hero-card-label">TODAY</div>
+        <div class="hero-card-label">OPEN FOR BOOKINGS</div>
         <div class="hero-card-title" id="cardBusinessName">Business</div>
-        <div class="hero-card-text">Fast contact · Clear pricing · Mobile first</div>
+        <div class="hero-card-text" id="cardTagline">Fast contact · Clear pricing · Mobile first</div>
       </div>
     </section>
 
     <section class="section" id="services">
       <div class="section-heading">
         <span>WHAT WE DO</span>
-        <h2>Services</h2>
+        <h2>Services & prices</h2>
       </div>
       <div class="service-grid" id="serviceGrid"></div>
+    </section>
+
+    <section class="section reviews" id="reviews">
+      <div class="section-heading">
+        <span>TRUST</span>
+        <h2>What clients say</h2>
+      </div>
+      <div class="review-grid" id="reviewGrid"></div>
     </section>
 
     <section class="split section" id="hours">
@@ -53,7 +68,8 @@
         <div id="hoursList" class="hours-list"></div>
       </div>
       <div class="contact-card" id="contact">
-        <h3>Contact</h3>
+        <span class="contact-kicker">CONTACT</span>
+        <h3>Ready when you are.</h3>
         <a id="phoneLink" href="#"></a>
         <a id="emailLink" href="#"></a>
         <a id="mapLink" href="#" target="_blank" rel="noopener"></a>
@@ -61,10 +77,28 @@
     </section>
 
     <section class="booking" id="booking">
-      <span>READY?</span>
-      <h2>Turn visits into bookings.</h2>
-      <p>This area can later connect to a booking service, form or WhatsApp flow.</p>
-      <a class="button primary" id="bookingCta" href="#">Start booking</a>
+      <span>BOOK IN 30 SECONDS</span>
+      <h2>Choose a service and send your request.</h2>
+      <p>No account needed. Your booking request opens directly in WhatsApp with the service and preferred time already filled in.</p>
+      <form id="bookingForm" class="booking-form">
+        <label>
+          Service
+          <select id="bookingService" required></select>
+        </label>
+        <label>
+          Preferred date
+          <input id="bookingDate" type="date" required />
+        </label>
+        <label>
+          Preferred time
+          <input id="bookingTime" type="time" required />
+        </label>
+        <label>
+          Your name
+          <input id="bookingName" type="text" placeholder="Your name" required />
+        </label>
+        <button class="button light" type="submit">Send booking request</button>
+      </form>
     </section>
   </main>
 
@@ -72,6 +106,12 @@
     <span id="footerBusinessName">Business</span>
     <span>Website-in-a-box demo</span>
   </footer>
+
+  <div class="mobile-bar">
+    <a id="mobileCall" href="#">Call</a>
+    <a id="mobileWhatsApp" href="#">WhatsApp</a>
+    <a href="#booking">Book</a>
+  </div>
 
   <script src="config.js"></script>
   <script src="script.js"></script>

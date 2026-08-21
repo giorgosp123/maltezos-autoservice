@@ -2,6 +2,13 @@ const c=window.SITE_CONFIG||{};
 const byId=id=>document.getElementById(id);
 const txt=(id,value)=>{const el=byId(id);if(el)el.textContent=value||""};
 
+// Always start at the top on a normal page load. If the user deliberately
+// arrives with an anchor (for example #booking), keep that anchor behavior.
+if("scrollRestoration" in history) history.scrollRestoration="manual";
+window.addEventListener("pageshow",()=>{
+  if(!location.hash) requestAnimationFrame(()=>window.scrollTo(0,0));
+});
+
 document.title=c.businessName?`${c.businessName} | Cyprus`:"Business Website";
 txt("brandName",c.businessName);
 txt("heroTitle",c.tagline||c.businessName);

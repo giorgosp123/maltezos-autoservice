@@ -13,9 +13,9 @@
     <a class="brand" href="#home" id="brandName">Business</a>
     <nav>
       <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
       <a href="#reviews">Reviews</a>
       <a href="#hours">Hours</a>
-      <a href="#contact">Contact</a>
     </nav>
     <a class="mini-cta" href="#booking">Book now</a>
   </header>
@@ -23,37 +23,53 @@
   <main>
     <section class="hero" id="home">
       <div class="hero-copy">
-        <span class="eyebrow">LOCAL BUSINESS · CYPRUS</span>
+        <span class="eyebrow" id="heroBadge">LOCAL BUSINESS · CYPRUS</span>
         <h1 id="heroTitle">Your business, beautifully online.</h1>
         <p id="heroDescription"></p>
         <div class="actions">
-          <a class="button primary" id="bookButton" href="#booking">Book now</a>
+          <a class="button primary" id="bookButton" href="#booking">Book appointment</a>
           <a class="button secondary" id="whatsappButton" href="#">WhatsApp</a>
         </div>
         <div class="trust-row">
+          <span>✓ Clear pricing</span>
+          <span>✓ Fast booking</span>
           <span>✓ Mobile friendly</span>
-          <span>✓ Fast contact</span>
-          <span>✓ Simple booking</span>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="hero-card-label">OPEN FOR BOOKINGS</div>
-        <div class="hero-card-title" id="cardBusinessName">Business</div>
-        <div class="hero-card-text" id="cardTagline">Fast contact · Clear pricing · Mobile first</div>
+      <div class="hero-visual">
+        <div class="hero-photo" id="heroPhoto"></div>
+        <div class="hero-float-card">
+          <span>BOOKINGS OPEN</span>
+          <strong id="cardBusinessName">Business</strong>
+          <small id="cardTagline"></small>
+        </div>
       </div>
     </section>
 
+    <section class="stats-strip" id="statsStrip"></section>
+
     <section class="section" id="services">
       <div class="section-heading">
-        <span>WHAT WE DO</span>
+        <span>OUR MENU</span>
         <h2>Services & prices</h2>
       </div>
       <div class="service-grid" id="serviceGrid"></div>
     </section>
 
+    <section class="section gallery-section" id="gallery">
+      <div class="section-heading gallery-heading">
+        <div>
+          <span>THE STUDIO</span>
+          <h2>Fresh work. Clean detail.</h2>
+        </div>
+        <p id="galleryNote">A modern barber experience built around detail, consistency and easy booking.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
     <section class="section reviews" id="reviews">
       <div class="section-heading">
-        <span>TRUST</span>
+        <span>CLIENT LOVE</span>
         <h2>What clients say</h2>
       </div>
       <div class="review-grid" id="reviewGrid"></div>
@@ -69,17 +85,18 @@
       </div>
       <div class="contact-card" id="contact">
         <span class="contact-kicker">CONTACT</span>
-        <h3>Ready when you are.</h3>
+        <h3>Ready for your next cut?</h3>
         <a id="phoneLink" href="#"></a>
         <a id="emailLink" href="#"></a>
         <a id="mapLink" href="#" target="_blank" rel="noopener"></a>
+        <div class="contact-note" id="contactNote"></div>
       </div>
     </section>
 
     <section class="booking" id="booking">
       <span>BOOK IN 30 SECONDS</span>
       <h2>Choose a service and send your request.</h2>
-      <p>No account needed. Your booking request opens directly in WhatsApp with the service and preferred time already filled in.</p>
+      <p>No account needed. Your request opens directly in WhatsApp with the service and preferred time already filled in.</p>
       <form id="bookingForm" class="booking-form">
         <label>
           Service
@@ -104,7 +121,7 @@
 
   <footer>
     <span id="footerBusinessName">Business</span>
-    <span>Website-in-a-box demo</span>
+    <span>Premium Website-in-a-box demo</span>
   </footer>
 
   <div class="mobile-bar">

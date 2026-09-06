@@ -2,6 +2,10 @@
   if (window.__maltezosLoaderLoaded) return;
   window.__maltezosLoaderLoaded = true;
 
+  // Safety cleanup from the old Netlify/Jekyll loader experiments.
+  document.documentElement.classList.remove('mz-preboot', 'mz-simple-loading', 'maltezos-is-loading');
+  document.getElementById('mz-core-continuation')?.remove();
+
   const LOADER_ID = 'maltezos-page-loader';
   const internalHost = location.host;
   let navigationTimer = 0;
@@ -17,7 +21,6 @@
     loader.innerHTML = `
       <div class="maltezos-loader__inner">
         <img class="maltezos-loader__logo" src="assets/icons/IMG_53591-removebg-preview.png" alt="Maltezos Autoservice" />
-        <div class="maltezos-loader__sub">Autoservice / Transmission</div>
         <div class="maltezos-loader__track"><div class="maltezos-loader__bar"></div></div>
       </div>`;
     document.body.appendChild(loader);
@@ -38,12 +41,13 @@
   showLoader();
 
   if (document.readyState === 'complete') {
-    window.setTimeout(hideLoader, 180);
+    window.setTimeout(hideLoader, 160);
   } else {
-    window.addEventListener('load', () => window.setTimeout(hideLoader, 180), { once: true });
+    window.addEventListener('load', () => window.setTimeout(hideLoader, 160), { once: true });
   }
 
-  window.setTimeout(hideLoader, 3000);
+  // Failsafe: never leave the visitor trapped behind the loader.
+  window.setTimeout(hideLoader, 2500);
 
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -68,10 +72,11 @@
     clearTimeout(navigationTimer);
     navigationTimer = window.setTimeout(() => {
       location.href = url.href;
-    }, 140);
+    }, 120);
   }, true);
 
   window.addEventListener('pageshow', (event) => {
+    document.documentElement.classList.remove('mz-preboot', 'mz-simple-loading', 'maltezos-is-loading');
     if (event.persisted) hideLoader();
   });
 })();

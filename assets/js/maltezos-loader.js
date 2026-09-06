@@ -4,15 +4,16 @@
 
   const LOADER_ID = 'maltezos-page-loader';
   const internalHost = location.host;
+  const bootstrapped = window.__maltezosCoreBoot === true;
   let navigationTimer = 0;
 
-  function ensureLoader() {
+  function ensureLoader(hidden = false) {
     let loader = document.getElementById(LOADER_ID);
     if (loader) return loader;
 
     loader = document.createElement('div');
     loader.id = LOADER_ID;
-    loader.className = 'maltezos-loader';
+    loader.className = hidden ? 'maltezos-loader is-hidden' : 'maltezos-loader';
     loader.setAttribute('aria-hidden', 'true');
     loader.innerHTML = `
       <div class="maltezos-loader__inner">
@@ -25,35 +26,44 @@
   }
 
   function showLoader() {
-    const loader = ensureLoader();
+    const loader = ensureLoader(false);
     loader.classList.remove('is-hidden');
     document.documentElement.classList.add('maltezos-is-loading');
-    // The critical inline boot cover is removed only after the real loader exists.
-    document.documentElement.classList.remove('mz-preboot');
   }
 
   function hideLoader() {
-    const loader = ensureLoader();
+    const loader = ensureLoader(true);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         loader.classList.add('is-hidden');
         document.documentElement.classList.remove('maltezos-is-loading');
-        document.documentElement.classList.remove('mz-preboot');
       });
     });
   }
 
-  // Always show the loader on every page load, regardless of entry route.
-  showLoader();
+  function finishBootContinuation() {
+    const continuation = document.getElementById('mz-core-continuation');
+    if (!continuation) return;
+    continuation.classList.add('is-done');
+    window.setTimeout(() => continuation.remove(), 420);
+  }
 
-  const finishInitialLoad = () => window.setTimeout(hideLoader, 260);
-  if (document.readyState === 'complete') finishInitialLoad();
-  else window.addEventListener('load', finishInitialLoad, { once: true });
+  if (bootstrapped) {
+    // The first-paint shell is already covering the page. Keep the normal loader
+    // hidden so there is no second loading screen.
+    ensureLoader(true);
+    const finish = () => window.setTimeout(finishBootContinuation, 120);
+    if (document.readyState === 'complete') finish();
+    else window.addEventListener('load', finish, { once: true });
+    window.setTimeout(finishBootContinuation, 2800);
+  } else {
+    showLoader();
+    const finishInitialLoad = () => window.setTimeout(hideLoader, 260);
+    if (document.readyState === 'complete') finishInitialLoad();
+    else window.addEventListener('load', finishInitialLoad, { once: true });
+    window.setTimeout(hideLoader, 2800);
+  }
 
-  // Never leave the user trapped behind the loader if an asset fails.
-  window.setTimeout(hideLoader, 2800);
-
-  // Show the loader for every same-site page navigation.
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const anchor = event.target.closest('a[href]');
@@ -74,7 +84,6 @@
     }, 180);
   }, true);
 
-  // Safari/iPhone back-forward cache support.
   window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
       showLoader();

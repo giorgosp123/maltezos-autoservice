@@ -27,12 +27,13 @@
     '.tradein-box'
   ];
 
-  const revealItems = [...document.querySelectorAll(revealSelectors.join(','))];
+  const revealSelector = revealSelectors.join(',');
+  const revealItems = [...document.querySelectorAll(revealSelector)];
 
   revealItems.forEach((item, index) => {
     item.classList.add('mz-reveal');
     const parent = item.parentElement;
-    const siblings = parent ? [...parent.children].filter((child) => child.matches?.(revealSelectors.join(','))) : [];
+    const siblings = parent ? [...parent.children].filter((child) => child.matches?.(revealSelector)) : [];
     const siblingIndex = Math.max(0, siblings.indexOf(item));
     const delay = Math.min(siblingIndex * 70, 280);
     item.style.setProperty('--mz-delay', `${delay}ms`);
@@ -121,11 +122,17 @@
     }, { passive: true });
   }
 
-  if (finePointer && !reduceMotion) {
-    const spotlightTargets = document.querySelectorAll(
-      '.card, .reason, .product, .contact-box, .contact-image-box, .product-page, .legal-card'
-    );
+  const spotlightTargets = document.querySelectorAll(
+    '.card, .reason, .product, .contact-box, .contact-image-box, .product-page, .legal-card'
+  );
 
+  spotlightTargets.forEach((target) => {
+    if (window.getComputedStyle(target).position === 'static') {
+      target.style.position = 'relative';
+    }
+  });
+
+  if (finePointer && !reduceMotion) {
     spotlightTargets.forEach((target) => {
       target.addEventListener('pointermove', (event) => {
         const rect = target.getBoundingClientRect();
@@ -143,7 +150,7 @@
   }
 
   const heroPanel = document.querySelector('.hero-panel');
-  if (heroPanel && !reduceMotion) {
+  if (heroPanel && finePointer && !reduceMotion) {
     heroPanel.querySelectorAll('li').forEach((item, index) => {
       item.style.transition = `transform .4s ${index * 45}ms cubic-bezier(.16,1,.3,1), color .25s ease, padding-left .4s cubic-bezier(.16,1,.3,1)`;
     });

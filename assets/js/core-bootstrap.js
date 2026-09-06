@@ -32,7 +32,7 @@
     document.body.addEventListener('click', () => location.reload(), { once: true });
   };
 
-  fetch(`${corePath}?boot=20260906-3`, { cache: 'no-store' })
+  fetch(`${corePath}?boot=20260906-4`, { cache: 'no-store' })
     .then((response) => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.text();

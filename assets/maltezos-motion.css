@@ -1,0 +1,520 @@
+/* MALTEZOS AUTOSERVICE - premium motion layer
+   Visual motion only. No existing IDs, links or application logic are changed. */
+
+:root {
+  --mz-progress: 0;
+  --mz-hero-x: 0px;
+  --mz-hero-y: 0px;
+  --mz-ease-out: cubic-bezier(.16,1,.3,1);
+  --mz-ease-smooth: cubic-bezier(.22,.8,.22,1);
+}
+
+/* Scroll progress */
+.mz-progress {
+  position: fixed;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 2px;
+  z-index: 10000;
+  pointer-events: none;
+  transform: scaleX(var(--mz-progress));
+  transform-origin: left center;
+  background: linear-gradient(90deg, #ef233c 0%, #ff4d62 68%, #ffffff 100%);
+  box-shadow: 0 0 16px rgba(239,35,60,.48);
+  will-change: transform;
+}
+
+/* Global reveal system */
+.mz-motion-ready .mz-reveal {
+  opacity: 0;
+  transform: translateY(34px) scale(.985);
+  filter: blur(7px);
+  transition:
+    opacity .82s var(--mz-ease-out),
+    transform .82s var(--mz-ease-out),
+    filter .82s var(--mz-ease-out);
+  transition-delay: var(--mz-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.mz-motion-ready .mz-reveal.mz-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Header refinement while scrolling */
+nav,
+.toolbar {
+  transition:
+    transform .28s var(--mz-ease-smooth),
+    opacity .22s ease,
+    width .35s var(--mz-ease-out),
+    background .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease !important;
+}
+
+nav.mz-scrolled,
+.toolbar.mz-scrolled {
+  width: min(1080px, calc(100% - 36px)) !important;
+  background: rgba(5,6,7,.94) !important;
+  border-color: rgba(255,255,255,.17) !important;
+  box-shadow: 0 18px 52px rgba(0,0,0,.28) !important;
+}
+
+/* Hero depth */
+.hero {
+  --mz-grid-opacity: .12;
+}
+
+.hero::before {
+  transform: translate3d(var(--mz-hero-x), var(--mz-hero-y), 0);
+  transition: transform .18s linear;
+  will-change: transform;
+}
+
+.hero > .hero-inner::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -80px -120px;
+  pointer-events: none;
+  opacity: var(--mz-grid-opacity);
+  background-image:
+    linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+  background-size: 62px 62px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,.8), transparent 82%);
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.8), transparent 82%);
+  transform: perspective(700px) rotateX(58deg) translateY(22%);
+  transform-origin: top center;
+}
+
+.hero-image img {
+  animation: mzLogoFloat 5.8s ease-in-out infinite !important;
+  transform-origin: left center;
+}
+
+@keyframes mzLogoFloat {
+  0%,100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-5px,0); }
+}
+
+.hero h1 {
+  text-shadow: 0 18px 56px rgba(0,0,0,.18);
+}
+
+.hero-panel {
+  transition:
+    border-color .35s ease,
+    box-shadow .35s ease,
+    background .35s ease !important;
+}
+
+.hero-panel:hover {
+  border-color: rgba(255,255,255,.24) !important;
+  background: rgba(255,255,255,.075) !important;
+  box-shadow: 0 34px 92px rgba(0,0,0,.28) !important;
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  right: -70px;
+  top: -70px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(239,35,60,.22), transparent 68%);
+  animation: mzPulse 4.4s ease-in-out infinite;
+}
+
+@keyframes mzPulse {
+  0%,100% { opacity: .42; transform: scale(.94); }
+  50% { opacity: .85; transform: scale(1.08); }
+}
+
+/* Premium button sweep */
+.btn,
+.nav-cta,
+.brand-link,
+.toolbar-brand,
+.buy-btn,
+form button,
+.contact button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::after,
+.nav-cta::after,
+.brand-link::after,
+.toolbar-brand::after,
+.buy-btn::after,
+form button::after,
+.contact button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -40% auto -40% -38%;
+  width: 28%;
+  transform: skewX(-20deg) translateX(-220%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+  transition: transform .7s var(--mz-ease-out);
+}
+
+.btn:hover::after,
+.nav-cta:hover::after,
+.brand-link:hover::after,
+.toolbar-brand:hover::after,
+.buy-btn:hover::after,
+form button:hover::after,
+.contact button:hover::after {
+  transform: skewX(-20deg) translateX(650%);
+}
+
+/* Service and reason cards get a cursor-follow spotlight */
+.card,
+.reason,
+.product,
+.contact-box,
+.contact-image-box,
+.product-page,
+.legal-card {
+  --mz-x: 50%;
+  --mz-y: 50%;
+  isolation: isolate;
+}
+
+.card::before,
+.reason::after,
+.product::before,
+.contact-box::before,
+.contact-image-box::before,
+.product-page::before,
+.legal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(330px circle at var(--mz-x) var(--mz-y), rgba(239,35,60,.105), transparent 48%);
+  transition: opacity .32s ease;
+  z-index: 0;
+}
+
+.card:hover::before,
+.reason:hover::after,
+.product:hover::before,
+.contact-box:hover::before,
+.contact-image-box:hover::before,
+.product-page:hover::before,
+.legal-card:hover::before {
+  opacity: 1;
+}
+
+.card > *,
+.reason > *,
+.product > *,
+.contact-box > *,
+.contact-image-box > *,
+.product-page > *,
+.legal-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Preserve the existing service overlay above the spotlight */
+.card .overlay,
+.reason .reason-overlay {
+  z-index: 4 !important;
+}
+
+.card,
+.reason,
+.product {
+  transform-origin: center bottom;
+}
+
+.card:hover,
+.reason:hover,
+.product:hover {
+  transform: translateY(-8px) scale(1.012) !important;
+}
+
+.icon-box,
+.reason-icon {
+  position: relative;
+  transition:
+    transform .48s var(--mz-ease-out),
+    background .35s ease,
+    border-color .35s ease !important;
+}
+
+.card:hover .icon-box,
+.reason:hover .reason-icon {
+  background: #fff !important;
+  border-color: rgba(239,35,60,.20) !important;
+  transform: translateY(-5px) scale(1.055) rotate(2deg) !important;
+}
+
+.icon-box::after,
+.reason-icon::after {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  border: 1px solid rgba(239,35,60,.13);
+  opacity: 0;
+  transform: scale(.8);
+  transition: opacity .35s ease, transform .45s var(--mz-ease-out);
+}
+
+.card:hover .icon-box::after,
+.reason:hover .reason-icon::after {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* Section header underline animation */
+.section-title,
+.shop-head {
+  overflow: hidden;
+}
+
+.section-title::after,
+.shop-head::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: min(190px,42%);
+  height: 2px;
+  background: linear-gradient(90deg, #ef233c, rgba(239,35,60,0));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1s .12s var(--mz-ease-out);
+}
+
+.section-title.mz-in::after,
+.shop-head.mz-in::after {
+  transform: scaleX(1);
+}
+
+/* Contact polish */
+.contact-box,
+.contact-image-box {
+  position: relative;
+  overflow: hidden;
+  transition: transform .38s var(--mz-ease-out), box-shadow .38s ease, border-color .38s ease !important;
+}
+
+.contact-box:hover,
+.contact-image-box:hover {
+  transform: translateY(-5px);
+  border-color: rgba(239,35,60,.22) !important;
+  box-shadow: 0 24px 64px rgba(10,11,13,.095) !important;
+}
+
+.contact-map-link img,
+.contact-image-box > img {
+  transition: transform .8s var(--mz-ease-out), filter .5s ease;
+}
+
+.contact-map-link:hover img,
+.contact-image-box:hover > img {
+  transform: scale(1.035);
+}
+
+.hours-row {
+  transition: transform .25s var(--mz-ease-out), background .25s ease !important;
+}
+
+.hours-row:hover {
+  transform: translateX(4px);
+  background: #fff !important;
+}
+
+input,
+textarea {
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .25s var(--mz-ease-out) !important;
+}
+
+input:focus,
+textarea:focus {
+  transform: translateY(-1px);
+  background: #fff !important;
+}
+
+/* Shop motion */
+.product-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-media::after,
+.media-box::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 6%;
+  height: 14%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse, rgba(0,0,0,.12), transparent 68%);
+  filter: blur(15px);
+  opacity: .48;
+  transition: transform .55s var(--mz-ease-out), opacity .55s ease;
+}
+
+.product:hover .product-media::after,
+.product-page:hover .media-box::after {
+  transform: scaleX(1.12);
+  opacity: .66;
+}
+
+.product-media img,
+.product-main-image,
+.gear-icon {
+  transition: transform .65s var(--mz-ease-out), filter .45s ease !important;
+}
+
+.product:hover .product-media img,
+.product:hover .gear-icon {
+  transform: translateY(-7px) scale(1.035);
+  filter: drop-shadow(0 22px 28px rgba(0,0,0,.13));
+}
+
+.thumb-btn {
+  transition: transform .28s var(--mz-ease-out), border-color .25s ease, box-shadow .25s ease !important;
+}
+
+.thumb-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* Floating mobile call button */
+.mobile-call-now {
+  animation: mzCallFloat 3.2s ease-in-out infinite;
+  transition: transform .28s var(--mz-ease-out), box-shadow .28s ease !important;
+}
+
+.mobile-call-now:hover,
+.mobile-call-now:active {
+  transform: translateY(-3px) scale(1.05) !important;
+}
+
+@keyframes mzCallFloat {
+  0%,100% { box-shadow: 0 14px 34px rgba(13,159,85,.28), 0 0 0 0 rgba(13,159,85,.18) !important; }
+  50% { box-shadow: 0 18px 38px rgba(13,159,85,.34), 0 0 0 9px rgba(13,159,85,0) !important; }
+}
+
+/* Footer finishing line */
+footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 26%;
+  height: 1px;
+  background: linear-gradient(90deg, #ef233c, transparent);
+}
+
+/* Cookie banner follows the new visual language */
+.cookie-banner {
+  background: rgba(6,7,8,.95) !important;
+  border-color: rgba(255,255,255,.13) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 70px rgba(0,0,0,.34) !important;
+  backdrop-filter: blur(22px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.1) !important;
+}
+
+.cookie-banner__button {
+  background: #ef233c !important;
+}
+
+.cookie-banner__link {
+  background: rgba(255,255,255,.055) !important;
+  border-color: rgba(255,255,255,.11) !important;
+}
+
+/* Fine pointer only. Touch devices should stay calm and predictable. */
+@media (hover: hover) and (pointer: fine) {
+  .nav-mini-link,
+  .nav-links > a,
+  .toolbar-links > a,
+  .lang-toggle {
+    transition: transform .28s var(--mz-ease-out), background .25s ease, border-color .25s ease, color .25s ease !important;
+  }
+
+  .nav-mini-link:hover,
+  .nav-links > a:hover,
+  .toolbar-links > a:hover,
+  .lang-toggle:hover {
+    transform: translateY(-2px) scale(1.04) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .mz-progress { height: 2px; }
+
+  nav.mz-scrolled,
+  .toolbar.mz-scrolled {
+    width: calc(100% - 20px) !important;
+  }
+
+  .hero > .hero-inner::before {
+    inset: -40px -80px;
+    background-size: 44px 44px;
+    opacity: .075;
+  }
+
+  .hero-image img {
+    animation-duration: 6.8s !important;
+  }
+
+  .card:hover,
+  .reason:hover,
+  .product:hover,
+  .contact-box:hover,
+  .contact-image-box:hover {
+    transform: none !important;
+  }
+
+  .mz-motion-ready .mz-reveal {
+    transform: translateY(22px) scale(.99);
+    filter: blur(4px);
+    transition-duration: .68s;
+  }
+
+  .product-media::after,
+  .media-box::after {
+    opacity: .36;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mz-progress { display: none !important; }
+  .mz-motion-ready .mz-reveal,
+  .mz-motion-ready .mz-reveal.mz-in {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .hero-image img,
+  .hero-panel::after,
+  .mobile-call-now {
+    animation: none !important;
+  }
+  .hero::before {
+    transform: none !important;
+    transition: none !important;
+  }
+}

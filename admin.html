@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#070809">
+  <title>Maltezos Shop Admin</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192-v3.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon-v3.png">
+  <link rel="stylesheet" href="assets/maltezos-admin.css?v=1">
+</head>
+<body>
+<section class="login" id="loginScreen">
+  <form class="login-card" id="loginForm">
+    <a href="shop.html"><img class="login-logo" src="assets/icons/IMG_53591-removebg-preview.png" alt="Maltezos Autoservice"></a>
+    <div class="eyebrow">Maltezos / Private access</div>
+    <h1>SHOP<br>ADMIN.</h1>
+    <p class="muted">Πλήρης διαχείριση προϊόντων, stock, τιμών, φωτογραφιών και εμφάνισης στο online shop.</p>
+    <div class="field">
+      <label for="adminUsername">Username</label>
+      <input id="adminUsername" value="admin" autocomplete="username" required>
+    </div>
+    <div class="field">
+      <label for="adminPassword">Password</label>
+      <input id="adminPassword" type="password" autocomplete="current-password" required>
+    </div>
+    <button class="primary" id="loginButton" type="submit">Sign in</button>
+    <div class="login-msg" id="loginMessage"></div>
+  </form>
+</section>
+
+<section class="app" id="adminApp">
+  <header class="topbar">
+    <div class="top-inner">
+      <a href="shop.html"><img class="top-logo" src="assets/icons/IMG_53591-removebg-preview.png" alt="Maltezos"></a>
+      <div class="top-actions">
+        <a class="ghost" href="shop.html" target="_blank" rel="noopener">Shop</a>
+        <button class="danger" id="logoutButton" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Maltezos / Live inventory control</div>
+      <h1>FULL<br>CONTROL.</h1>
+      <p>Οι αλλαγές εδώ περνούν στο live Shop χωρίς νέο GitHub deploy. Μπορείς να αλλάξεις stock, τιμές, κείμενα, φωτογραφίες, σειρά και visibility.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <div class="notice" id="notice"></div>
+    <section class="stats">
+      <div class="stat"><b id="statProducts">0</b><span>Products</span></div>
+      <div class="stat"><b id="statVisible">0</b><span>Visible</span></div>
+      <div class="stat"><b id="statHidden">0</b><span>Hidden</span></div>
+      <div class="stat"><b id="statStock">0</b><span>Total stock</span></div>
+    </section>
+
+    <div class="toolbar">
+      <h2>Products.</h2>
+      <div class="toolbar-controls">
+        <button class="ghost" id="refreshButton" type="button">Refresh</button>
+        <button class="ghost add" id="addButton" type="button">+ Add product</button>
+      </div>
+    </div>
+
+    <section class="products" id="adminProducts">
+      <div class="empty">Loading products…</div>
+    </section>
+  </main>
+</section>
+
+<script type="module" src="assets/js/maltezos-admin.js?v=1"></script>
+</body>
+</html>

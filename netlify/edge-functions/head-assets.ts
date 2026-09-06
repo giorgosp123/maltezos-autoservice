@@ -1,9 +1,10 @@
-const MARKER = '<!-- MALTEZOS_HEAD_ASSETS_V1 -->';
+const MARKER = '<!-- MALTEZOS_HEAD_ASSETS_V2 -->';
 
 const headAssets = `${MARKER}
 <link rel="stylesheet" href="/assets/maltezos-redesign.css?v=5" data-maltezos-redesign>
 <link rel="stylesheet" href="/assets/maltezos-motion.css?v=6" data-maltezos-motion>
 <link rel="stylesheet" href="/assets/maltezos-fixes.css?v=3" data-maltezos-fixes>
+<link rel="stylesheet" href="/assets/maltezos-shop-final.css?v=1" data-maltezos-shop-final>
 <link rel="stylesheet" href="/assets/maltezos-loader.css?v=3" data-maltezos-loader>
 <script defer src="/assets/js/maltezos-motion.js?v=5" data-maltezos-motion></script>
 <script defer src="/assets/js/maltezos-loader.js?v=4" data-maltezos-loader></script>`;

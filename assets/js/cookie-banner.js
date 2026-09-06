@@ -3,14 +3,14 @@
   if (!document.querySelector('link[data-maltezos-loader]')) {
     const loaderStylesheet = document.createElement('link');
     loaderStylesheet.rel = 'stylesheet';
-    loaderStylesheet.href = 'assets/maltezos-loader.css?v=2';
+    loaderStylesheet.href = 'assets/maltezos-loader.css?v=3';
     loaderStylesheet.setAttribute('data-maltezos-loader', 'true');
     document.head.appendChild(loaderStylesheet);
   }
 
   if (!document.querySelector('script[data-maltezos-loader]')) {
     const loaderScript = document.createElement('script');
-    loaderScript.src = 'assets/js/maltezos-loader.js?v=2';
+    loaderScript.src = 'assets/js/maltezos-loader.js?v=3';
     loaderScript.setAttribute('data-maltezos-loader', 'true');
     document.head.appendChild(loaderScript);
   }

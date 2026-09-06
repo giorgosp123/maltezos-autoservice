@@ -3,14 +3,14 @@
   if (!document.querySelector('link[data-maltezos-loader]')) {
     const loaderStylesheet = document.createElement('link');
     loaderStylesheet.rel = 'stylesheet';
-    loaderStylesheet.href = 'assets/maltezos-loader.css?v=1';
+    loaderStylesheet.href = 'assets/maltezos-loader.css?v=2';
     loaderStylesheet.setAttribute('data-maltezos-loader', 'true');
     document.head.appendChild(loaderStylesheet);
   }
 
   if (!document.querySelector('script[data-maltezos-loader]')) {
     const loaderScript = document.createElement('script');
-    loaderScript.src = 'assets/js/maltezos-loader.js?v=1';
+    loaderScript.src = 'assets/js/maltezos-loader.js?v=2';
     loaderScript.setAttribute('data-maltezos-loader', 'true');
     document.head.appendChild(loaderScript);
   }
@@ -19,7 +19,7 @@
   if (!document.querySelector('link[data-maltezos-redesign]')) {
     const redesignStylesheet = document.createElement('link');
     redesignStylesheet.rel = 'stylesheet';
-    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=3';
+    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=5';
     redesignStylesheet.setAttribute('data-maltezos-redesign', 'true');
     document.head.appendChild(redesignStylesheet);
   }
@@ -28,7 +28,7 @@
   if (!document.querySelector('link[data-maltezos-motion]')) {
     const motionStylesheet = document.createElement('link');
     motionStylesheet.rel = 'stylesheet';
-    motionStylesheet.href = 'assets/maltezos-motion.css?v=4';
+    motionStylesheet.href = 'assets/maltezos-motion.css?v=6';
     motionStylesheet.setAttribute('data-maltezos-motion', 'true');
     document.head.appendChild(motionStylesheet);
   }
@@ -37,14 +37,14 @@
   if (!document.querySelector('link[data-maltezos-fixes]')) {
     const fixesStylesheet = document.createElement('link');
     fixesStylesheet.rel = 'stylesheet';
-    fixesStylesheet.href = 'assets/maltezos-fixes.css?v=1';
+    fixesStylesheet.href = 'assets/maltezos-fixes.css?v=3';
     fixesStylesheet.setAttribute('data-maltezos-fixes', 'true');
     document.head.appendChild(fixesStylesheet);
   }
 
   if (!document.querySelector('script[data-maltezos-motion]')) {
     const motionScript = document.createElement('script');
-    motionScript.src = 'assets/js/maltezos-motion.js?v=3';
+    motionScript.src = 'assets/js/maltezos-motion.js?v=5';
     motionScript.setAttribute('data-maltezos-motion', 'true');
     document.head.appendChild(motionScript);
   }

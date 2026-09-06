@@ -28,6 +28,8 @@
     const loader = ensureLoader();
     loader.classList.remove('is-hidden');
     document.documentElement.classList.add('maltezos-is-loading');
+    // The critical inline boot cover is removed only after the real loader exists.
+    document.documentElement.classList.remove('mz-preboot');
   }
 
   function hideLoader() {
@@ -36,6 +38,7 @@
       requestAnimationFrame(() => {
         loader.classList.add('is-hidden');
         document.documentElement.classList.remove('maltezos-is-loading');
+        document.documentElement.classList.remove('mz-preboot');
       });
     });
   }

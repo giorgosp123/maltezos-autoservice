@@ -1,0 +1,1 @@
+The public index.html, shop.html and product-details.html are lightweight boot shells. Their original full HTML is preserved under pages/*-core.html and loaded by assets/js/core-bootstrap.js so the Maltezos loader appears before any legacy inline styling can paint.

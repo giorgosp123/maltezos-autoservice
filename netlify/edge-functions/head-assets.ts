@@ -1,4 +1,4 @@
-const MARKER = '<!-- MALTEZOS_HEAD_ASSETS_V3 -->';
+const MARKER = '<!-- MALTEZOS_HEAD_ASSETS_V4 -->';
 
 const headAssets = `${MARKER}
 <link rel="stylesheet" href="/assets/maltezos-redesign.css?v=5" data-maltezos-redesign>
@@ -9,7 +9,7 @@ const headAssets = `${MARKER}
 <script defer src="/assets/js/maltezos-motion.js?v=5" data-maltezos-motion></script>
 <script defer src="/assets/js/maltezos-loader.js?v=4" data-maltezos-loader></script>
 <script defer src="/assets/js/maltezos-live-shop.js?v=1" data-maltezos-live-shop></script>
-<script defer src="/assets/js/maltezos-live-product.js?v=1" data-maltezos-live-product></script>`;
+<script defer src="/assets/js/maltezos-live-product.js?v=2" data-maltezos-live-product></script>`;
 
 export default async (request: Request, context: any) => {
   const response = await context.next();

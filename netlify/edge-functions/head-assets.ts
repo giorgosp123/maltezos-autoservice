@@ -6,7 +6,7 @@ const headAssets = `${MARKER}
 <link rel="stylesheet" href="/assets/maltezos-fixes.css?v=3" data-maltezos-fixes>
 <link rel="stylesheet" href="/assets/maltezos-loader.css?v=3" data-maltezos-loader>
 <script defer src="/assets/js/maltezos-motion.js?v=5" data-maltezos-motion></script>
-<script defer src="/assets/js/maltezos-loader.js?v=3" data-maltezos-loader></script>`;
+<script defer src="/assets/js/maltezos-loader.js?v=4" data-maltezos-loader></script>`;
 
 export default async (_request: Request, context: any) => {
   const response = await context.next();

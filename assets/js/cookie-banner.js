@@ -1,4 +1,13 @@
 (() => {
+  // Load the shared visual redesign on every public page before cookie logic exits.
+  if (!document.querySelector('link[data-maltezos-redesign]')) {
+    const redesignStylesheet = document.createElement('link');
+    redesignStylesheet.rel = 'stylesheet';
+    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=1';
+    redesignStylesheet.setAttribute('data-maltezos-redesign', 'true');
+    document.head.appendChild(redesignStylesheet);
+  }
+
   const STORAGE_KEY = 'maltezos-cookie-consent';
 
   if (localStorage.getItem(STORAGE_KEY) === 'accepted') {

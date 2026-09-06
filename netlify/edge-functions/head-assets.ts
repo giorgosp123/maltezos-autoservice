@@ -1,4 +1,4 @@
-const MARKER = '<!-- MALTEZOS_HEAD_ASSETS_V2 -->';
+const MARKER = '<!-- MALTEZOS_HEAD_ASSETS_V3 -->';
 
 const headAssets = `${MARKER}
 <link rel="stylesheet" href="/assets/maltezos-redesign.css?v=5" data-maltezos-redesign>
@@ -7,13 +7,20 @@ const headAssets = `${MARKER}
 <link rel="stylesheet" href="/assets/maltezos-shop-final.css?v=1" data-maltezos-shop-final>
 <link rel="stylesheet" href="/assets/maltezos-loader.css?v=3" data-maltezos-loader>
 <script defer src="/assets/js/maltezos-motion.js?v=5" data-maltezos-motion></script>
-<script defer src="/assets/js/maltezos-loader.js?v=4" data-maltezos-loader></script>`;
+<script defer src="/assets/js/maltezos-loader.js?v=4" data-maltezos-loader></script>
+<script defer src="/assets/js/maltezos-live-shop.js?v=1" data-maltezos-live-shop></script>
+<script defer src="/assets/js/maltezos-live-product.js?v=1" data-maltezos-live-product></script>`;
 
-export default async (_request: Request, context: any) => {
+export default async (request: Request, context: any) => {
   const response = await context.next();
   const contentType = response.headers.get('content-type') || '';
 
   if (!contentType.toLowerCase().includes('text/html')) {
+    return response;
+  }
+
+  const pathname = new URL(request.url).pathname;
+  if (pathname === '/admin.html' || pathname === '/admin' || pathname.endsWith('/admin.html')) {
     return response;
   }
 

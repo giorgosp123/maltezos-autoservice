@@ -1,0 +1,60 @@
+/* Simple Maltezos loading screen */
+html.mz-simple-loading { overflow: hidden; }
+#mz-simple-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  background: #050607;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+#mz-simple-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mz-simple-loader__inner {
+  width: min(82vw, 390px);
+  text-align: center;
+}
+.mz-simple-loader__logo {
+  display: block;
+  width: min(72vw, 300px);
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  margin: 0 auto 20px;
+  filter: drop-shadow(0 18px 42px rgba(0,0,0,.38));
+  animation: mzSimpleLogo 1.5s ease-in-out infinite;
+}
+.mz-simple-loader__track {
+  width: min(190px, 55vw);
+  height: 2px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+}
+.mz-simple-loader__bar {
+  width: 38%;
+  height: 100%;
+  border-radius: inherit;
+  background: #ef233c;
+  box-shadow: 0 0 16px rgba(239,35,60,.5);
+  animation: mzSimpleBar .9s ease-in-out infinite;
+}
+@keyframes mzSimpleLogo {
+  0%,100% { transform: translateY(0); opacity: .93; }
+  50% { transform: translateY(-3px); opacity: 1; }
+}
+@keyframes mzSimpleBar {
+  from { transform: translateX(-130%); }
+  to { transform: translateX(360%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mz-simple-loader__logo,
+  .mz-simple-loader__bar { animation: none !important; }
+}

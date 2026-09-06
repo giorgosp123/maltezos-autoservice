@@ -1,4 +1,20 @@
 (() => {
+  // Global loading screen: active on every Maltezos public page and every internal navigation.
+  if (!document.querySelector('link[data-maltezos-loader]')) {
+    const loaderStylesheet = document.createElement('link');
+    loaderStylesheet.rel = 'stylesheet';
+    loaderStylesheet.href = 'assets/maltezos-loader.css?v=1';
+    loaderStylesheet.setAttribute('data-maltezos-loader', 'true');
+    document.head.appendChild(loaderStylesheet);
+  }
+
+  if (!document.querySelector('script[data-maltezos-loader]')) {
+    const loaderScript = document.createElement('script');
+    loaderScript.src = 'assets/js/maltezos-loader.js?v=1';
+    loaderScript.setAttribute('data-maltezos-loader', 'true');
+    document.head.appendChild(loaderScript);
+  }
+
   // Load the shared visual redesign on every public page before cookie logic exits.
   if (!document.querySelector('link[data-maltezos-redesign]')) {
     const redesignStylesheet = document.createElement('link');

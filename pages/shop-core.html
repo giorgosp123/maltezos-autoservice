@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maltezos Autoservice | Gearbox Shop</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192-v3.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon-v3.png" />
+  <link rel="manifest" href="manifest.webmanifest?v=3" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Maltezos" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@600;700;800&display=swap");
+
+    :root {
+      --accent: #e11d48;
+      --accent-dark: #be123c;
+      --accent-soft: #ffe4eb;
+      --dark: #0f172a;
+      --dark-soft: #1e293b;
+      --text: #1f2937;
+      --muted: #64748b;
+      --light: #f7f9fc;
+      --card: #ffffff;
+      --border: #dde3ee;
+      --shadow: 0 18px 42px rgba(15, 23, 42, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 6% 8%, rgba(225, 29, 72, 0.1), transparent 28%),
+        radial-gradient(circle at 90% 22%, rgba(30, 41, 59, 0.08), transparent 30%),
+        linear-gradient(135deg, #f9fbff 0%, #edf2f8 45%, #f7fafc 100%);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at center, black 28%, transparent 78%);
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      background: linear-gradient(90deg, #0b1222 0%, #111b2f 60%, #17223b 100%);
+      color: #f5d56b;
+      padding: 10px 0;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(245, 213, 107, 0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .topbar a {
+      color: #f5d56b;
+      text-decoration: none;
+    }
+
+    .topbar-inner {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 10px auto 0;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 18px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      transition: transform 0.24s ease, opacity 0.2s ease;
+    }
+
+    nav.nav-hidden {
+      transform: translateY(calc(-100% - 12px));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 18px rgba(215, 38, 61, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .brand-link:hover {
+      background: var(--accent-dark);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(215, 38, 61, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .lang-dropdown {
+      margin-left: auto;
+      position: relative;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--dark-soft);
+      padding: 6px 8px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1;
+      height: 34px;
+      width: 56px;
+      cursor: pointer;
+    }
+
+    .lang-flag {
+      width: 20px;
+      height: 14px;
+      border-radius: 3px;
+      display: block;
+    }
+
+    .lang-caret {
+      font-size: 0.68rem;
+      line-height: 1;
+      opacity: 0.78;
+    }
+
+    .lang-menu {
+      list-style: none;
+      margin: 6px 0 0;
+      padding: 6px;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      min-width: 100%;
+      background: #ffffff;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      border-radius: 12px;
+      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.16);
+      z-index: 60;
+      display: none;
+    }
+
+    .lang-dropdown.open .lang-menu {
+      display: block;
+    }
+
+    .lang-option {
+      width: 42px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      padding: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .lang-option:hover {
+      background: #fff5f7;
+      color: var(--accent);
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      background: rgba(255, 255, 255, 0.94);
+      text-decoration: none;
+      color: var(--dark-soft);
+      font-weight: 700;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-link-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-size: 1.08rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: rgba(215, 38, 61, 0.4);
+      background: #fff5f7;
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      position: relative;
+      padding: 64px 24px 74px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0b1222 0%, #111a2f 50%, #1b2945 100%);
+      color: white;
+      z-index: 1;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(4px);
+    }
+
+    .hero::before {
+      width: 180px;
+      height: 180px;
+      background: rgba(215, 38, 61, 0.08);
+      right: -40px;
+      top: -70px;
+    }
+
+    .hero::after {
+      width: 140px;
+      height: 140px;
+      background: rgba(245, 213, 107, 0.06);
+      left: -30px;
+      bottom: -50px;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image {
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .hero-image img {
+      height: 70px;
+      width: auto;
+      max-width: 240px;
+      object-fit: contain;
+      display: block;
+      filter: grayscale(1) brightness(0.98);
+      opacity: 0.96;
+    }
+
+    .hero h1 {
+      font-family: "Sora", "Manrope", "Segoe UI", Arial, sans-serif;
+      margin: 0 0 12px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-size: clamp(2rem, 4vw, 2.9rem);
+    }
+
+    .hero p {
+      margin: 0;
+      color: #d1d5db;
+      max-width: 760px;
+      font-size: 1.03rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 64px;
+    }
+
+    .shop-head {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 22px;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(10px);
+      padding: 22px 24px;
+      text-align: center;
+    }
+
+    .shop-head h2 {
+      margin: 0 0 8px;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      font-size: 1.5rem;
+    }
+
+    .shop-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .products {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      background: linear-gradient(150deg, #ffffff 0%, #f7fafe 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 40px rgba(15, 23, 42, 0.14);
+      border-color: rgba(225, 29, 72, 0.26);
+    }
+
+    .product-media {
+      min-height: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      padding: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-rotating-image {
+      width: 100%;
+      height: 100%;
+      min-height: 150px;
+      border-radius: 10px;
+      object-fit: contain;
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      background: #ffffff;
+      display: none;
+      padding: 0;
+    }
+
+    .gear-icon {
+      width: 94px;
+      height: 94px;
+    }
+
+    .product-body {
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .product-title {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--dark-soft);
+      line-height: 1.35;
+    }
+
+    .product-meta {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .product-stock {
+      margin: 2px 0 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .product-stock .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      background: currentColor;
+      box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
+    }
+
+    .product-stock .label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+      font-size: 0.66rem;
+    }
+
+    .product-stock .value {
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .product-stock.stock-high {
+      color: #047857;
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+    }
+
+    .product-stock.stock-medium {
+      color: #b45309;
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+
+    .product-stock.stock-low {
+      color: #b91c1c;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .price-row {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 6px;
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .buy-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 14px;
+      background: linear-gradient(135deg, var(--accent) 0%, #ef4444 100%);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.88rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .buy-btn:hover {
+      background: var(--accent-dark);
+    }
+
+    .shop-note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(225, 29, 72, 0.22);
+      background: var(--accent-soft);
+      color: var(--dark-soft);
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    .back-home {
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    .back-home a {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: #111827;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .back-home a:hover {
+      background: #1f2937;
+    }
+
+    .footer-line {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .footer-legal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-soft);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.86rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1px;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-legal-link:hover {
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px 24px 32px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      margin-top: 24px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    @media (max-width: 980px) {
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar {
+        padding: 8px 0;
+        font-size: 0.86rem;
+      }
+
+      .topbar-inner {
+        padding: 0 14px;
+        gap: 8px;
+      }
+
+      nav {
+        margin: 8px 14px 0;
+        padding: 12px 14px;
+      }
+
+      .brand-link {
+        font-size: 0.92rem;
+      }
+
+      .nav-links a {
+        font-size: 0.86rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 12px 14px;
+      }
+
+      .nav-links {
+        gap: 7px;
+      }
+
+      .nav-links a {
+        width: 30px;
+        height: 30px;
+      }
+
+      .nav-link-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.98rem;
+      }
+
+      .hero {
+        padding: 56px 18px 68px;
+      }
+
+      main {
+        padding: 30px 18px 50px;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .product-media {
+        min-height: 200px;
+        height: 200px;
+      }
+
+      .product-rotating-image {
+        min-height: 170px;
+      }
+
+      .product-title {
+        font-size: 0.95rem;
+      }
+
+      .price {
+        font-size: 1.06rem;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .topbar {
+        font-size: 0.8rem;
+      }
+
+      .topbar-inner {
+        padding: 0 12px;
+      }
+
+      nav {
+        padding: 10px 12px;
+      }
+
+      .brand-link {
+        font-size: 0.86rem;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        width: 28px;
+        height: 28px;
+      }
+
+      .nav-link-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .footer-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px 14px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .footer-legal-link {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>📞 <a href="tel:+35796355929">+357 96355929</a></span>
+      <span>📍 <a href="https://www.google.com/maps/dir//MALTEZOS+AUTO+SERVICE,+%CE%A0%CF%81%CE%B1%CE%BE%CE%AC%CE%BD%CE%B4%CF%81%CE%BF%CF%85+50,+%CE%94%CE%B5%CF%85%CF%84%CE%B5%CF%81%CE%AC+2460,+%CE%9A%CF%8D%CF%80%CF%81%CE%BF%CF%82/@35.1073979,33.3840384,2713m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x14de1d00171a6905:0xc8391cce8f527731!2m2!1d33.2628114!2d35.0939785?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">MALTEZOS AUTO SERVICES</a></span>
+    </div>
+  </div>
+
+  <nav>
+    <a id="shop-brand-link" class="brand-link" href="index.html">Maltezos Autoservice</a>
+    <div class="nav-links">
+      <a href="index.html" aria-label="Αρχική"><span class="nav-link-icon" aria-hidden="true">🏠</span></a>
+      <a href="#products" aria-label="Shop"><span class="nav-link-icon" aria-hidden="true">🛒</span></a>
+      <div id="language-dropdown" class="lang-dropdown">
+        <button id="language-toggle" class="lang-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Επιλογή γλώσσας">
+          <img id="language-current-flag" class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" />
+          <span class="lang-caret" aria-hidden="true">▾</span>
+        </button>
+        <ul id="language-menu" class="lang-menu" role="listbox" aria-label="Επιλογή γλώσσας">
+          <li><button type="button" class="lang-option" data-lang="cy" role="option" aria-label="Κυπριακά"><img class="lang-flag" src="https://flagcdn.com/w40/cy.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="el" role="option" aria-label="Ελληνικά"><img class="lang-flag" src="https://flagcdn.com/w40/gr.png" alt="" /></button></li>
+          <li><button type="button" class="lang-option" data-lang="en" role="option" aria-label="English"><img class="lang-flag" src="https://flagcdn.com/w40/gb.png" alt="" /></button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-image">
+        <img src="assets/icons/IMG_53591-removebg-preview.png" alt="Maltezos Transmission" />
+      </div>
+      <h1 id="shop-hero-title">Online Shop για Gearbox</h1>
+      <p id="shop-hero-description">Εξειδικευόμαστε σε κιβώτια ταχυτήτων και βάζουμε στοκ μόνο ό,τι περνά τον δικό μας έλεγχο. Εδώ θα βρίσκεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.</p>
+    </div>
+  </section>
+
+  <main>
+    <section id="products">
+      <div class="shop-head">
+        <h2 id="shop-head-title">Διαθέσιμα Gearbox</h2>
+        <p id="shop-head-text">Πάτα «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.</p>
+      </div>
+
+      <div class="products">
+        <article class="product" data-item="gearbox-6m-hatch">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 6-Speed Manual - Hatchback</h3>
+            <p class="product-meta">Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-6m-hatch">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-item="gearbox-6a-sedan">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 6-Speed Automatic - Sedan</h3>
+            <p class="product-meta">Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-6a-sedan">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-item="gearbox-5m-suv">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 5-Speed Manual - SUV</h3>
+            <p class="product-meta">Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-5m-suv">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-item="gearbox-7a-premium">
+          <div class="product-media">
+            <img class="product-rotating-image" alt="Gearbox φωτογραφία" />
+            <svg class="gear-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="16" fill="#111827" />
+              <circle cx="32" cy="32" r="6" fill="#f8fafc" />
+              <g fill="#d7263d">
+                <rect x="30" y="4" width="4" height="10" rx="2" />
+                <rect x="30" y="50" width="4" height="10" rx="2" />
+                <rect x="4" y="30" width="10" height="4" rx="2" />
+                <rect x="50" y="30" width="10" height="4" rx="2" />
+              </g>
+            </svg>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Gearbox 7-Speed Automatic - Premium Line</h3>
+            <p class="product-meta">Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας.</p>
+            <p class="product-stock"><span class="dot" aria-hidden="true"></span><span class="label">Διαθεσιμότητα</span><span class="value">-</span></p>
+            <div class="price-row">
+              <span class="price">€900</span>
+              <a class="buy-btn" href="product-details.html?item=gearbox-7a-premium">Παραγγελία</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div id="shop-note" class="shop-note">
+        <span id="shop-note-prefix">Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο</span>
+        <a id="shop-note-phone" href="tel:+35796355929">+357 96355929</a>.
+      </div>
+
+      <div class="back-home">
+        <a id="back-home-link" href="index.html">Πίσω στην αρχική</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/products-catalog.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const LANG_KEY = 'maltezos-language';
+    const languageDropdown = document.getElementById('language-dropdown');
+    const languageToggle = document.getElementById('language-toggle');
+    const languageCurrentFlag = document.getElementById('language-current-flag');
+    const languageOptions = document.querySelectorAll('.lang-option');
+    let currentLanguage = 'cy';
+    const productCatalog = window.PRODUCT_CATALOG || {};
+
+    const pageCopy = {
+      cy: {
+        title: 'Maltezos Autoservice | Gearbox Shop',
+        brand: 'Maltezos Autoservice',
+        heroTitle: 'Online Shop για Gearbox',
+        heroText: 'Εξειδικευόμαστε σε κιβώτια ταχυτήτων και βάζουμε στοκ μόνο ό,τι περνά τον δικό μας έλεγχο. Εδώ θα βρίσκεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.',
+        headTitle: 'Διαθέσιμα Gearbox',
+        headText: 'Πάτα «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.',
+        stockLabel: 'Διαθεσιμότητα',
+        stockOne: 'κομμάτι',
+        stockMany: 'κομμάτια',
+        order: 'Παραγγελία',
+        notePrefix: 'Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο',
+        backHome: 'Πίσω στην αρχική',
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.'
+      },
+      el: {
+        title: 'Maltezos Autoservice | Κατάστημα Κιβωτίων',
+        brand: 'Maltezos Autoservice',
+        heroTitle: 'Online Κατάστημα για Gearbox',
+        heroText: 'Εξειδικευόμαστε σε κιβώτια ταχυτήτων και διαθέτουμε μόνο προϊόντα που περνούν τον δικό μας ποιοτικό έλεγχο. Εδώ θα βρεις επιλεγμένα gearbox έτοιμα για τοποθέτηση. Η παράδοση γίνεται μέσα σε 3 ώρες από την παραγγελία.',
+        headTitle: 'Διαθέσιμα Gearbox',
+        headText: 'Πάτησε «Παραγγελία» για λεπτομέρειες προϊόντος και άμεση επικοινωνία.',
+        stockLabel: 'Διαθεσιμότητα',
+        stockOne: 'κομμάτι',
+        stockMany: 'κομμάτια',
+        order: 'Παραγγελία',
+        notePrefix: 'Για κράτηση ή επιβεβαίωση συμβατότητας, επικοινώνησε απευθείας στο',
+        backHome: 'Πίσω στην αρχική',
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Πολιτική προστασίας προσωπικών δεδομένων.',
+        returnsLink: 'Πολιτική επιστροφών.',
+        consentLink: 'Συγκατάθεση.'
+      },
+      en: {
+        title: 'Maltezos Autoservice | Gearbox Shop',
+        brand: 'Maltezos Autoservice',
+        heroTitle: 'Online Gearbox Shop',
+        heroText: 'We specialize in gearboxes and keep stock only for units that pass our own quality checks. Here you can find selected gearboxes ready for installation. Delivery is completed within 3 hours of order placement.',
+        headTitle: 'Available Gearboxes',
+        headText: 'Click "Order" for product details and direct contact.',
+        stockLabel: 'Availability',
+        stockOne: 'item',
+        stockMany: 'items',
+        order: 'Order',
+        notePrefix: 'For reservation or compatibility confirmation, contact us directly at',
+        backHome: 'Back to home',
+        footerText: '© 2026 Maltezos Autoservice Garage.',
+        privacyLink: 'Personal Data Protection Policy.',
+        returnsLink: 'Returns Policy.',
+        consentLink: 'Consent.'
+      }
+    };
+
+    const productCopy = {
+      "gearbox-6m-hatch": {
+        cy: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Καθαρισμένο, ελεγμένο τζαι έτοιμο για τοποθέτηση."
+        },
+        el: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Καθαρισμένο, ελεγμένο και έτοιμο για τοποθέτηση."
+        },
+        en: {
+          name: "Gearbox 6-Speed Manual - Hatchback",
+          description: "Cleaned, tested, and ready for installation."
+        }
+      },
+      "gearbox-6a-sedan": {
+        cy: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Δοκιμασμένο σε πίεση τζαι σε θερμοκρασία λειτουργίας."
+        },
+        el: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Δοκιμασμένο σε πίεση και σε θερμοκρασία λειτουργίας."
+        },
+        en: {
+          name: "Gearbox 6-Speed Automatic - Sedan",
+          description: "Pressure-tested and verified at operating temperature."
+        }
+      },
+      "gearbox-5m-suv": {
+        cy: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Με έλεγχο γραναζιών τζαι καθαρό ιστορικό συντήρησης."
+        },
+        el: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Με έλεγχο γραναζιών και καθαρό ιστορικό συντήρησης."
+        },
+        en: {
+          name: "Gearbox 5-Speed Manual - SUV",
+          description: "Gearset inspected with a clear maintenance history."
+        }
+      },
+      "gearbox-7a-premium": {
+        cy: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Πλήρως ανακατασκευασμένο με έλεγχο που την ομάδα μας."
+        },
+        el: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Πλήρως ανακατασκευασμένο με έλεγχο από την ομάδα μας."
+        },
+        en: {
+          name: "Gearbox 7-Speed Automatic - Premium Line",
+          description: "Fully rebuilt and quality checked by our team."
+        }
+      }
+    };
+
+    function getInitialLanguage() {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved === 'cy' || saved === 'el' || saved === 'en') {
+        return saved;
+      }
+      return 'cy';
+    }
+
+    function getCopy() {
+      return pageCopy[currentLanguage] || pageCopy.cy;
+    }
+
+    function getStockUnit(stock) {
+      const copy = getCopy();
+      return stock === 1 ? copy.stockOne : copy.stockMany;
+    }
+
+    function getLocalizedProduct(itemId, fallbackData) {
+      const byItem = productCopy[itemId] || {};
+      const localized = byItem[currentLanguage] || byItem.cy || {};
+      return {
+        name: localized.name || fallbackData.name || '',
+        description: localized.description || fallbackData.description || ''
+      };
+    }
+
+    function applyLanguage(language) {
+      currentLanguage = language;
+      const copy = getCopy();
+      document.documentElement.lang = language === 'en' ? 'en' : 'el';
+      document.title = copy.title;
+      localStorage.setItem(LANG_KEY, language);
+
+      document.getElementById('shop-brand-link').textContent = copy.brand;
+      document.getElementById('shop-hero-title').textContent = copy.heroTitle;
+      document.getElementById('shop-hero-description').textContent = copy.heroText;
+      document.getElementById('shop-head-title').textContent = copy.headTitle;
+      document.getElementById('shop-head-text').textContent = copy.headText;
+      document.getElementById('shop-note-prefix').textContent = copy.notePrefix;
+      document.getElementById('back-home-link').textContent = copy.backHome;
+      document.getElementById('footer-rights').textContent = copy.footerText;
+      document.getElementById('privacy-policy-link').textContent = copy.privacyLink;
+      document.getElementById('returns-policy-link').textContent = copy.returnsLink;
+      document.getElementById('consent-policy-link').textContent = copy.consentLink;
+      document.getElementById('terms-policy-link').textContent = copy.termsLink;
+
+      document.querySelectorAll('.buy-btn').forEach((btn) => {
+        btn.textContent = copy.order;
+      });
+
+      document.querySelectorAll('.product-stock .label').forEach((label) => {
+        label.textContent = copy.stockLabel;
+      });
+
+      document.querySelectorAll('.product[data-stock]').forEach((card) => {
+        const stock = Number(card.getAttribute('data-stock'));
+        const value = card.querySelector('.product-stock .value');
+        if (value && Number.isFinite(stock)) {
+          value.textContent = `${stock} ${getStockUnit(stock)}`;
+        }
+      });
+
+      document.querySelectorAll('.product[data-item]').forEach((card) => {
+        const itemId = card.getAttribute('data-item') || '';
+        const source = productCatalog[itemId] || {};
+        const localized = getLocalizedProduct(itemId, source);
+        const title = card.querySelector('.product-title');
+        const meta = card.querySelector('.product-meta');
+
+        if (title && localized.name) {
+          title.textContent = localized.name;
+        }
+
+        if (meta && localized.description) {
+          meta.textContent = localized.description;
+        }
+      });
+    }
+
+    function getLanguageMeta(language) {
+      if (language === 'cy') return { flag: 'https://flagcdn.com/w40/cy.png', label: 'Κυπριακά' };
+      if (language === 'en') return { flag: 'https://flagcdn.com/w40/gb.png', label: 'English' };
+      return { flag: 'https://flagcdn.com/w40/gr.png', label: 'Ελληνικά' };
+    }
+
+    function closeLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.remove('open');
+      languageToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openLanguageMenu() {
+      if (!languageDropdown || !languageToggle) return;
+      languageDropdown.classList.add('open');
+      languageToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function setLanguageUi(language) {
+      const meta = getLanguageMeta(language);
+      if (languageCurrentFlag) {
+        languageCurrentFlag.src = meta.flag;
+      }
+      if (languageToggle) {
+        languageToggle.setAttribute('aria-label', `Επιλογή γλώσσας (${meta.label})`);
+      }
+    }
+
+    const initialLanguage = getInitialLanguage();
+    applyLanguage(initialLanguage);
+    setLanguageUi(initialLanguage);
+
+    if (languageDropdown && languageToggle) {
+      languageToggle.addEventListener('click', function () {
+        if (languageDropdown.classList.contains('open')) {
+          closeLanguageMenu();
+        } else {
+          openLanguageMenu();
+        }
+      });
+
+      languageOptions.forEach((option) => {
+        option.addEventListener('click', function () {
+          const nextLanguage = this.dataset.lang || 'el';
+          applyLanguage(nextLanguage);
+          setLanguageUi(nextLanguage);
+          closeLanguageMenu();
+        });
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!languageDropdown.contains(event.target)) {
+          closeLanguageMenu();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeLanguageMenu();
+        }
+      });
+    }
+
+    const stickyNav = document.querySelector('nav');
+    if (stickyNav) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      const updateNavVisibility = () => {
+        const currentY = window.scrollY;
+
+        if (currentY <= 20) {
+          stickyNav.classList.remove('nav-hidden');
+        } else if (currentY < lastScrollY - 6) {
+          stickyNav.classList.add('nav-hidden');
+        } else if (currentY > lastScrollY + 6) {
+          stickyNav.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavVisibility);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+
+    function buildImageCandidates(src) {
+      const cleanSrc = String(src).trim();
+      const hasExtension = /\.[a-zA-Z0-9]{2,5}(\?|$)/.test(cleanSrc);
+      const isDirectPath = /^(https?:|data:|\.\/|\.\.\/|\/)/.test(cleanSrc);
+
+      if (isDirectPath || hasExtension) {
+        return [cleanSrc];
+      }
+
+      return [
+        `assets/gearbox/${cleanSrc}.jpg`,
+        `assets/gearbox/${cleanSrc}.png`,
+        `assets/gearbox/${cleanSrc}.jpeg`,
+        `assets/gearbox/${cleanSrc}.webp`
+      ];
+    }
+
+    function preloadFirstAvailable(candidates) {
+      return new Promise((resolve) => {
+        let index = 0;
+
+        function tryNext() {
+          if (index >= candidates.length) {
+            resolve(null);
+            return;
+          }
+
+          const candidate = candidates[index++];
+          const testImg = new Image();
+
+          testImg.onload = function () {
+            resolve(candidate);
+          };
+
+          testImg.onerror = function () {
+            tryNext();
+          };
+
+          testImg.src = candidate;
+        }
+
+        tryNext();
+      });
+    }
+
+    async function resolveGalleryImages(images) {
+      const resolved = [];
+
+      for (const src of images.filter(Boolean).slice(0, 4)) {
+        const found = await preloadFirstAvailable(buildImageCandidates(src));
+        if (found) {
+          resolved.push(found);
+        }
+      }
+
+      return resolved;
+    }
+
+    const productCards = document.querySelectorAll(".product[data-item]");
+
+    function getStockClass(stock) {
+      if (stock <= 1) {
+        return "stock-low";
+      }
+      if (stock <= 2) {
+        return "stock-medium";
+      }
+      return "stock-high";
+    }
+
+    productCards.forEach(async (card) => {
+      const itemId = card.getAttribute("data-item");
+      const productData = productCatalog[itemId] || {};
+      const localized = getLocalizedProduct(itemId, productData);
+      const titleEl = card.querySelector(".product-title");
+      const metaEl = card.querySelector(".product-meta");
+      const priceEl = card.querySelector(".price");
+      const stockBadge = card.querySelector(".product-stock");
+      const stockValue = card.querySelector(".product-stock .value");
+      const imageEl = card.querySelector(".product-rotating-image");
+      const fallbackIcon = card.querySelector(".gear-icon");
+      const imageList = await resolveGalleryImages(productData.images || []);
+
+      if (titleEl && localized.name) {
+        titleEl.textContent = localized.name;
+      }
+
+      if (metaEl && localized.description) {
+        metaEl.textContent = localized.description;
+      }
+
+      if (priceEl) {
+        const displayPrice = Number.isFinite(productData.priceWithTradeIn) ? productData.priceWithTradeIn : 900;
+        priceEl.textContent = `€${displayPrice}`;
+      }
+
+      if (stockBadge && stockValue) {
+        const stock = Number.isFinite(productData.stock) ? productData.stock : 0;
+        const stockUnit = getStockUnit(stock);
+        stockBadge.classList.remove("stock-low", "stock-medium", "stock-high");
+        stockBadge.classList.add(getStockClass(stock));
+        card.setAttribute('data-stock', String(stock));
+        stockValue.textContent = `${stock} ${stockUnit}`;
+      }
+
+      if (imageList.length === 0) {
+        return;
+      }
+
+      let currentIndex = 0;
+      imageEl.src = imageList[currentIndex];
+      imageEl.style.display = "block";
+      if (fallbackIcon) {
+        fallbackIcon.style.display = "none";
+      }
+
+      if (imageList.length > 1) {
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % imageList.length;
+          imageEl.src = imageList[currentIndex];
+        }, 1800);
+      }
+    });
+    });
+  </script>
+  <script src="assets/js/cookie-banner.js"></script>
+
+  <footer id="footer-text">
+    <div class="footer-line">
+      <span id="footer-rights">© 2026 Maltezos Autoservice Garage.</span>
+      <a id="privacy-policy-link" class="footer-legal-link" href="privacy-policy.html">Πολιτική προστασίας προσωπικών δεδομένων.</a>
+      <a id="returns-policy-link" class="footer-legal-link" href="returns-policy.html">Πολιτική επιστροφών.</a>
+      <a id="consent-policy-link" class="footer-legal-link" href="consent.html">Συγκατάθεση.</a>
+      <a id="terms-policy-link" class="footer-legal-link" href="terms-of-use.html">Όροι χρήσης.</a>
+    </div>
+  </footer>
+</body>
+</html>

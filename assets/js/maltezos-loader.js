@@ -2,21 +2,29 @@
   if (window.__maltezosLoaderLoaded) return;
   window.__maltezosLoaderLoaded = true;
 
-  // Safety cleanup from the old Netlify/Jekyll loader experiments.
+  // Safety cleanup from the old loader experiments.
   document.documentElement.classList.remove('mz-preboot', 'mz-simple-loading', 'maltezos-is-loading');
   document.getElementById('mz-core-continuation')?.remove();
 
   const LOADER_ID = 'maltezos-page-loader';
+  const TRANSITION_KEY = 'maltezos-internal-transition';
   const internalHost = location.host;
   let navigationTimer = 0;
 
-  function ensureLoader() {
+  // If the previous Maltezos page already showed the loader before navigation,
+  // do not start it a second time on the destination page.
+  const arrivedFromInternalTransition = sessionStorage.getItem(TRANSITION_KEY) === '1';
+  if (arrivedFromInternalTransition) {
+    sessionStorage.removeItem(TRANSITION_KEY);
+  }
+
+  function ensureLoader(hidden = false) {
     let loader = document.getElementById(LOADER_ID);
     if (loader) return loader;
 
     loader = document.createElement('div');
     loader.id = LOADER_ID;
-    loader.className = 'maltezos-loader';
+    loader.className = hidden ? 'maltezos-loader is-hidden' : 'maltezos-loader';
     loader.setAttribute('aria-hidden', 'true');
     loader.innerHTML = `
       <div class="maltezos-loader__inner">
@@ -28,26 +36,32 @@
   }
 
   function showLoader() {
-    ensureLoader().classList.remove('is-hidden');
+    ensureLoader(false).classList.remove('is-hidden');
   }
 
   function hideLoader() {
-    const loader = ensureLoader();
+    const loader = ensureLoader(true);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => loader.classList.add('is-hidden'));
     });
   }
 
-  showLoader();
-
-  if (document.readyState === 'complete') {
-    window.setTimeout(hideLoader, 160);
+  if (arrivedFromInternalTransition) {
+    // The outgoing page already displayed the transition loader.
+    // Start this page with the loader hidden so the animation is not repeated.
+    ensureLoader(true);
   } else {
-    window.addEventListener('load', () => window.setTimeout(hideLoader, 160), { once: true });
-  }
+    showLoader();
 
-  // Failsafe: never leave the visitor trapped behind the loader.
-  window.setTimeout(hideLoader, 2500);
+    if (document.readyState === 'complete') {
+      window.setTimeout(hideLoader, 160);
+    } else {
+      window.addEventListener('load', () => window.setTimeout(hideLoader, 160), { once: true });
+    }
+
+    // Failsafe: never leave the visitor trapped behind the loader.
+    window.setTimeout(hideLoader, 2500);
+  }
 
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -68,6 +82,7 @@
     if (samePageHash) return;
 
     event.preventDefault();
+    sessionStorage.setItem(TRANSITION_KEY, '1');
     showLoader();
     clearTimeout(navigationTimer);
     navigationTimer = window.setTimeout(() => {
@@ -77,6 +92,9 @@
 
   window.addEventListener('pageshow', (event) => {
     document.documentElement.classList.remove('mz-preboot', 'mz-simple-loading', 'maltezos-is-loading');
-    if (event.persisted) hideLoader();
+    if (event.persisted) {
+      sessionStorage.removeItem(TRANSITION_KEY);
+      hideLoader();
+    }
   });
 })();

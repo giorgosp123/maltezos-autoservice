@@ -19,7 +19,7 @@
 
   if (!document.querySelector('script[data-maltezos-motion]')) {
     const motionScript = document.createElement('script');
-    motionScript.src = 'assets/js/maltezos-motion.js?v=1';
+    motionScript.src = 'assets/js/maltezos-motion.js?v=2';
     motionScript.setAttribute('data-maltezos-motion', 'true');
     document.head.appendChild(motionScript);
   }

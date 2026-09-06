@@ -3,7 +3,7 @@
   if (!document.querySelector('link[data-maltezos-redesign]')) {
     const redesignStylesheet = document.createElement('link');
     redesignStylesheet.rel = 'stylesheet';
-    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=2';
+    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=3';
     redesignStylesheet.setAttribute('data-maltezos-redesign', 'true');
     document.head.appendChild(redesignStylesheet);
   }
@@ -12,14 +12,23 @@
   if (!document.querySelector('link[data-maltezos-motion]')) {
     const motionStylesheet = document.createElement('link');
     motionStylesheet.rel = 'stylesheet';
-    motionStylesheet.href = 'assets/maltezos-motion.css?v=1';
+    motionStylesheet.href = 'assets/maltezos-motion.css?v=4';
     motionStylesheet.setAttribute('data-maltezos-motion', 'true');
     document.head.appendChild(motionStylesheet);
   }
 
+  // Small corrective layer for mobile sizing/readability across home, shop and product pages.
+  if (!document.querySelector('link[data-maltezos-fixes]')) {
+    const fixesStylesheet = document.createElement('link');
+    fixesStylesheet.rel = 'stylesheet';
+    fixesStylesheet.href = 'assets/maltezos-fixes.css?v=1';
+    fixesStylesheet.setAttribute('data-maltezos-fixes', 'true');
+    document.head.appendChild(fixesStylesheet);
+  }
+
   if (!document.querySelector('script[data-maltezos-motion]')) {
     const motionScript = document.createElement('script');
-    motionScript.src = 'assets/js/maltezos-motion.js?v=2';
+    motionScript.src = 'assets/js/maltezos-motion.js?v=3';
     motionScript.setAttribute('data-maltezos-motion', 'true');
     document.head.appendChild(motionScript);
   }

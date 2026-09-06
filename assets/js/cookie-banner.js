@@ -3,9 +3,25 @@
   if (!document.querySelector('link[data-maltezos-redesign]')) {
     const redesignStylesheet = document.createElement('link');
     redesignStylesheet.rel = 'stylesheet';
-    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=1';
+    redesignStylesheet.href = 'assets/maltezos-redesign.css?v=2';
     redesignStylesheet.setAttribute('data-maltezos-redesign', 'true');
     document.head.appendChild(redesignStylesheet);
+  }
+
+  // Load the shared motion and interaction layer independently from cookie consent.
+  if (!document.querySelector('link[data-maltezos-motion]')) {
+    const motionStylesheet = document.createElement('link');
+    motionStylesheet.rel = 'stylesheet';
+    motionStylesheet.href = 'assets/maltezos-motion.css?v=1';
+    motionStylesheet.setAttribute('data-maltezos-motion', 'true');
+    document.head.appendChild(motionStylesheet);
+  }
+
+  if (!document.querySelector('script[data-maltezos-motion]')) {
+    const motionScript = document.createElement('script');
+    motionScript.src = 'assets/js/maltezos-motion.js?v=1';
+    motionScript.setAttribute('data-maltezos-motion', 'true');
+    document.head.appendChild(motionScript);
   }
 
   const STORAGE_KEY = 'maltezos-cookie-consent';
